@@ -1,0 +1,11 @@
+[
+    {
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "id.nss.kliknss",
+        "sha256_cert_fingerprints":
+          ["B2:1B:33:E7:02:05:92:81:CB:B0:D7:33:52:CD:96:35:F2:3F:46:DB:8E:97:EE:67:27:D7:E5:2C:30:37:39:9A"]
+      }
+    }
+  ]

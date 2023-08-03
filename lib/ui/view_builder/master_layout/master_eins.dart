@@ -1,0 +1,134 @@
+
+import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:kliknss77/application/builders/body_builder.dart';
+import 'package:kliknss77/application/builders/header_builder.dart';
+import 'package:kliknss77/application/services/dio_service.dart';
+import 'package:kliknss77/application/style/constants.dart';
+import 'package:kliknss77/infrastructure/apis/home_api/home_api.dart';
+import 'package:kliknss77/ui/component/icon_refresh_indicator.dart';
+import 'package:kliknss77/ui/header/floating_header.dart';
+import '../../../infrastructure/database/shared_prefs.dart';
+
+// ignore: must_be_immutable
+class MasterEins extends StatefulWidget {
+  dynamic controller,section,home,url,state;
+  MasterEins({
+    Key? key,
+    this.section,
+    this.state,
+    this.controller,
+    this.home,
+    this.url
+  }) : super(key: key);
+
+  @override
+  _MasterEins createState() => _MasterEins();
+}
+
+class _MasterEins extends State<MasterEins>
+    with AutomaticKeepAliveClientMixin<MasterEins> {
+  @override
+  bool get wantKeepAlive => true;
+  final Dio _dio = DioService.getInstance();
+
+
+  final Color _warna = Constants.white;
+  final ScrollController _scrollController = ScrollController();
+  final ScrollController _flashSalescrollController = ScrollController();
+  List? listInfo = [];
+  int state = 0;
+
+  bool locationDenied = false;
+  dynamic login, userId, isAgen;
+  final _sharedPrefs = SharedPrefs();
+  @override
+  void setState(fn) {
+    if (mounted) {
+      super.setState(fn);
+    }
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async{
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    WidgetsFlutterBinding.ensureInitialized();
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent, // transparent status bar
+    ));
+    return Scaffold(
+    extendBody: true,
+    extendBodyBehindAppBar: true,
+    body: CustomRefreshIndicator(
+      builder: MaterialIndicatorDelegate(
+        builder: (context, controller) {
+          return IconRefreshIndicator();
+        },
+      ),
+      onRefresh: () async {
+        
+      },
+      child: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+        ),
+        child: Stack(
+          key: const ValueKey('coba'),
+          children: <Widget>[
+            SingleChildScrollView(
+              controller: _scrollController,
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                widget.section != null
+                    ? ListView.builder(
+                        padding: const EdgeInsets.all(0),
+                        addAutomaticKeepAlives: true,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount:
+                            (widget.section['components'] ?? [])
+                                .length,
+                        itemBuilder: ((context, index) {
+                          return BodyBuilder(section: widget.section?['components']?[index]??[],state: widget.state,);
+                        }),
+                      )
+                    :  Container(),
+                  ],
+                ),
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                SizedBox(
+                  child:  HeaderBuilder(
+                          key: const ValueKey("appbar"),
+                          warna: _warna,
+                          transparentMode: true,
+                          controller: _scrollController,
+                          section: widget.section,),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+  }
+}
+
+

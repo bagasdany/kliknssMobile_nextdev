@@ -1,0 +1,33 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "1.1.2",
+    "configurations": [
+        // {
+        //     "name": "Flutter",
+        //     "type": "dart",
+        //     "request": "launch",
+        //     "program": "lib/main.dart",
+        //     // "flutterMfode": "profile"
+        // }
+        {
+            "name": "flutterApp",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "args": [
+                "--flavor",
+                "dev"
+            ],
+            // "flutterMode": "profile"
+        },
+        // {
+        //     "name": "Flutter APK",
+        //     "request": "launch",
+        //     "type": "dart",
+        //     "args": ["--no-sound-null-safety",  "run", "--no-hot","--flavor","dev", "--release", "/Users/bagasdanyaradhana/Downloads/app-dev-release.apk"],
+        //     "program": "/Users/bagasdanyaradhana/FlutterDev/Program/nss/mobileapp/lib/main.dart"
+        //   }
+    ]
+}
