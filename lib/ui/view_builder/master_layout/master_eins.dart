@@ -110,16 +110,31 @@ class _MasterEins extends State<MasterEins>
             ),
             Column(
               mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 SizedBox(
-                  child:  HeaderBuilder(
+                  height: 120,
+                  child:  widget.section != null
+                    ? ListView.builder(
+                        padding: const EdgeInsets.all(0),
+                        addAutomaticKeepAlives: true,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount:
+                            (widget.section['headers'] ?? [])
+                                .length,
+                        itemBuilder: ((context, index) {
+                          return HeaderBuilder(
                           key: const ValueKey("appbar"),
                           warna: _warna,
                           transparentMode: true,
                           controller: _scrollController,
-                          section: widget.section,),
+                          section: widget.section?['headers']?[index]??[],);
+                          // BodyBuilder(section: widget.section?['components']?[index]??[],state: widget.state,);
+                        }),
+                      )
+                    :  Container(),
+                    
+                    
                 ),
               ],
             ),

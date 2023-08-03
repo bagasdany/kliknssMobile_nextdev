@@ -1,6 +1,8 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:kliknss77/application/style/constants.dart';
+import 'package:kliknss77/ui/component/header/dynamic_transparent_header.dart';
 import 'package:kliknss77/ui/header/floating_header.dart';
 
 
@@ -40,12 +42,15 @@ class _HeaderBuilderState extends State<HeaderBuilder> {
     switch (widget.section['type']) {
       // Floating Header
       case "Header":
-        return FloatingHeader(
+        return 
+        // Container(height: 120,color: Constants.slBarColor,width: 200,);
+        
+        DynamicTransparentHeader(
           key: const ValueKey("appbar"),
           warna: widget.warna,
           transparentMode: true,
           controller: widget.controller,
-          section: widget.section,
+          // section: widget.section,
         );
      
       default:

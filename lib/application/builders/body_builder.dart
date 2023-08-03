@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:kliknss77/ui/component/banner_carousel.dart';
 import 'package:kliknss77/ui/component/category_icons.dart';
-import 'package:kliknss77/ui/component/hmc_thumbails.dart';
+import 'package:kliknss77/ui/component/thumbnails/hmc_thumbails.dart';
 import 'package:kliknss77/ui/component/icon_grid_tipe1.dart';
 
 

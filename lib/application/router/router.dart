@@ -22,19 +22,8 @@ class AppRouter extends InterceptorsWrapper {
      MasterBuilder(
       url: _['query']['url'],
     );
-    // AppPage.withName((_['query']['url'] ?? ""));
+    
     },
-    // MasterBuilder(
-    //   url: _['query']['url'],
-    // ),
-
-    // '/motor/:id': (_) {
-    //   return Motor(
-    //     id: int.tryParse(_['params']['id']) ?? -1,
-    //     queryUrl: _['query'],
-    //   );
-    // '/motor': (_) {
-    // return AppPage.withName("home");
 
     // }
   };
