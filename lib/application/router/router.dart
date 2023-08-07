@@ -2,9 +2,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:kliknss77/application/builders/master_builder.dart';
-import 'package:kliknss77/infrastructure/database/data_page.dart';
 import 'package:kliknss77/infrastructure/database/shared_prefs_key.dart';
-import 'package:kliknss77/ui/views/onboarding/onboarding.dart';
 import 'package:kliknss77/ui/views/startup/splash_screen.dart';
 import '../../infrastructure/database/shared_prefs.dart';
 
@@ -12,56 +10,35 @@ class AppRouter extends InterceptorsWrapper {
 
   dynamic userID, buildLogin;
   Map<String, dynamic> routes = {
-    
-    
-    '/': (_) { return MasterBuilder(url: "",);
-    // AppPage.withName("home");
-    },
+    '/': (_) { return MasterBuilder(url: "",shimmer: "home",);},
     '/startup': (_) => SplashScreen(),
-    '/page': (_) { return 
-     MasterBuilder(
-      url: _['query']['url'],
-    );
-    
+    '/page': (_) { return MasterBuilder(url: _['query']['url'],shimmer: _['query']['shimmer'],);
     },
-
-    // }
   };
 
   Route<dynamic>? onGenerateRoute(RouteSettings settings, [String? lbasePath]) {
     Map? match;
     Function? fn;
-    bool protected = false;
 
-    // for (var path in protectedRoutes.keys) {
-    //   Map? curMatch = isMatch(settings.name!, path);
-    //   if (curMatch != null) {
-    //     match = curMatch;
-    //     fn = protectedRoutes[path];
-    //     protected = true;
-    //   }
-    // }
-    if (match == null) {
-      for (var path in routes.keys) {
+    for (var path in routes.keys) {
         Map? curMatch = isMatch(settings.name!, path);
         if (curMatch != null) {
           match = curMatch;
           fn = routes[path];
         }
       }
-    }
 
-    userID = SharedPrefs().get(SharedPreferencesKeys.customerId);
+    // userID = SharedPrefs().get(SharedPreferencesKeys.customerId);
     
     if (match != null) {
-      print("match");
-      userID = SharedPrefs().get(SharedPreferencesKeys.customerId);
        return MaterialPageRoute(
             builder: (_) => fn!(match), settings: settings);
     } 
 
     return null;
   }
+
+
 
   Map? isMatch(String url, pattern) {
     bool matched = false;

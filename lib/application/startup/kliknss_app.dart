@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:kliknss77/application/animation/transition/custom_animation.dart';
+import 'package:kliknss77/application/app/app_log.dart';
 import 'package:kliknss77/application/app/scroll_behavior.dart';
 import 'package:kliknss77/application/router/router.dart';
 import 'package:kliknss77/application/services/app_navigation_service.dart';
@@ -20,10 +22,15 @@ class NssApp extends StatefulWidget {
 
 class _NssAppState extends State<NssApp> with WidgetsBindingObserver {
 
+  final _sharedPrefs = SharedPrefs();
+  dynamic transition = "fade";
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    transition = _sharedPrefs.get('transition') ?? "fade";
+    
     
   }
 
@@ -36,6 +43,25 @@ class _NssAppState extends State<NssApp> with WidgetsBindingObserver {
   
   @override
   Widget build(BuildContext context) {
+
+  
+  dynamic transitionBuilder({String transition = "fade"}) {
+    switch (transition) {
+      // Floating Header
+      case "ScaleFadeTransition":
+        return const ScaleFadeTransition();
+      case "CupertinoPageTransitionsBuilder":
+        return const CupertinoPageTransitionsBuilder();
+      case "OpenUpwardsPageTransitionsBuilder":
+        return const OpenUpwardsPageTransitionsBuilder();
+      case "FadeUpwardsPageTransitionsBuilder":
+        return const FadeUpwardsPageTransitionsBuilder();
+     
+      default:
+        return const ScaleFadeTransition();
+    }
+  }
+
     return Listener(
       child: StreamProvider<ConnectivityStatus>(
         initialData: ConnectivityStatus.cellular,
@@ -47,11 +73,24 @@ class _NssAppState extends State<NssApp> with WidgetsBindingObserver {
           navigatorKey: AppNavigatorService.navigatorKey,
           scaffoldMessengerKey: scaffoldKey,
           initialRoute: '/startup',
+          // home: ,
+
           onGenerateRoute: AppRouter().onGenerateRoute,
           debugShowCheckedModeBanner: false,
+          // themeAnimationCurve: Constants.cubicAnimateFastToMedium,
+          // themeAnimationDuration: Duration(seconds: 5),
           scrollBehavior: AppScrollBehavior(),
           theme: ThemeData(
               splashFactory: NoSplash.splashFactory,
+              pageTransitionsTheme:  PageTransitionsTheme(
+                builders: <TargetPlatform, PageTransitionsBuilder>{
+                  TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+                  TargetPlatform.linux: OpenUpwardsPageTransitionsBuilder(),
+                  TargetPlatform.macOS: FadeUpwardsPageTransitionsBuilder(),
+                  TargetPlatform.android :transitionBuilder(transition: transition),
+                },
+              ),
+              
               primarySwatch: Constants.primaryColor,
               splashColor: Colors.transparent,
               highlightColor: Colors.transparent,
@@ -78,7 +117,7 @@ class _NssAppState extends State<NssApp> with WidgetsBindingObserver {
         break;
 
       case AppLifecycleState.inactive:
-        // AppLog().flush();
+        AppLog().flush();
         break;
 
       case AppLifecycleState.paused:

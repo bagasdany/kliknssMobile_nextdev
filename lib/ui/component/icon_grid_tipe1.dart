@@ -25,10 +25,8 @@ class _TitlewithIconGrid1State extends State<TitlewithIconGrid1> {
   @override
   void initState() {
     super.initState();
-    print("masuk ini2");
 
     grid = widget.section?['props']['items'] ?? [];
-    print("masuk init");
   }
 
   @override

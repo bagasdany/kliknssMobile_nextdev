@@ -56,6 +56,7 @@ class _MasterEins extends State<MasterEins>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async{
+      print("shimmer widget di master eins ${widget.state}");
     });
   }
 

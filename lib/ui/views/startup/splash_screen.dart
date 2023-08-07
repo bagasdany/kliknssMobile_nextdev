@@ -19,12 +19,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   final _sharedPrefs = SharedPrefs();
-  // dynamic iconbgColor;
-  // dynamic iconLogo;
   dynamic delay;
-  // dynamic bytes;
-  // dynamic imageData;
-  // dynamic imageBytes;
   dynamic isAgen;
 
   @override
@@ -34,22 +29,12 @@ class _SplashScreenState extends State<SplashScreen> {
       Future.delayed(Duration(milliseconds:  1000)).then((value) {
           AppNavigatorService.pushReplacementNamed('/');
       });
-
-        // if (opened == null) {
-        //   AppNavigatorService.pushReplacementNamed('/onboardings');
-        // } else {
-        //   isAgen == true
-        //       ? AppNavigatorService.pushReplacementNamed('/agent')
-        //       : AppNavigatorService.pushReplacementNamed('/');
-        // }
-      
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: HexColor("#FFFFFF"),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(

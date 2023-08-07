@@ -2,13 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:kliknss77/application/builders/data_builder.dart';
+import 'package:kliknss77/application/builders/error_builder.dart';
+import 'package:kliknss77/application/builders/shimmer_builder.dart';
 import 'package:kliknss77/infrastructure/apis/home_api/home_api.dart';
-import 'package:kliknss77/infrastructure/database/data_page.dart';
 import 'package:kliknss77/infrastructure/database/data_state.dart';
 import 'package:kliknss77/ui/view_builder/master_layout/master_eins.dart';
 
 class MasterBuilder extends StatefulWidget {
-  dynamic section, defaultImageUrl, title, flashSalescrollController, id,url,state;
+  dynamic section, defaultImageUrl, title, flashSalescrollController, id,url,shimmer;
 
   final Function? onRefresh;
   MasterBuilder(
@@ -19,7 +20,7 @@ class MasterBuilder extends StatefulWidget {
       this.id,
       //new
       this.url,
-      this.state
+      this.shimmer,
       })
       : super(key: key);
 
@@ -28,92 +29,88 @@ class MasterBuilder extends StatefulWidget {
 }
 
 class _MasterBuilderState extends State<MasterBuilder> {
-  
+  int? state = 2;
+
+  @override
+  void setState(fn) {
+    if (mounted) {
+      super.setState(fn);
+    }
+  }
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) async{
+    
+    WidgetsBinding.instance.addPostFrameCallback((_)async {
+        setState(() {
+          state = 2;
+        });
+        print("shimmer ${widget.shimmer}");
         
-        // widget.section =  AppPage.pages; 
-        // if( AppPage.pages[widget.url]  == null){
-        // print("load lagi");
-          widget.state = 2;
-        // setState(() {
-        
-        // });
-        final DataBuilder dataBuilders = DataBuilder(("multiguna-motor").replaceFirst(RegExp(r'^/'), ''),);
-          final DataState dataStates = dataBuilders.getDataState();
-          final Map<String, dynamic> datas = dataStates.getData();
-          print("");
+        final  Map<String, dynamic> datas  = DataBuilder((widget.url ?? "").replaceFirst(RegExp(r'^/'), ''),).getDataState().getData();
         if((datas['data']?['url'] ?? "-").replaceFirst(RegExp(r'^/'), '') == (widget.url ?? "").replaceFirst(RegExp(r'^/'), '')) {
           print("tidak load lagi");
           setState(() {
            widget.section = datas['data'];
-            widget.state = 1;
+            state = 1;
           });
         } else {
-          print("load lagi");
+          print("load lagisss");
           await HomeApi().patchPage(((widget.url ?? "")).replaceFirst(RegExp(r'^/'), '') ).then((value) {
-          
+           if(value is int){
+            print("shimmer value $value");
+            setState(() {
+              state = value;
+            });
+           }else {
+          print("shimmer masuk home $state");
           setState(() {
             widget.section = value;
-            // AppPage.updatePageData(((widget.url ?? "")).replaceFirst(RegExp(r'^/'), '')  ?? "", value ?? {});
-            widget.state = 1;
+            state =1;
           });
-          final DataBuilder dataBuilder = DataBuilder((widget.url ?? "").replaceFirst(RegExp(r'^/'), ''),);
-          final DataState dataState = dataBuilder.getDataState();
-          final Map<String, dynamic> data = dataState.getData();
-
+          final DataState dataState = DataBuilder((widget.url ?? "").replaceFirst(RegExp(r'^/'), ''),).getDataState();
           final Map<String, dynamic> newData = {
             'type': (widget.url ?? "").replaceFirst(RegExp(r'^/'), ''),
             'data': value ?? {},
           };
           dataState.updateData(newData);
-          print("dataState ${dataState.getData()}");
-          final Map<String, dynamic> updatedData = dataState.getData();
-          print('Updated Data: $updatedData');
+          state =1;
+          // Future.delayed(Duration(seconds: 5)).then((value) => setState(() {
+          //   state =1;
+          //   print("shimmer masuk home lagi $state");
+          // }));
+           }
+          
+          
 
         // }
         });
-        }
-       
-        // } else{
-        //   print("load lagi ${AppPage.pages[(widget.url ?? "")]}");
-        //   setState(() {
-        //     print("load lagi udah ada ");
-        //     widget.state = 1;
-        //   });
-        // }
-        
-        
-         
+        }  
     });
   }
+
   
   @override
   Widget build(BuildContext context) {
-    
     var master = {'master': "MasterNormal"};
     (widget.section ?? {}).isNotEmpty ? (widget.section).addAll(master) : null;
-    
-   
-    switch (widget.section?['master']) {
-      
+      print("shimmer value masuk $state");
+
+    switch (widget.section?['master']) {      
       case "MasterNormal":
-        return 
-        // widget.state == 2 ? AppShimmer(
-        //   active: widget.state == 2,
-        //   child: Scaffold(
-        //     backgroundColor: Constants.white,
-        //     body:  Container(
-        //     color: Constants.amber,
-        //     height: MediaQuery.of(context).size.height, width:  MediaQuery.of(context).size.width,),)):
-        MasterEins(
-         section: widget.section,
-         state: widget.state,
-        );
+        if (state == 2) {
+          return ShimmerBuilder(shimmer: widget.shimmer,); // Ganti dengan widget Shimmer Anda
+        } else if (state == 3) {
+          return ErrorBuilder(state: state,); // Ganti dengan widget error Anda
+        } else {
+          return MasterEins(
+            section: widget.section,
+            state: state,
+          );
+        }
+      
       default:
-        return Container();
+        return ErrorBuilder(state: state);
     }
   }
 }

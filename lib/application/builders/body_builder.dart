@@ -54,7 +54,6 @@ class _BodyBuilderState extends State<BodyBuilder> {
       case 'HMCThumbnails':
         return HMCThumbnails(section['props'] ?? []);
       case 'FeatureList':
-      print("section masuk feature $section");
         return TitlewithIconGrid1(section: section);
       default:
         return Container();

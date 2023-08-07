@@ -7,15 +7,19 @@ import 'package:kliknss77/infrastructure/apis/api_interceptor.dart';
 
 class DioService {
   static Dio getInstance() {
+    
     String version = '1.1.3';
     String os = Platform.isAndroid ? 'Android' : (Platform.isIOS ? 'iOS' : 'Unknown');
     String osVersion = Platform.operatingSystemVersion;
 
     final dio = Dio(
       BaseOptions(
+          persistentConnection: true,
           baseUrl: F.variables['baseURL'] as String,
-          connectTimeout: const Duration(seconds: 60),
-          receiveTimeout: const Duration(seconds: 60),
+          connectTimeout: const Duration(seconds: 1),
+          receiveTimeout: const Duration(seconds: 14),
+
+          sendTimeout: const Duration(seconds: 1),
           headers: {'User-Agent': 'KlikNSS/$version $os $osVersion'}),
     );
 

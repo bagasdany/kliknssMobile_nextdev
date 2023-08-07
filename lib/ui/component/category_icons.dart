@@ -11,8 +11,7 @@ class CategoryIcons extends StatelessWidget {
   const CategoryIcons(this.categories, {Key? key}) : super(key: key);
 
   Widget aCategoryIcon(BuildContext context, category) {
-    bool menuAvailable =
-        category['target'] != null ? category['target'].isNotEmpty : false;
+    bool menuAvailable =  category['target'] != null ? category['target'].isNotEmpty : false;
     bool hasBadge =
         category['badge'] != null && (category['badge']['enabled'] ?? false)
             ? true
@@ -30,14 +29,7 @@ class CategoryIcons extends StatelessWidget {
             onTap: () {
               WidgetsBinding.instance.addPostFrameCallback((_) async {
                 if (!menuAvailable) return;
-                // Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-                //   FocusScope.of(context).unfocus();
-                //   return MasterBuilder(url: category['target']);
-                // }));
-                // await HomeApi().patchPage(category['target']);
-                // Navigator.push(context, )
-                
-                 Navigator.pushNamed(context,"/page?url=${category['target']}");
+                 Navigator.pushNamed(context,"/page?url=${category['target']}&shimmer=home");
               });
             },
             child: LayoutBuilder(
