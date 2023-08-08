@@ -5,7 +5,6 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:isar/isar.dart';
 import 'package:kliknss77/application/app/app_log.dart';
 import 'package:kliknss77/application/exceptions/sign_in_required.dart';
 import 'package:kliknss77/application/helpers/endpoint.dart';
@@ -32,7 +31,6 @@ class HomeApi {
   try {
     var params = {"url": ((url)?? "")};
     final response = await _dio.patch(Endpoint.evolvePatchHome, data: params).timeout(Duration(seconds: 20));
-    // await Navigator.of(AppNavigatorService.navigatorKey.currentContext!).pushNamed(response.data['url'] ?? "/",arguments: response.data); 
     return response.data;
   } on SignInRequiredException catch (e) {
     print("error global 1 $e");    var params = {"url": ((url)?? "")};

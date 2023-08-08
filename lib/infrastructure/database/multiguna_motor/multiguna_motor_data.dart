@@ -5,7 +5,7 @@ class MultigunaMotorData extends DataState {
 
   MultigunaMotorData._internal() {
     data['type'] = 'multiguna-motor';
-    data['data'] = {'key1': 'multiguna-motor Data 1', 'key2': 'multiguna-motor Data 2'};
+    data['data'] = {};
   }
 
   factory MultigunaMotorData() {

@@ -16,7 +16,7 @@ class DioService {
       BaseOptions(
           persistentConnection: true,
           baseUrl: F.variables['baseURL'] as String,
-          connectTimeout: const Duration(seconds: 1),
+          connectTimeout: const Duration(seconds: 13),
           receiveTimeout: const Duration(seconds: 14),
 
           sendTimeout: const Duration(seconds: 1),

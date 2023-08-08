@@ -30,6 +30,7 @@ class MasterBuilder extends StatefulWidget {
 
 class _MasterBuilderState extends State<MasterBuilder> {
   int? state = 2;
+  dynamic datas;
 
   @override
   void setState(fn) {
@@ -47,25 +48,22 @@ class _MasterBuilderState extends State<MasterBuilder> {
         });
         print("shimmer ${widget.shimmer}");
         
-        final  Map<String, dynamic> datas  = DataBuilder((widget.url ?? "").replaceFirst(RegExp(r'^/'), ''),).getDataState().getData();
+        datas  = DataBuilder((widget.url ?? "").replaceFirst(RegExp(r'^/'), ''),).getDataState().getData();
         if((datas['data']?['url'] ?? "-").replaceFirst(RegExp(r'^/'), '') == (widget.url ?? "").replaceFirst(RegExp(r'^/'), '')) {
-          print("tidak load lagi");
           setState(() {
-           widget.section = datas['data'];
+           datas = datas['data'];
             state = 1;
           });
         } else {
-          print("load lagisss");
           await HomeApi().patchPage(((widget.url ?? "")).replaceFirst(RegExp(r'^/'), '') ).then((value) {
+           print("load lagi");
            if(value is int){
-            print("shimmer value $value");
             setState(() {
               state = value;
             });
            }else {
-          print("shimmer masuk home $state");
           setState(() {
-            widget.section = value;
+            datas = value;
             state =1;
           });
           final DataState dataState = DataBuilder((widget.url ?? "").replaceFirst(RegExp(r'^/'), ''),).getDataState();
@@ -75,10 +73,6 @@ class _MasterBuilderState extends State<MasterBuilder> {
           };
           dataState.updateData(newData);
           state =1;
-          // Future.delayed(Duration(seconds: 5)).then((value) => setState(() {
-          //   state =1;
-          //   print("shimmer masuk home lagi $state");
-          // }));
            }
           
           
@@ -93,18 +87,17 @@ class _MasterBuilderState extends State<MasterBuilder> {
   @override
   Widget build(BuildContext context) {
     var master = {'master': "MasterNormal"};
-    (widget.section ?? {}).isNotEmpty ? (widget.section).addAll(master) : null;
-      print("shimmer value masuk $state");
+    (datas ?? {}).isNotEmpty ? (datas).addAll(master) : null;
 
-    switch (widget.section?['master']) {      
+    switch (datas?['master']) {      
       case "MasterNormal":
         if (state == 2) {
           return ShimmerBuilder(shimmer: widget.shimmer,); // Ganti dengan widget Shimmer Anda
-        } else if (state == 3) {
+        } else if ((state  ?? 2) > 3) {
           return ErrorBuilder(state: state,); // Ganti dengan widget error Anda
         } else {
           return MasterEins(
-            section: widget.section,
+            section: datas,
             state: state,
           );
         }

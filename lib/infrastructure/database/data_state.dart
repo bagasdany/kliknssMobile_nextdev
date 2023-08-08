@@ -1,11 +1,20 @@
 class DataState {
-  Map<String, dynamic> data = {};
+  Map<dynamic, dynamic> data = {};
+  List list = [''];
 
-  Map<String, dynamic> getData() {
+  Map<dynamic, dynamic> getData() {
     return data;
   }
+  dynamic getList() {
+    return list;
+  }
+  
+  
 
-  void updateData(Map<String, dynamic> newData) {
+  void updateData(Map<dynamic, dynamic> newData) {
     data = newData;
+  }
+    void addData(Map<dynamic, dynamic> addData) {
+    data['data'].addEntries(addData.entries);
   }
 }

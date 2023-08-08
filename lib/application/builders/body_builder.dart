@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:kliknss77/ui/component/banner_carousel.dart';
 import 'package:kliknss77/ui/component/category_icons.dart';
+import 'package:kliknss77/ui/component/multiguna_view/m2w_simulation.dart';
 import 'package:kliknss77/ui/component/thumbnails/hmc_thumbails.dart';
 import 'package:kliknss77/ui/component/icon_grid_tipe1.dart';
 
@@ -55,6 +56,8 @@ class _BodyBuilderState extends State<BodyBuilder> {
         return HMCThumbnails(section['props'] ?? []);
       case 'FeatureList':
         return TitlewithIconGrid1(section: section);
+      case 'M2WSimulation':
+        return M2WSimulation();
       default:
         return Container();
     }

@@ -58,7 +58,8 @@ class _NssAppState extends State<NssApp> with WidgetsBindingObserver {
         return const FadeUpwardsPageTransitionsBuilder();
      
       default:
-        return const ScaleFadeTransition();
+      return const FadeUpwardsPageTransitionsBuilder();
+        // return const ScaleFadeTransition();
     }
   }
 
