@@ -43,15 +43,16 @@ class _BodyBuilderState extends State<BodyBuilder> {
             return _buildSection(context,section['items'][index]??[]);
           }),
         );
-      case 'BannerWidget':
+     
+      case 'IconList':
+        return CategoryIcons(section['props']['icons'] ?? []);
+      case 'Carousel':
         return BannerCarousel(
           state: widget.state,
           
           aspectRatio: section['props']?['ratio']?[0] ?? 8 / 5.6,
-          banners: section['props']?['images'][0] ?? [],
+          banners: section['props']?['items'] ?? [],
         );
-      case 'IconList':
-        return CategoryIcons(section['props']['icons'] ?? []);
       case 'HMCThumbnails':
         return HMCThumbnails(section['props'] ?? []);
       case 'FeatureList':

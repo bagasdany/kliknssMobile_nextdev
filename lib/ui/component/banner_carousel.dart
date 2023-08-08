@@ -82,7 +82,7 @@ class _BannerCarouselState extends State<BannerCarousel> {
               .map((key, value) => MapEntry(key, Builder(
                     builder: (BuildContext context) {
                       return renderImage(
-                          "${Constants.baseURLImages}/${ widget.banners?[key]['imageUrl'].toString()}",
+                          "${Constants.baseURLImages}/${ widget.banners?[key]['props']['src'][0].toString()}",
                            widget.banners?[key]['target'] ?? "");
                     },))).values.toList()),
     );

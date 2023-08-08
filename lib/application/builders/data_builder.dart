@@ -26,8 +26,8 @@ class DataBuilder {
       case 'm2w-motor':
         return M2WMotorData();
       
-      case 'M2WSimulationData':
-        return M2WSimulationData();
+      // case 'M2WSimulationData':
+      //   return M2WSimulationData();
       default:
         return HomeDataState();
     }

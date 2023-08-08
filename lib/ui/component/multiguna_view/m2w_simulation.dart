@@ -33,7 +33,6 @@ import '../../component/dio_exceptions.dart';
 class M2WSimulation extends StatefulWidget {
   Map? page = DataBuilder(("multiguna-motor")).getDataState().getData()['simulation'];
   Map? queryUrl;
-  Voucher? voucher;
   int? cityId;
 
   M2WSimulation({Key? key, this.queryUrl,this.page,}) : super(key: key);
@@ -91,7 +90,7 @@ class _SimulationViewState extends State<M2WSimulation> {
             widget.page?['data']['term'] = (widget.queryUrl ?? ['term']) == null
                 ? null
                 : int.parse(widget.queryUrl?['term'] ?? "");
-            widget.voucher = widget.queryUrl?['voucherId'] == null
+            widget.page?['voucher'] = widget.queryUrl?['voucherId'] == null
                 ? null
                 : Voucher(
                     id: int.parse(widget.queryUrl?['voucherId'] ?? "1"),
@@ -193,7 +192,7 @@ class _SimulationViewState extends State<M2WSimulation> {
     setState(() {
       widget.page?['data'] = {};
       widget.queryUrl = null;
-      widget.voucher = null;
+      widget.page?['voucher'] = null;
     });
   }
 
@@ -202,7 +201,7 @@ class _SimulationViewState extends State<M2WSimulation> {
       widget.page?['data'] = {};
       widget.cityId = city['id'] ?? 158;
       widget.queryUrl = null;
-      widget.voucher = null;
+      widget.page?['voucher'] = null;
     });
   }
 
@@ -227,7 +226,7 @@ class _SimulationViewState extends State<M2WSimulation> {
         'price': widget.page?['data']['price'],
         'term': widget.page?['data']['term'],
         'referralCode': referralController.text,
-        'voucherId': widget.voucher?.id
+        'voucherId': widget.page?['voucher']?.id
       }).timeout(const Duration(seconds: 15));
       final order = response.data['order'];
 
@@ -282,7 +281,7 @@ class _SimulationViewState extends State<M2WSimulation> {
       'priceId': widget.page?['data']['priceId'],
       'ownershipId': widget.page?['data']['ownershipId'],
       'price': widget.page?['data']['price'],
-      'voucherId': widget.voucher?.id
+      'voucherId': widget.page?['voucher']?.id
     };
 
     setState(() {
@@ -1037,19 +1036,19 @@ class _SimulationViewState extends State<M2WSimulation> {
                         AppShimmer(
                           active: state == 2,
                           child: VoucherModal(
-                            selectedVoucher: widget.voucher,
+                            selectedVoucher: widget.page?['voucher'],
                             disabled: widget.page?['data']['priceId'] == null,
                             businessId: 3,
-                            voucher: widget.voucher,
+                            voucher: widget.page?['voucher'],
                             onVoucherChanged: (Voucher? voucher) {
                               setState(() {
-                                widget.voucher = voucher;
+                                widget.page?['voucher'] = voucher;
                               });
                               getPrice();
                             },
                             onVoucherRemoved: (Voucher? voucher) {
                               setState(() {
-                                widget.voucher = voucher;
+                                widget.page?['voucher'] = voucher;
                               });
                               getPrice();
                             },

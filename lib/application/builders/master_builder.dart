@@ -46,8 +46,6 @@ class _MasterBuilderState extends State<MasterBuilder> {
         setState(() {
           state = 2;
         });
-        print("shimmer ${widget.shimmer}");
-        
         datas  = DataBuilder((widget.url ?? "").replaceFirst(RegExp(r'^/'), ''),).getDataState().getData();
         if((datas['data']?['url'] ?? "-").replaceFirst(RegExp(r'^/'), '') == (widget.url ?? "").replaceFirst(RegExp(r'^/'), '')) {
           setState(() {

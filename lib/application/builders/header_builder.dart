@@ -41,7 +41,7 @@ class _HeaderBuilderState extends State<HeaderBuilder> {
   Widget build(BuildContext context) {
     switch (widget.section['type']) {
       // Floating Header
-      case "Header":
+      case "Header1":
         return 
         // Container(height: 120,color: Constants.slBarColor,width: 200,);
         
