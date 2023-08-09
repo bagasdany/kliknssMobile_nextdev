@@ -13,6 +13,7 @@ import 'package:kliknss77/application/services/dio_service.dart';
 import 'package:kliknss77/application/style/constants.dart';
 import 'package:kliknss77/infrastructure/database/data_page.dart';
 import 'package:kliknss77/infrastructure/database/data_state.dart';
+import 'package:kliknss77/infrastructure/database/multiguna_motor/multiguna_motor_data.dart';
 import 'package:kliknss77/infrastructure/database/shared_prefs_key.dart';
 import 'package:kliknss77/ui/component/app_shimmer.dart';
 import 'package:kliknss77/ui/component/empty_city.dart';
@@ -29,13 +30,15 @@ import '../../../infrastructure/database/shared_prefs.dart';
 import '../../component/app_dialog.dart';
 import '../../component/button.dart';
 import '../../component/dio_exceptions.dart';
+import 'm2w_footer_view.dart';
 
 class M2WSimulation extends StatefulWidget {
   Map? page = DataBuilder(("multiguna-motor")).getDataState().getData()['simulation'];
   Map? queryUrl;
   int? cityId;
+  Function? onSelectMotor;
 
-  M2WSimulation({Key? key, this.queryUrl,this.page,}) : super(key: key);
+  M2WSimulation({Key? key, this.queryUrl,this.page,this.onSelectMotor}) : super(key: key);
 
   @override
   State<M2WSimulation> createState() => _SimulationViewState();
@@ -51,6 +54,8 @@ class _SimulationViewState extends State<M2WSimulation> {
   int state = 1; 
   final formatter = intl.NumberFormat.decimalPattern();
 
+  MultigunaMotorData _multigunaMotorData = MultigunaMotorData();
+
   DataState? dataState = DataBuilder(("multiguna-motor")).getDataState();
   Future<void> cekKota() async {
     final kotaId = await _sharedPrefs.get(SharedPreferencesKeys.cityId) ?? 158;
@@ -58,6 +63,7 @@ class _SimulationViewState extends State<M2WSimulation> {
       reset();
     }
   }
+
 
   @override
   void initState() {
@@ -69,7 +75,6 @@ class _SimulationViewState extends State<M2WSimulation> {
         
       widget.page = simulation ?? {};
       });
-      print("aa");
       if (widget.queryUrl?['series'] != null) {
         load("").then((value) {
           setState(() {
@@ -112,6 +117,15 @@ class _SimulationViewState extends State<M2WSimulation> {
       // cekKota();
     });
   }
+
+
+  @override
+  void dispose() {
+    _multigunaMotorData.dispose();
+
+    super.dispose();
+  }
+
 
   @override
   void setState(fn) {
@@ -187,6 +201,27 @@ class _SimulationViewState extends State<M2WSimulation> {
       }
     }
   }
+  bool isValid() {
+
+    if( widget.page?['data']['price'] != null &&
+        widget.page?['data']['term'] != null &&
+        state == 1 ){
+          setState(() {
+            widget.page?['data']['isValid'] = true;
+            print("isValid true");
+          });
+        }
+    else{
+      setState(() {
+            widget.page?['data']['isValid'] = false;
+            print("isValid false");
+          });
+    }
+   
+    return widget.page?['data']['price'] != null &&
+        widget.page?['data']['term'] != null &&
+        state == 1;
+  }
 
   void reset() {
     setState(() {
@@ -203,12 +238,6 @@ class _SimulationViewState extends State<M2WSimulation> {
       widget.queryUrl = null;
       widget.page?['voucher'] = null;
     });
-  }
-
-  bool isValid() {
-    return widget.page?['data']['price'] != null &&
-        widget.page?['data']['term'] != null &&
-        state == 1;
   }
 
   Future<void> checkout(BuildContext context) async {
@@ -300,6 +329,7 @@ class _SimulationViewState extends State<M2WSimulation> {
       if (widget.queryUrl?['series'] != null) {
         setState(() {
           widget.page?['data']['installment'] = response.data['installment'];
+          isValid();
         });
       }
     } on DioException catch (e) {
@@ -326,8 +356,16 @@ class _SimulationViewState extends State<M2WSimulation> {
 
     if (_data != null) {
       setState(() {
+
           widget.page?['data'].addEntries(_data.entries);
-          print("cek");
+          widget.page?['data']['term'] = widget.page?['data']?['terms'][0] ?? 11;
+          isValid();
+          // final Map<String, dynamic> newData = {
+          //   'type': ("multiguna-motor"),
+          //   'data':  widget.page ?? {},
+          // };
+          dataState?.updateData(widget.page ?? {});
+          print("terubah");
       });
     }
   }
@@ -548,7 +586,8 @@ class _SimulationViewState extends State<M2WSimulation> {
                                 style: TextStyle(),
                               ),
                             ),
-                          ))
+                          ),
+                        )
                       : const Text('Motor',
                           style: TextStyle(color: Constants.gray))),
               GestureDetector(
@@ -644,7 +683,7 @@ class _SimulationViewState extends State<M2WSimulation> {
               setState(() {
                 widget.page?['data']['term'] = term;
               });
-              //getPrice();
+              // getPrice();
             })));
           } else {
             cols.add(const Expanded(child: Text('')));
@@ -745,6 +784,7 @@ class _SimulationViewState extends State<M2WSimulation> {
                       },
                       onChangeEnd: (double value) {
                         getPrice();
+                        isValid();
                       },
                     )),
               )
@@ -986,6 +1026,7 @@ class _SimulationViewState extends State<M2WSimulation> {
                     onChangedTextField: (text) async {
                       setState(() {
                         referralController.text = text;
+                        widget.page?['data']['referralCode'] = text;
                       });
                       print("ref ${referralController.text}");
 

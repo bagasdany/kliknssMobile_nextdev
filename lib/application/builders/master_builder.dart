@@ -6,6 +6,7 @@ import 'package:kliknss77/application/builders/error_builder.dart';
 import 'package:kliknss77/application/builders/shimmer_builder.dart';
 import 'package:kliknss77/infrastructure/apis/home_api/home_api.dart';
 import 'package:kliknss77/infrastructure/database/data_state.dart';
+import 'package:kliknss77/ui/view_builder/master_layout/master_detail.dart';
 import 'package:kliknss77/ui/view_builder/master_layout/master_eins.dart';
 
 class MasterBuilder extends StatefulWidget {
@@ -84,17 +85,28 @@ class _MasterBuilderState extends State<MasterBuilder> {
   
   @override
   Widget build(BuildContext context) {
-    var master = {'master': "MasterNormal"};
+    var master = {'master': widget.url == "" ? "MasterHome" : "MasterDetail"};
     (datas ?? {}).isNotEmpty ? (datas).addAll(master) : null;
 
     switch (datas?['master']) {      
-      case "MasterNormal":
+      case "MasterHome":
         if (state == 2) {
           return ShimmerBuilder(shimmer: widget.shimmer,); // Ganti dengan widget Shimmer Anda
         } else if ((state  ?? 2) > 3) {
           return ErrorBuilder(state: state,); // Ganti dengan widget error Anda
         } else {
           return MasterEins(
+            section: datas,
+            state: state,
+          );
+        }
+      case "MasterDetail":
+        if (state == 2) {
+          return ShimmerBuilder(shimmer: widget.shimmer,); // Ganti dengan widget Shimmer Anda
+        } else if ((state  ?? 2) > 3) {
+          return ErrorBuilder(state: state,); // Ganti dengan widget error Anda
+        } else {
+          return MasterDetail(
             section: datas,
             state: state,
           );

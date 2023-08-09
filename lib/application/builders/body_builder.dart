@@ -29,6 +29,10 @@ class BodyBuilder extends StatefulWidget {
 
 class _BodyBuilderState extends State<BodyBuilder> {
 
+  void onChanged()async{
+    setState(() {});
+    
+  }
 
   Widget _buildSection(BuildContext context, Map section) {
     switch (section['type']) {

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:events_emitter/events_emitter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:kliknss77/application/builders/data_builder.dart';
@@ -28,6 +29,7 @@ class M2WSelectMotor extends StatefulWidget {
 class _M2WSelectMotorState extends State<M2WSelectMotor> {
   final Dio _dio = DioService.getInstance();
   final _sharedPrefs = SharedPrefs();
+  final events = EventEmitter();
 
   DataState? dataState = DataBuilder(("m2w-motor")).getDataState();
   int state = 1; // 3: apply button loading
@@ -230,6 +232,8 @@ class _M2WSelectMotorState extends State<M2WSelectMotor> {
       setState(() {
         widget.page?['priceId'] = response.data['priceId'];
       });
+
+          events.emit('isValid', true);
       Navigator.pop(context, response.data);
     } else {
       AppDialog.alert(title: 'Maaf, motor yang dipilih tidak dapat digunakan.');
