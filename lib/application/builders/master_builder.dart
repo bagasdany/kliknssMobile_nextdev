@@ -45,15 +45,16 @@ class _MasterBuilderState extends State<MasterBuilder> {
     
     WidgetsBinding.instance.addPostFrameCallback((_)async {
         setState(() {
-          state = 2;
-        });
+            state = 2;
+          });
         datas  = DataBuilder((widget.url ?? "").replaceFirst(RegExp(r'^/'), ''),).getDataState().getData();
-        if((datas['data']?['url'] ?? "-").replaceFirst(RegExp(r'^/'), '') == (widget.url ?? "").replaceFirst(RegExp(r'^/'), '')) {
+        if((datas['data']?['url'] == "${widget.url}")) {
           setState(() {
-           datas = datas['data'];
+            datas = datas['data'];
             state = 1;
           });
         } else {
+          
           await HomeApi().patchPage(((widget.url ?? "")).replaceFirst(RegExp(r'^/'), '') ).then((value) {
            print("load lagi");
            if(value is int){
@@ -61,17 +62,17 @@ class _MasterBuilderState extends State<MasterBuilder> {
               state = value;
             });
            }else {
-          setState(() {
-            datas = value;
-            state =1;
-          });
-          final DataState dataState = DataBuilder((widget.url ?? "").replaceFirst(RegExp(r'^/'), ''),).getDataState();
-          final Map<String, dynamic> newData = {
-            'type': (widget.url ?? "").replaceFirst(RegExp(r'^/'), ''),
-            'data': value ?? {},
-          };
-          dataState.updateData(newData);
-          state =1;
+            setState(() {
+              datas = value;
+              state =1;
+            });
+            final DataState dataState = DataBuilder((widget.url ?? "").replaceFirst(RegExp(r'^/'), ''),).getDataState();
+            final Map<String, dynamic> newData = {
+              'type': (widget.url ?? "").replaceFirst(RegExp(r'^/'), ''),
+              'data': value ?? {},
+            };
+            dataState.updateData(newData);
+            
            }
           
           

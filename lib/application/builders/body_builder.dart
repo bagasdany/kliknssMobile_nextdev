@@ -3,7 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:kliknss77/ui/component/banner_carousel.dart';
 import 'package:kliknss77/ui/component/category_icons.dart';
+import 'package:kliknss77/ui/component/flashsale_component.dart';
 import 'package:kliknss77/ui/component/multiguna_view/m2w_simulation.dart';
+import 'package:kliknss77/ui/component/sparepart_thumbnails.dart';
 import 'package:kliknss77/ui/component/thumbnails/hmc_thumbails.dart';
 import 'package:kliknss77/ui/component/icon_grid_tipe1.dart';
 
@@ -57,10 +59,14 @@ class _BodyBuilderState extends State<BodyBuilder> {
           aspectRatio: section['props']?['ratio']?[0] ?? 8 / 5.6,
           banners: section['props']?['items'] ?? [],
         );
+      case 'SparepartThumbnails':
+      return SparepartThumbnails(section['props'] ?? []);
       case 'HMCThumbnails':
         return HMCThumbnails(section['props'] ?? []);
       case 'FeatureList':
         return TitlewithIconGrid1(section: section);
+      case 'FlashSale':
+        return FlashSaleComponent(section: section['props']?? []);
       case 'M2WSimulation':
         return M2WSimulation();
       default:

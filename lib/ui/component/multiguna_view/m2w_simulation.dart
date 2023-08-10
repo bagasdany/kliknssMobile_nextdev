@@ -18,6 +18,7 @@ import 'package:kliknss77/infrastructure/database/shared_prefs_key.dart';
 import 'package:kliknss77/ui/component/app_shimmer.dart';
 import 'package:kliknss77/ui/component/empty_city.dart';
 import 'package:kliknss77/ui/component/get_error_message.dart';
+import 'package:kliknss77/ui/component/multiguna_view/checkout/m2w_checkout1.dart';
 import 'package:kliknss77/ui/component/multiguna_view/m2w_select_motor.dart';
 import 'package:kliknss77/ui/component/referral_code_component.dart';
 import 'package:kliknss77/ui/component/selectable_item.dart';
@@ -46,6 +47,8 @@ class M2WSimulation extends StatefulWidget {
 
 class _SimulationViewState extends State<M2WSimulation> {
   final Dio _dio = DioService.getInstance();
+
+  MultigunaMotorData _multigunaMotorData = MultigunaMotorData();
   final _sharedPrefs = SharedPrefs();
   final TextEditingController referralController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
@@ -53,8 +56,6 @@ class _SimulationViewState extends State<M2WSimulation> {
   bool isChangedReferral = false;
   int state = 1; 
   final formatter = intl.NumberFormat.decimalPattern();
-
-  MultigunaMotorData _multigunaMotorData = MultigunaMotorData();
 
   DataState? dataState = DataBuilder(("multiguna-motor")).getDataState();
   Future<void> cekKota() async {
@@ -122,7 +123,6 @@ class _SimulationViewState extends State<M2WSimulation> {
   @override
   void dispose() {
     _multigunaMotorData.dispose();
-
     super.dispose();
   }
 
@@ -263,9 +263,9 @@ class _SimulationViewState extends State<M2WSimulation> {
         state = 1;
       });
       //TODO
-      // Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-      //   return M2WCheckout1(order);
-      // }));
+      Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+        return M2WCheckout1(order);
+      }));
     }
 
     try {
@@ -364,6 +364,9 @@ class _SimulationViewState extends State<M2WSimulation> {
           //   'type': ("multiguna-motor"),
           //   'data':  widget.page ?? {},
           // };
+          
+          // _multigunaMotorData.dataStreamController.sink.add(widget.page ?? {});
+
           dataState?.updateData(widget.page ?? {});
           print("terubah");
       });

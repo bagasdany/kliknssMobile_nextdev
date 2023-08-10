@@ -240,7 +240,6 @@ class _FloatingHeaderState extends State<FloatingHeader>
 
   @override
   void dispose() {
-    _dio.interceptors.remove(_interceptor);
     if (listener != null) {
       events.removeEventListener(listener!);
     }

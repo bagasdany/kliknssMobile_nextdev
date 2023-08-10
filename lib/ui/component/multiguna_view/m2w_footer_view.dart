@@ -15,6 +15,7 @@ import 'package:kliknss77/infrastructure/database/shared_prefs_key.dart';
 import 'package:kliknss77/ui/component/app_dialog.dart';
 import 'package:kliknss77/ui/component/button.dart';
 import 'package:kliknss77/ui/component/get_error_message.dart';
+import 'package:kliknss77/ui/component/multiguna_view/checkout/m2w_checkout1.dart';
 import 'package:kliknss77/ui/views/login/login_view.dart';
 
 class M2WFooterView extends StatefulWidget {
@@ -34,15 +35,12 @@ class _M2WFooterViewState extends State<M2WFooterView> {
   final Dio _dio = DioService.getInstance();
   final _sharedPrefs = SharedPrefs();
 
-  EventListener? listener;
 
 
   @override
   void dispose() {
     _streamSubscription?.cancel();
-    _multigunaMotorData.dispose();
-    
-
+    // _multigunaMotorData.dispose();
     super.dispose();
   }
 
@@ -52,17 +50,19 @@ class _M2WFooterViewState extends State<M2WFooterView> {
   @override
   void initState() {
     super.initState();
-    print("initstate footer");;
+    print("initstate footer");
     WidgetsBinding.instance.addPostFrameCallback((_) {
       setState(() {
           widget.page = DataBuilder(("multiguna-motor")).getDataState().getData();
         });
-      _streamSubscription = _multigunaMotorData.dataStream.listen((data) {
-      setState(() {
-        widget.page = data;
-        // ... update state dengan data stream ...
-      });
-    });
+      if(_multigunaMotorData.dataStream != null){
+        _streamSubscription = _multigunaMotorData.dataStream?.listen((data) {
+          setState(() {
+            widget.page = data;
+          });
+        });
+      }
+      
 
       
       
@@ -92,10 +92,10 @@ class _M2WFooterViewState extends State<M2WFooterView> {
       setState(() {
         widget.state = 1;
       });
-      // TODO
-      // Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-      //   return M2WCheckout1(order);
-      // }));
+      
+      Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+        return M2WCheckout1(order);
+      }));
     }
 
     try {

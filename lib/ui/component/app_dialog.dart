@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kliknss77/application/services/app_navigation_service.dart';
 import 'package:kliknss77/application/style/constants.dart';
 import 'package:kliknss77/infrastructure/database/data_page.dart';
+import 'package:kliknss77/ui/component/kelurahan_selector.dart';
 import 'package:kliknss77/ui/component/webview_page.dart';
 import 'package:kliknss77/ui/views/login/login_view.dart';
 import 'package:kliknss77/utils/preload_image.dart';
@@ -939,10 +940,9 @@ class AppDialog {
         isScrollControlled: true,
         builder: (BuildContext modalContext) {
           return StatefulBuilder(builder: (builder, setParentState) {
-            return AppPage.withName('kelurahan-selector') ?? Container();
+            return KelurahanSelector();
           });
         });
-
     return kelurahan;
   }
 

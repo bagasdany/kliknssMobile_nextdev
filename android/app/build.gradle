@@ -34,6 +34,14 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    lintOptions {                                                                        
+         checkReleaseBuilds false                                                           
+    }   
+    externalNativeBuild{
+    cmake{
+      path "../CMakeLists.txt"
+        }
+    }
 
     kotlinOptions {
         jvmTarget = '1.8'
@@ -50,8 +58,13 @@ android {
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion 33
         targetSdkVersion 33
-        versionCode 1
-        versionName "starting 1.0"
+        versionCode 76
+        versionName flutterVersionName
+        multiDexEnabled = true
+        // Filter for architectures supported by Flutter.
+        ndk { 
+            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64'
+        }
     }
 
     buildTypes {

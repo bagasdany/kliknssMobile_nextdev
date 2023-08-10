@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/Users/bagasdany/Flutter/kliknss77/android/app/.cxx/Debug/664d1k3p/arm64-v8a",
+  "command": "/Users/bagasdany/Library/Android/sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang --target=aarch64-none-linux-android31 --gcc-toolchain=/Users/bagasdany/Library/Android/sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Users/bagasdany/Library/Android/sdk/ndk/23.1.7779620/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -DconvertImage_EXPORTS -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -fno-limit-debug-info  -fPIC -o CMakeFiles/convertImage.dir/Users/bagasdany/Flutter/kliknss77/ios/Classes/converter.c.o -c /Users/bagasdany/Flutter/kliknss77/ios/Classes/converter.c",
+  "file": "/Users/bagasdany/Flutter/kliknss77/ios/Classes/converter.c"
+}
+]

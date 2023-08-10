@@ -15,6 +15,6 @@ class DataState {
     data = newData;
   }
     void addData(Map<dynamic, dynamic> addData) {
-    data['data'].addEntries(addData.entries);
+    data.addEntries(addData.entries);
   }
 }

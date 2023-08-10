@@ -10,7 +10,7 @@ class ScaleFadeTransition extends PageTransitionsBuilder {
       Animation<double> animation,
       Animation<double> secondaryAnimation,
       Widget child) {
-    final tween = Tween(begin: 0.0, end: 1.0).chain(CurveTween(curve: Constants.cubicAnimateSlowToFast));
+    final tween = Tween(begin: 0.0, end: 1.0).chain(CurveTween(curve: Constants.cubicAnimateFastToMedium));
     return ScaleTransition(
       scale: animation.drive(tween),
       child: FadeTransition(opacity: animation, child: child));

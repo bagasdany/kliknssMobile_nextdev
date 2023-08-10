@@ -6,6 +6,7 @@ import 'package:kliknss77/application/builders/data_builder.dart';
 import 'package:kliknss77/application/helpers/endpoint.dart';
 import 'package:kliknss77/application/services/dio_service.dart';
 import 'package:kliknss77/application/style/constants.dart';
+import 'package:kliknss77/infrastructure/database/multiguna_motor/multiguna_motor_data.dart';
 import 'package:kliknss77/infrastructure/database/shared_prefs_key.dart';
 import 'package:kliknss77/ui/component/app_dialog.dart';
 import 'package:kliknss77/ui/component/button.dart';
@@ -48,6 +49,12 @@ class _M2WSelectMotorState extends State<M2WSelectMotor> {
 
     AppLog().logScreenView('M2W Select Motor');
   }
+
+  @override
+  void dispose() {
+  super.dispose();
+  }
+
 
   Future<void> cekKota() async {
     final kotaId = _sharedPrefs.get(SharedPreferencesKeys.cityId) ?? 158;
