@@ -26,8 +26,10 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      //TODO : Load Api Global Config
+      // miliseconds dari api,url params dari api 
       Future.delayed(Duration(milliseconds:  1000)).then((value) {
-          AppNavigatorService.pushReplacementNamed('/');
+          Navigator.pushNamedAndRemoveUntil(context,"/page?url=""&shimmer=home", (route) => false);
       });
     });
   }

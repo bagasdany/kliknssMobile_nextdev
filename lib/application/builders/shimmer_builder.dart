@@ -37,7 +37,6 @@ class _ShimmerBuilderState extends State<ShimmerBuilder> {
         return HomeShimmer(
          aspectRatio: 8/5.6,
         );
-     
       default:
         return Container();
     }

@@ -19,7 +19,6 @@ class DynamicTransparentHeader extends StatefulWidget {
   final dynamic warna;
   final dynamic iconkanan;
   final bool? isBack;
-  // String chatCount = "1";
 
   Position? currentPosition;
 

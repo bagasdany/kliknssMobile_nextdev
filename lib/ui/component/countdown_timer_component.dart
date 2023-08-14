@@ -60,7 +60,6 @@ class _CountDownTimerComponentState extends State<CountDownTimerComponent> {
   @override
   void initState() {
     super.initState();
-
     _startTimer();
   }
 

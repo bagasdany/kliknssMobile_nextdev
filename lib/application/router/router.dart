@@ -2,15 +2,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:kliknss77/application/builders/master_builder.dart';
-import 'package:kliknss77/infrastructure/database/shared_prefs_key.dart';
 import 'package:kliknss77/ui/views/startup/splash_screen.dart';
-import '../../infrastructure/database/shared_prefs.dart';
 
 class AppRouter extends InterceptorsWrapper {
 
   dynamic userID, buildLogin;
   Map<String, dynamic> routes = {
-    '/': (_) { return MasterBuilder(url: "",shimmer: "home",);},
     '/startup': (_) => SplashScreen(),
     '/page': (_) { return MasterBuilder(url: _['query']['url'],shimmer: _['query']['shimmer'],);
     },

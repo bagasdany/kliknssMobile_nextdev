@@ -212,7 +212,8 @@ void main({
       await flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation< AndroidFlutterLocalNotificationsPlugin>()?.createNotificationChannel(androidNotificationChannel);
     }
 
-    createNotificationChannel();var initializationSettings =InitializationSettings(android: initializationSettingsAndroid);
+    createNotificationChannel();
+    var initializationSettings =InitializationSettings(android: initializationSettingsAndroid);
 
     FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
@@ -222,7 +223,6 @@ void main({
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       RemoteNotification? notification = message.notification;
-
       AndroidNotification? android = message.notification?.android;
 
       if (notification != null && android != null) {

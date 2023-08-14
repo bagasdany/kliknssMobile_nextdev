@@ -32,9 +32,7 @@ class MasterDetail extends StatefulWidget {
 }
 
 class _MasterDetail extends State<MasterDetail>
-    with AutomaticKeepAliveClientMixin<MasterDetail> {
-  @override
-  bool get wantKeepAlive => true;
+     {
   final Dio _dio = DioService.getInstance();
   final Color _warna = Constants.white;
   final ScrollController _scrollController = ScrollController();
@@ -63,7 +61,6 @@ class _MasterDetail extends State<MasterDetail>
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     WidgetsFlutterBinding.ensureInitialized();
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent, // transparent status bar

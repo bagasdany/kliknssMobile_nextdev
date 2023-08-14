@@ -16,6 +16,7 @@ class MultigunaMotorData extends DataState {
     data['type'] = 'multiguna-motor';
     data['data'] = {};
     data['voucher'] = Voucher();
+    widgets = null ;
   }
 
   factory MultigunaMotorData() {
@@ -27,21 +28,15 @@ class MultigunaMotorData extends DataState {
   @override
   void updateData(Map<dynamic, dynamic> newData) {
     data = newData;
-    if (!dataStreamController.isClosed) {
-      
+
     dataStreamController.sink.add(data);
-    // 
-    }
   }
 
   @override
   void addData(Map<dynamic, dynamic> addData) {
     data['data'].addEntries(addData.entries);
-if (!dataStreamController.isClosed) {
-      
+
     dataStreamController.sink.add(data);
-    // 
-    }
   }
 
   // Tutup StreamController

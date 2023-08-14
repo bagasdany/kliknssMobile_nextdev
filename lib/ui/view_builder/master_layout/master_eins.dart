@@ -28,10 +28,8 @@ class MasterEins extends StatefulWidget {
   _MasterEins createState() => _MasterEins();
 }
 
-class _MasterEins extends State<MasterEins>
-    with AutomaticKeepAliveClientMixin<MasterEins> {
+class _MasterEins extends State<MasterEins>{
   @override
-  bool get wantKeepAlive => true;
   final Dio _dio = DioService.getInstance();
 
 
@@ -62,7 +60,6 @@ class _MasterEins extends State<MasterEins>
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     WidgetsFlutterBinding.ensureInitialized();
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent, // transparent status bar

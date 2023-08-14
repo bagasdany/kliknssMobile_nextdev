@@ -25,9 +25,6 @@ class DataBuilder {
         return MultigunaMotorData();
       case 'm2w-motor':
         return M2WMotorData();
-      
-      // case 'M2WSimulationData':
-      //   return M2WSimulationData();
       default:
         return HomeDataState();
     }

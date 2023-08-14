@@ -27,16 +27,14 @@ class M2WFooterView extends StatefulWidget {
   State<M2WFooterView> createState() => _M2WFooterViewState();
 }
 
-class _M2WFooterViewState extends State<M2WFooterView> {
+class _M2WFooterViewState extends State<M2WFooterView>  {
 
   MultigunaMotorData _multigunaMotorData = MultigunaMotorData();
   // DataState? dataState = DataBuilder(("multiguna-motor")).getDataState();
   StreamSubscription? _streamSubscription;
   final Dio _dio = DioService.getInstance();
   final _sharedPrefs = SharedPrefs();
-
-
-
+  
   @override
   void dispose() {
     _streamSubscription?.cancel();

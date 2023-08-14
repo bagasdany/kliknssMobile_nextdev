@@ -45,7 +45,7 @@ class M2WSimulation extends StatefulWidget {
   State<M2WSimulation> createState() => _SimulationViewState();
 }
 
-class _SimulationViewState extends State<M2WSimulation> {
+class _SimulationViewState extends State<M2WSimulation>  {
   final Dio _dio = DioService.getInstance();
 
   MultigunaMotorData _multigunaMotorData = MultigunaMotorData();
