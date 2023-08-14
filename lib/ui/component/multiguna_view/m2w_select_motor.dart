@@ -233,14 +233,13 @@ class _M2WSelectMotorState extends State<M2WSelectMotor> {
     // dataState?.updateData(widget.page ?? {});
     print("apply");
     Response response = await _dio.get(Endpoint.requestM2wMotor, queryParameters: params);
-    // print("response $response");
-    // response.data['priceId'] = null;
+
     if (response.data['priceId'] != null) {
       setState(() {
         widget.page?['priceId'] = response.data['priceId'];
       });
 
-          events.emit('isValid', true);
+      // events.emit('isValid', true);
       Navigator.pop(context, response.data);
     } else {
       AppDialog.alert(title: 'Maaf, motor yang dipilih tidak dapat digunakan.');

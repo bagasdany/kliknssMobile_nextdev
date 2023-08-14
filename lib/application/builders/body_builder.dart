@@ -8,6 +8,7 @@ import 'package:kliknss77/ui/component/multiguna_view/m2w_simulation.dart';
 import 'package:kliknss77/ui/component/sparepart_thumbnails.dart';
 import 'package:kliknss77/ui/component/thumbnails/hmc_thumbails.dart';
 import 'package:kliknss77/ui/component/icon_grid_tipe1.dart';
+import 'package:kliknss77/ui/views/motor/hmc_list_view.dart';
 
 
 class BodyBuilder extends StatefulWidget {
@@ -69,6 +70,8 @@ class _BodyBuilderState extends State<BodyBuilder> {
         return FlashSaleComponent(section: section['props']?? []);
       case 'M2WSimulation':
         return M2WSimulation();
+      case 'HMCList':
+        return HMCListView(hmc: section['props']?? [],);
       default:
         return Container();
     }

@@ -622,6 +622,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.10"
+  flutter_multi_select_items:
+    dependency: "direct main"
+    description:
+      name: flutter_multi_select_items
+      sha256: d30af6dbf64c38c296110a9512eef91b196a185cca056cd1eb32614e5fa91d1c
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.2"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -1185,7 +1193,7 @@ packages:
     source: hosted
     version: "2.1.0+1"
   rxdart:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: rxdart
       sha256: "0c7c0cedd93788d996e33041ffecda924cc54389199cde4e6a34b440f50044cb"

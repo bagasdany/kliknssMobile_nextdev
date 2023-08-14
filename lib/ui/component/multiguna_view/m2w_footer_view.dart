@@ -53,13 +53,6 @@ class _M2WFooterViewState extends State<M2WFooterView>  {
       setState(() {
           widget.page = DataBuilder(("multiguna-motor")).getDataState().getData();
         });
-      if(_multigunaMotorData.dataStream != null){
-        _streamSubscription = _multigunaMotorData.dataStream?.listen((data) {
-          setState(() {
-            widget.page = data;
-          });
-        });
-      }
       
 
       
@@ -131,9 +124,8 @@ class _M2WFooterViewState extends State<M2WFooterView>  {
 
   @override
   Widget build(BuildContext context) {
-    
-    return 
-    Container(
+    buildFooter(){
+      return Container(
       decoration: const BoxDecoration(color: Colors.white),
       padding: const EdgeInsets.symmetric(
           vertical: Constants.spacing3,
@@ -163,7 +155,6 @@ class _M2WFooterViewState extends State<M2WFooterView>  {
             onPressed: () {
               print("isValid di footer${widget.page}");
               if (widget.page?['data']?['isValid'] == true) {
-                
                 checkout(context);
               }
             },
@@ -172,22 +163,25 @@ class _M2WFooterViewState extends State<M2WFooterView>  {
         ],
       ),
     );
-    // StreamBuilder<Map<dynamic, dynamic>>(
-    //   stream: _multigunaMotorData.dataStream, // Stream yang didengarkan
-    //   builder: (context, snapshot) {
-    //     if (snapshot.hasData) {
-    //       // Data diterima dari stream
-    //       widget.page = snapshot.data ?? {};
+    }
+    return 
+    
+    StreamBuilder<Map<dynamic, dynamic>>(
+      stream: _multigunaMotorData.dataStream, // Stream yang didengarkan
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          // Data diterima dari stream
+          widget.page = snapshot.data ?? {};
           
-    //       // Gunakan data untuk membangun UI
-    //       return 
+          // Gunakan data untuk membangun UI
+          return buildFooter();
           
-    //     } else {
-    //       // Stream belum memiliki data
-    //       return CircularProgressIndicator();
-    //     }
-    //   },
-    // );
+        } else {
+          // Stream belum memiliki data
+          return buildFooter();
+        }
+      },
+    );
     
     
   }

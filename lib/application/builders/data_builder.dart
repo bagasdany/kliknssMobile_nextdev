@@ -1,6 +1,7 @@
 
 import 'package:kliknss77/infrastructure/database/data_state.dart';
 import 'package:kliknss77/infrastructure/database/home/home_data.dart';
+import 'package:kliknss77/infrastructure/database/motor/motor_data.dart';
 import 'package:kliknss77/infrastructure/database/multiguna_motor/m2w_motor_data.dart';
 import 'package:kliknss77/infrastructure/database/multiguna_motor/m2w_simulation_data.dart';
 import 'package:kliknss77/infrastructure/database/multiguna_motor/multiguna_motor_data.dart';
@@ -23,7 +24,10 @@ class DataBuilder {
         return SparepartDataState();
       case 'multiguna-motor':
         return MultigunaMotorData();
+      case 'motor':
+        return MotorData();
       case 'm2w-motor':
+      
         return M2WMotorData();
       default:
         return HomeDataState();
