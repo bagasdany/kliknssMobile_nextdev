@@ -45,7 +45,7 @@ class _MasterBuilderState extends State<MasterBuilder> {
     super.initState();
     
     WidgetsBinding.instance.addPostFrameCallback((_)async {
-      await HomeApi().patchPage(((widget.url ?? "")).replaceFirst(RegExp(r'^/'), '') ).then((value) {
+      await HomeApi().patchPage(widget.url ?? "").then((value) {
         print("load lagi");
         if(value is int){
           setState(() { state = value;});
@@ -54,15 +54,16 @@ class _MasterBuilderState extends State<MasterBuilder> {
             datas = value;
             state =1;
           });
-          final DataState dataState = DataBuilder((widget.url ?? "").replaceFirst(RegExp(r'^/'), ''),).getDataState();
+          final DataState dataState = DataBuilder((widget.url ?? ""),).getDataState();
           final Map<String, dynamic> newData = {
-            'type': (widget.url ?? "").replaceFirst(RegExp(r'^/'), ''),
+            'type': (widget.url ?? ""),
             'data': value ?? {},
           };
           dataState.updateData(newData);
           dataState.update(newData,getContentWidget(widget.url, datas));
         }
       });
+      // setState(() {state = 1;});
     });
   }
 

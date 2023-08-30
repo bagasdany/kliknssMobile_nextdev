@@ -1,4 +1,5 @@
 
+import 'package:kliknss77/infrastructure/database/agent/motor/hmc_agent_data.dart';
 import 'package:kliknss77/infrastructure/database/data_state.dart';
 import 'package:kliknss77/infrastructure/database/home/home_data.dart';
 import 'package:kliknss77/infrastructure/database/motor/motor_data.dart';
@@ -27,8 +28,11 @@ class DataBuilder {
       case 'motor':
         return MotorData();
       case 'm2w-motor':
-      
         return M2WMotorData();
+      
+      //agent
+      case 'motor-agent':
+        return MotorAgentData();
       default:
         return HomeDataState();
     }

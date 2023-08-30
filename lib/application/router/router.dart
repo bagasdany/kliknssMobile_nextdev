@@ -12,7 +12,7 @@ class AppRouter extends InterceptorsWrapper {
   Map<String, dynamic> routes = {
     '/startup': (_) => SplashScreen(),
     '/page': (_) { 
-      var datas  = DataBuilder(( _['query']['url'] ?? "").replaceFirst(RegExp(r'^/'), ''),).getDataState().getDataWidgets();
+      var datas  = DataBuilder(( _['query']['url'] ?? ""),).getDataState().getDataWidgets();
       return datas['data']?['data']?['url'] != "${_['query']['url']}" ?
       MasterBuilder(url: _['query']['url'],shimmer: _['query']['shimmer'],): datas['widgets'];
     },

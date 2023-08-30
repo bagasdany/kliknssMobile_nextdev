@@ -4,16 +4,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:kliknss77/application/builders/body_builder.dart';
 import 'package:kliknss77/application/style/constants.dart';
 import 'package:kliknss77/ui/component/app_shimmer.dart';
 
 class BannerCarousel extends StatefulWidget {
-  final List<dynamic>? banners;
-  int? state;
+  final List<dynamic>? items;
+  int? state,index;
+  
 
   dynamic aspectRatio;
 
-  BannerCarousel({Key? key, this.banners, required this.aspectRatio,this.state})
+  BannerCarousel({Key? key, this.items, required this.aspectRatio,this.state,this.index})
       : super(key: key);
 
   @override
@@ -23,9 +25,7 @@ class BannerCarousel extends StatefulWidget {
 class _BannerCarouselState extends State<BannerCarousel> {
   final koma = ",";
   Size imageSize = const Size(0.00, 0.00);
-   List<double> result = [];
-
-
+  List<double> result = [];
 
   @override
   void setState(fn) {
@@ -37,15 +37,6 @@ class _BannerCarouselState extends State<BannerCarousel> {
   @override
   void initState() {
      result = convertToDoubles(widget.aspectRatio);
-    // if (widget.banners != null && (widget.banners ?? []).length > 0) {
-    //   String url = (widget.banners ?? [])[0]['imageUrl'] ?? "";
-    //   _getImageDimension("${Constants.baseURLImages}/$url");
-    // }
-    // List<Map<String, dynamic>> flattenedList = [];
-    // List<Map<String, dynamic>> flattenedList = [];
-    // widget.banners?.forEach((list) => flattenedList.addAll(list.cast<Map<String, dynamic>>()));
-
-    // widget.banners?.forEach((list) => flattenedList.addAll(list));
     print("flattenedList");
 
     super.initState();
@@ -69,7 +60,7 @@ class _BannerCarouselState extends State<BannerCarousel> {
             initialPage: 0,
             enableInfiniteScroll: true,
             reverse: false,
-            autoPlay: ( widget.banners ?? []).length > 1 ? true : false,
+            autoPlay: ( widget.items ?? []).length > 1 ? true : false,
             autoPlayInterval: const Duration(seconds: 3),
             autoPlayAnimationDuration: const Duration(milliseconds: 800),
             autoPlayCurve: Curves.fastOutSlowIn,
@@ -77,48 +68,23 @@ class _BannerCarouselState extends State<BannerCarousel> {
             // onPageChanged: callbackFunction,
             scrollDirection: Axis.horizontal,
           ),
-          items: ( widget.banners ?? [])
+          items: ( widget.items ?? [])
               .asMap()
               .map((key, value) => MapEntry(key, Builder(
                     builder: (BuildContext context) {
-                      return renderImage(
-                          "${Constants.baseURLImages}/${ widget.banners?[key]['props']['src'][0].toString()}",
-                           widget.banners?[key]['target'] ?? "");
+                      return renderImage(index: key,target: widget.items?[key]['target'] ?? "");
                     },))).values.toList()),
     );
   }
 
-  Widget renderImage(String url, String target) {
-    final image =url;
-
-    AspectRatio imageWidget = AspectRatio(
-      aspectRatio: (result?[0] ?? 17) / (result[1] ?? 5.6),
-      child: CachedNetworkImage(
-          imageUrl: image,
-          progressIndicatorBuilder: (context, url, downloadProgress) =>
-              AspectRatio(
-                  aspectRatio: (result?[0] ?? 17) / (result[1] ?? 5.6),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Constants.gray.shade300,
-                      shape: BoxShape.rectangle,
-                    ),
-                  )),
-          errorWidget: (context, url, error) => AspectRatio(
-              aspectRatio:(result?[0] ?? 17) / (result[1] ?? 5.6),
-              child: Container(
-                key: const ValueKey("image_error"),
-                decoration: BoxDecoration(
-                  color: Constants.gray.shade300,
-                  shape: BoxShape.rectangle,
-                ),
-              ))),
-    );
+  Widget renderImage({int? index, String? target}) {
+    print("indexs image $index");
 
     return InkWell(
         onTap: () async {
-          await Navigator.pushNamed(context, target);
+          await Navigator.pushNamed(context, target ?? "");
         },
-        child: imageWidget);
+        child: BodyBuilder(section: widget.items?[index ?? 0]??[],state: widget.state,));
+
   }
 }

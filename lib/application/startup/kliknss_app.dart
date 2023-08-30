@@ -70,6 +70,8 @@ class _NssAppState extends State<NssApp> with WidgetsBindingObserver {
             ConnectivityService().connectionStatusController.stream,
         child: OverlaySupport(
             child: MaterialApp(
+          // theme: ThemeData.light(), // Tema terang
+          darkTheme: ThemeData.dark(), // Tema gelap
           title: "KlikNSS",
           navigatorKey: AppNavigatorService.navigatorKey,
           scaffoldMessengerKey: scaffoldKey,
@@ -82,6 +84,7 @@ class _NssAppState extends State<NssApp> with WidgetsBindingObserver {
           // themeAnimationDuration: Duration(seconds: 5),
           scrollBehavior: AppScrollBehavior(),
           theme: ThemeData(
+              
               splashFactory: NoSplash.splashFactory,
               pageTransitionsTheme:  PageTransitionsTheme(
                 builders: <TargetPlatform, PageTransitionsBuilder>{

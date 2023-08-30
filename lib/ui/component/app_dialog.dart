@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kliknss77/application/services/app_navigation_service.dart';
 import 'package:kliknss77/application/style/constants.dart';
 import 'package:kliknss77/infrastructure/database/data_page.dart';
+import 'package:kliknss77/ui/component/city_selector_agent.dart';
 import 'package:kliknss77/ui/component/kelurahan_selector.dart';
 import 'package:kliknss77/ui/component/webview_page.dart';
 import 'package:kliknss77/ui/views/login/login_view.dart';
@@ -987,7 +988,7 @@ class AppDialog {
         isScrollControlled: true,
         builder: (BuildContext modalContext) {
           return StatefulBuilder(builder: (builder, setParentState) {
-            return AppPage.withName('city-selector-agent') ?? Container();
+            return CitySelectorAgent() ?? Container();
           });
         });
 

@@ -80,6 +80,21 @@ class Constants {
     900: Color(0xff365314)
   });
 
+
+  static const MaterialColor donker = MaterialColor(0xff0202ff, <int, Color>{
+    50: Color(0xFFc6c6ff),
+    100: Color(0xFFb2b2ff),
+    200: Color(0xFF9f9fff),
+    300: Color(0xFF8b8bff),
+    400: Color(0xFF7777ff),
+    500: Color(0xff6464ff),
+    600: Color(0xFF5050ff),
+    700: Color(0xFF2929ff),
+    800: Color(0xFF1515FF),
+    900: Color(0xFF0202ff),
+  });
+
+
   static const MaterialColor primaryBlack = MaterialColor(
     0xff000000,
     <int, Color>{
@@ -165,16 +180,11 @@ class Constants {
   static const String primaryFontBold = 'FiraSans Bold';
   static const String primaryFontLight = 'FiraSans Light';
 
-  static const TextStyle heading1 = TextStyle(
-      fontSize: Constants.fontSize3Xl, fontFamily: Constants.primaryFontBold);
-  static const TextStyle heading2 = TextStyle(
-      fontSize: Constants.fontSize2Xl, fontFamily: Constants.primaryFontBold);
-  static const TextStyle heading3 = TextStyle(
-      fontSize: Constants.fontSizeXl, fontFamily: Constants.primaryFontBold);
-  static const TextStyle heading4 = TextStyle(
-      fontSize: Constants.fontSizeLg, fontFamily: Constants.primaryFontBold);
-  static const TextStyle heading5 = TextStyle(
-      fontSize: Constants.fontSizeMd, fontFamily: Constants.primaryFontBold);
+  static const TextStyle heading1 = TextStyle(fontSize: Constants.fontSize3Xl, fontFamily: Constants.primaryFontBold);
+  static const TextStyle heading2 = TextStyle(fontSize: Constants.fontSize2Xl, fontFamily: Constants.primaryFontBold);
+  static const TextStyle heading3 = TextStyle(fontSize: Constants.fontSizeXl, fontFamily: Constants.primaryFontBold);
+  static const TextStyle heading4 = TextStyle(fontSize: Constants.fontSizeLg, fontFamily: Constants.primaryFontBold);
+  static const TextStyle heading5 = TextStyle(fontSize: Constants.fontSizeMd, fontFamily: Constants.primaryFontBold);
   static const TextStyle textXl = TextStyle(fontSize: Constants.fontSizeXl);
   static const TextStyle textLg = TextStyle(fontSize: Constants.fontSizeLg);
   static const TextStyle textMd = TextStyle(fontSize: Constants.fontSizeMd);

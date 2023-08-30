@@ -28,6 +28,7 @@ class HomeApi {
   
   
   Future<dynamic> patchPage(String url) async {
+    print("url : $url");
   try {
     var params = {"url": ((url)?? "")};
     final response = await _dio.patch(Endpoint.evolvePatchHome, data: params).timeout(Duration(seconds: 20));
@@ -60,7 +61,7 @@ class HomeApi {
     var params = {"url": ((url)?? "")};
     AppLog().reportError("patch Page Api : $url error", "error: $e ,params : $params, method: ${e.requestOptions.method},path: ${e.requestOptions.path}");
 
-    print("error global 4 $e");
+    print("error global 3 $e");
     
     
     print(e);

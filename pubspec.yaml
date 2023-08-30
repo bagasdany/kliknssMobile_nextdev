@@ -35,6 +35,8 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
+  tailwind_style:
+    path: ../package/tailwind_style
   cupertino_icons: ^1.0.2
   provider: ^6.0.5
   shared_preferences: ^2.2.0
@@ -70,7 +72,6 @@ dependencies:
   isar: ^3.1.0+1
   dotted_border: ^2.0.0+3
   dartz: ^0.10.1
-
   google_mlkit_text_recognition: ^0.4.0 
   google_mlkit_object_detection: ^0.5.0
   ffi: ^2.0.1
@@ -89,6 +90,9 @@ dependencies:
   percent_indicator: ^4.2.3
   flutter_multi_select_items: ^0.4.2
   rxdart: ^0.27.7
+  flutter_share: ^2.0.0
+  table_sticky_headers: ^2.0.5
+  esys_flutter_share_plus: ^2.2.0
 
 dev_dependencies:
   flutter_test:

@@ -81,11 +81,9 @@ class MiscApi {
           .toList();
       return city;
     } on DioException catch (e) {
-      var message =
-          GetErrorMessage.getErrorMessage(e.response?.data['errors'] ?? "");
+      var message = GetErrorMessage.getErrorMessage(e.response?.data['errors'] ?? "");
       print("#message: $message");
-      AppDialog.snackBar(
-          text: message ?? "Terjadi kesalahan,silahkan ulangi lagi");
+      AppDialog.snackBar(text: message ?? "Terjadi kesalahan,silahkan ulangi lagi");
     }
   }
 

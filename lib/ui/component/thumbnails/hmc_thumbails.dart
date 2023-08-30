@@ -12,12 +12,12 @@ class HMCThumbnails extends StatelessWidget {
     double width = MediaQuery.of(context).size.width * .35;
 
     List<Widget> items = [];
-    if (section['items'] != null) {
+    if ((section ?? [])['items'].isNotEmpty) {
       for (var i = 0; i < section['items'].length; i++) {
         items.add(Container(
           margin: const EdgeInsets.fromLTRB(1, 1, Constants.spacing2, 1),
           width: width,
-          child: motorItem(section['items']![i]),
+          child: motorItem(section['items'][i]),
         ));
       }
     }

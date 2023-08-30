@@ -1,30 +1,23 @@
 import 'dart:async';
 
-// import 'package:mobileapps/application/app/contants/endpoint.dart';
-
+import 'package:events_emitter/emitters/event_emitter.dart';
+import 'package:flutter/material.dart';
 import 'package:kliknss77/application/exceptions/forbidden.dart';
 import 'package:kliknss77/application/exceptions/internal_server_error.dart';
 import 'package:kliknss77/application/exceptions/not_found.dart';
 import 'package:kliknss77/application/exceptions/sign_in_required.dart';
 import 'package:kliknss77/application/helpers/endpoint.dart';
 import 'package:kliknss77/application/helpers/network_helper.dart';
-import 'package:kliknss77/infrastructure/apis/auth_api.dart';
+import 'package:kliknss77/application/services/app_navigation_service.dart';
 import 'package:kliknss77/infrastructure/database/shared_prefs.dart';
 import 'package:kliknss77/infrastructure/database/shared_prefs_key.dart';
 import 'package:kliknss77/ui/component/app_dialog.dart';
+import 'package:kliknss77/ui/views/login/login_view.dart';
 
 import '../../flavors.dart';
 import 'package:dio/dio.dart';
-// import 'package:mobileapps/application/app/contants/shared_preferences_key.dart';
-// import 'package:mobileapps/application/exceptions/forbidden.dart';
-// import 'package:mobileapps/application/exceptions/internal_server_error.dart';
-// import 'package:mobileapps/application/exceptions/not_found.dart';
-// import 'package:mobileapps/application/exceptions/sign_in_required.dart';
-// import 'package:mobileapps/application/helpers/network_helper.dart';
-// import 'package:mobileapps/infrastructure/database/shared_prefs.dart';
-// import 'package:mobileapps/ui/component/app_dialog.dart';
 
-// import 'auth_api.dart';
+import 'auth_api.dart';
 
 class ApiInterceptor extends InterceptorsWrapper {
   final Dio api = Dio();
@@ -62,7 +55,7 @@ class ApiInterceptor extends InterceptorsWrapper {
       options.headers['KlikNSS-Token'] = token ?? '';
 
       if (options.data is FormData) {}
-    NetworkLogger.logHeaderOptions(token: token, options: options);
+      NetworkLogger.logHeaderOptions(token: token, options: options);
       super.onRequest(options, handler);
     }
   }
@@ -90,7 +83,7 @@ class ApiInterceptor extends InterceptorsWrapper {
   }
 
   @override
-  void onError(DioException err, ErrorInterceptorHandler handler) async {
+  void onError(DioError err, ErrorInterceptorHandler handler) async {
     // if (err.type == DioExceptionType.connectTimeout ||
     //     err.type == DioExceptionType.receiveTimeout ||
     //     err.message.contains("SocketException: Failed")) {
@@ -115,15 +108,44 @@ class ApiInterceptor extends InterceptorsWrapper {
             } else {
               super.onError(err, handler);
             }
-          } else if (err.response!.data["errors"] == "Token required") {
-            if (await AuthApi().refreshToken()) {
-              handler.resolve(await _retry(err.requestOptions));
-
+          } else if (err.response!.data["errors"] == "Token required" ||
+              err.response!.data["errors"] == "jwt expired" ||
+              err.response!.data["errors"] == "jwt malformed") {
+            if (await AuthApi().requestToken() != null) {
+              
+              final events = EventEmitter();
+              final _sharedPrefs = SharedPrefs();
               await SharedPrefs().remove(SharedPreferencesKeys.customerName);
+              await SharedPrefs().remove(SharedPreferencesKeys.buildLogin);
               await SharedPrefs().remove(SharedPreferencesKeys.userToken);
+              await SharedPrefs().remove(SharedPreferencesKeys.refreshToken);
               await SharedPrefs().remove(SharedPreferencesKeys.customerId);
+              await SharedPrefs().remove(SharedPreferencesKeys.badges);
+              await _sharedPrefs.remove('isAgen');
+              await _sharedPrefs.remove('buildLogin');
+              events.emit('buildLogin', null);
+              
+              AppDialog.alert(
+                  title: "Whoops,Sesi Login kamu sudah berakhir",
+                  buttonText: "Login Kembali",
+                  onPress: (){
+                  Navigator.pushAndRemoveUntil(AppNavigatorService.navigatorKey.currentContext!,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                          const LoginView()),
+                  (Route<dynamic> route) => route.isFirst);
+                    
+                  },
+                  description:
+                      "Eitss Jangan Khawatir,cukup Login kembali untuk melanjutkan");
+             
+                                        
+              print("request token");
+              handler.resolve(await _retry(err.requestOptions));
+              
             } else {
               super.onError(err, handler);
+              print("request token else");
             }
           } else if (err.response!.data['errors'] ==
               "Sign in required to access this resource") {

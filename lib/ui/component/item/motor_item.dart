@@ -36,7 +36,6 @@ class motorItem extends StatelessWidget {
         Navigator.of(context).pushNamed("/motor/${item['id']}");
       },
       child: Container(
-        
         foregroundDecoration: item?['tag'] != null
             ? RotatedCornerDecoration.withColor(
                 color: Color(color),

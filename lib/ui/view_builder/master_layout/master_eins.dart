@@ -7,9 +7,8 @@ import 'package:kliknss77/application/builders/body_builder.dart';
 import 'package:kliknss77/application/builders/header_builder.dart';
 import 'package:kliknss77/application/services/dio_service.dart';
 import 'package:kliknss77/application/style/constants.dart';
-import 'package:kliknss77/infrastructure/apis/home_api/home_api.dart';
 import 'package:kliknss77/ui/component/icon_refresh_indicator.dart';
-import 'package:kliknss77/ui/header/floating_header.dart';
+import 'package:tailwind_style/tailwind_style.dart';
 import '../../../infrastructure/database/shared_prefs.dart';
 
 // ignore: must_be_immutable
@@ -89,17 +88,21 @@ class _MasterEins extends State<MasterEins>{
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
+                
+                Container(color: Constants.amber,height: 95,),
+                const TextTailwind(text:"apa iniii",
+                extClass: "font-light underline text-6xl font-mono dark:text-emerald-600 bg-blue-500 p-6  md:mx-auto grid-cols-2 md:grid-cols-6 gap-4 md:gap-6  md:max-w-screen-xl",),
+                const ContainerTailwind(extClass:  "pl-8 pt-10 pr-9 pb-11 max-w-max w-full  text-red-600 bg-blue-500 md:mx-auto grid-cols-2 md:grid-cols-6 gap-4 md:gap-6  md:max-w-screen-xl",
+                  child: TextTailwind(text:"apa iniiis",
+              extClass: "font-light underline text-6xl font-mono dark:text-emerald-600 bg-blue-500 pl-0 pt-1 pr-0 pb-1  md:mx-auto grid-cols-2 md:grid-cols-6 gap-4 md:gap-6  md:max-w-screen-xl",),),
                 widget.section != null
                     ? ListView.builder(
                         padding: const EdgeInsets.all(0),
                         addAutomaticKeepAlives: true,
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount:
-                            (widget.section['components'] ?? [])
-                                .length,
-                        itemBuilder: ((context, index) {
-                          return BodyBuilder(section: widget.section?['components']?[index]??[],state: widget.state,);
+                        itemCount:(widget.section['components'] ?? []).length,
+                        itemBuilder: ((context, index) {return BodyBuilder(section: widget.section?['components']?[index]??[],state: widget.state,);
                         }),
                       )
                     :  Container(),
