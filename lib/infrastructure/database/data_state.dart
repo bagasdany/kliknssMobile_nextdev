@@ -1,9 +1,19 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class DataState {
   Map<dynamic, dynamic> data = {};
   List list = [''];
   Widget? widgets = Container();
+  // Buat StreamController
+  final StreamController<Map<dynamic, dynamic>> dataStreamController = StreamController<Map<dynamic, dynamic>>.broadcast();
+
+  // Buat getter untuk stream
+  Stream<Map<dynamic, dynamic>>? get dataStream => dataStreamController.stream;
+  
+
+  
 
   Map<dynamic, dynamic> getData() {
     return data;
@@ -19,13 +29,20 @@ class DataState {
   }
 
   void updateData(Map<dynamic, dynamic> newData) {
+
     data = newData;
+
+    dataStreamController.sink.add(data);
   }
   void update(Map<dynamic, dynamic> newData,Widget? newWidget) {
     data = newData;
     widgets = newWidget;
+
+    dataStreamController.sink.add(data);
   }
     void addData(Map<dynamic, dynamic> addData) {
     data.addEntries(addData.entries);
+
+    dataStreamController.sink.add(data);
   }
 }

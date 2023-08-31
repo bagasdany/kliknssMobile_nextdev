@@ -36,7 +36,7 @@ import 'package:kliknss77/ui/component/icon_refresh_indicator.dart';
 import 'package:kliknss77/ui/component/page404.dart';
 import 'package:kliknss77/ui/component/price_table.dart';
 import 'package:kliknss77/ui/component/zoom_interactive_component.dart';
-import 'package:kliknss77/ui/views/agent/hmc/checkout_hmc_agent.dart';
+import 'package:kliknss77/ui/views/agent/hmc/checkout_hmc_agent1.dart';
 import 'package:kliknss77/ui/views/login/login_view.dart';
 import '../../../../application/app/app_log.dart';
 import '../../../../application/exceptions/sign_in_required.dart';
@@ -66,21 +66,10 @@ class _MotorAgentView extends State<MotorAgentView> {
   TextEditingController tenorController = TextEditingController();
   TextEditingController cicilanController = TextEditingController();
   late AnimationController animationController;
+  StreamSubscription? _streamSubscription;
   Animation<Matrix4>? animation;
   final Dio _dio = DioService.getInstance();
   final formatter = intl.NumberFormat.decimalPattern();
-  // String imageUrl = '';
-  // String?  widget.hmc?['data']?['jumlahDP'], widget.hmc?['data']?['pilihanTenor'], widget.hmc?['data']?['jumlahCicilan'];
-  // int stateVoucher = 1;
-  
-  // String? widget.hmc?['data']?['pilihanKota'];
-  // int? widget.hmc?['data']?['kotaId'];
-  // bool valid = false;
-  
-  // List<int> valuesInRange = [];
-  
-  
-  // List<dynamic> widget.hmc?['data']?['termList'] = [];
   final events = EventEmitter();
 
   //DATA
@@ -124,7 +113,7 @@ class _MotorAgentView extends State<MotorAgentView> {
   
   @override
   void dispose() {
-    // _streamSubscription?.cancel();
+    _streamSubscription?.cancel();
     motorAgentData.dispose();
     super.dispose();
   }
@@ -512,8 +501,9 @@ List<String> groupListMotor(List<Map<dynamic, dynamic>> items) {
             setState(() {
               widget.hmc?['data']?['listMotor'] = value;
               widget.hmc?['data']?['listStringMotor'] = groupListMotor(value);
-              dataState?.update(widget.hmc ?? {},MotorAgentView());
-              dataState?.updateData(widget.hmc ?? {});
+              // dataState?.update(widget.hmc ?? {},MotorAgentView());
+              // dataState?.updateData(widget.hmc ?? {});
+              // motorAgentData.dataStreamController.sink.add(widget.hmc ?? {});
               events.emit('locationChanged', kota['id']);
               print("emit 1");
             });
@@ -780,8 +770,9 @@ List<String> groupListMotor(List<Map<dynamic, dynamic>> items) {
                         widget.hmc?['data']?['termList'] = getTermList(widget.hmc?['data']?['prices'] ?? []);
                         widget.hmc?['data']?['paymentType'] = 2;
                       });
-                      dataState?.update(widget.hmc ?? {},MotorAgentView());
-                      dataState?.updateData(widget.hmc ?? {});
+                      // dataState?.update(widget.hmc ?? {},MotorAgentView());
+                      // dataState?.updateData(widget.hmc ?? {});
+                      // motorAgentData.dataStreamController.sink.add(widget.hmc ?? {});
 
                       validate();
                     }

@@ -55,7 +55,7 @@ class _BannerCarouselState extends State<BannerCarousel> {
       active: widget.state == 2,
       child: CarouselSlider(
           options: CarouselOptions(
-            aspectRatio: (result?[0] ?? 17) / (result[1] ?? 5.6),
+            aspectRatio: (result?[0] ?? 8) / (result[1] ?? 5.6),
             viewportFraction: 1,
             initialPage: 0,
             enableInfiniteScroll: true,

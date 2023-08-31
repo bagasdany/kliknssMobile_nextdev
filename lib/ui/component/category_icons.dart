@@ -7,7 +7,6 @@ import 'package:kliknss77/infrastructure/apis/home_api/home_api.dart';
 
 class CategoryIcons extends StatelessWidget {
   final dynamic categories;
-
   const CategoryIcons(this.categories, {Key? key}) : super(key: key);
 
   Widget aCategoryIcon(BuildContext context, category) {
@@ -50,7 +49,7 @@ class CategoryIcons extends StatelessWidget {
                                   aspectRatio: 1 / 1,
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: Constants.white,
+                                      color: Colors.transparent,
                                       // shape: BoxShape.circle,
                                       image: DecorationImage(
                                           image: imageProvider,
@@ -105,7 +104,7 @@ class CategoryIcons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: Constants.spacing6),
-      color: Constants.white,
+      color: Colors.transparent,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[

@@ -11,6 +11,7 @@ import 'package:kliknss77/infrastructure/apis/misc_api.dart';
 import 'package:kliknss77/ui/component/app_dialog.dart';
 import 'package:kliknss77/ui/component/button_agent.dart';
 import 'package:kliknss77/ui/component/get_error_message.dart';
+import 'package:kliknss77/ui/views/agent/hmc/checkout_hmc_agent2.dart';
 import 'package:kliknss77/ui/views/ocr/ktp_card.dart';
 
 
@@ -127,10 +128,10 @@ class _HMCAgentCheckout1State extends State<HMCAgentCheckout1> {
         _state = 1;
       });
       
-      // Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-      //   FocusScope.of(context).unfocus();
-      //   return HMCAgentCheckout2(order);
-      // }));
+      Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+        FocusScope.of(context).unfocus();
+        return HMCAgentCheckout2(order);
+      }));
     } on DioException catch (e) {
       String? message =
           GetErrorMessage.getErrorMessage(e.response?.data['errors'] ?? "");

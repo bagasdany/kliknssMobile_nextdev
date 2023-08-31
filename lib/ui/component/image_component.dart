@@ -58,7 +58,44 @@ class _ImageCarouselState extends State<ImageCarousel> {
   Widget renderImage(String url, String target) {
     print("url image carousel $url");
     final image =url;
-    AspectRatio imageWidget = AspectRatio(
+    // AspectRatio imageWidget = AspectRatio(
+    //   aspectRatio: (result?[0] ?? 17) / (result[1] ?? 5.6),
+    //   child: CachedNetworkImage(
+    //       imageUrl: image,
+    //       progressIndicatorBuilder: (context, url, downloadProgress) =>
+    //           AspectRatio(
+    //               aspectRatio: (result?[0] ?? 17) / (result[1] ?? 5.6),
+    //               child: Container(
+    //                 decoration: BoxDecoration(
+    //                   color: Constants.gray.shade300,
+    //                   shape: BoxShape.rectangle,
+    //                 ),
+    //               )),
+    //       errorWidget: (context, url, error) => AspectRatio(
+    //           aspectRatio:(result?[0] ?? 17) / (result[1] ?? 5.6),
+    //           child: Container(
+    //             // key: const ValueKey("image_error"),
+    //             decoration: BoxDecoration(
+    //               color: Constants.gray.shade300,
+    //               shape: BoxShape.rectangle,
+    //             ),
+    //           ))),
+    // );
+    return LayoutBuilder(
+    builder: (context, constraints) {
+      final parentAspectRatio = constraints.maxWidth / constraints.maxHeight;
+      final childAspectRatio = result[0] / result[1];
+
+      double width, height;
+      //parents kan 2 , childAspectratio 1.4
+      if (childAspectRatio < parentAspectRatio) {
+        result[0] = constraints.maxWidth;
+        result[1] = constraints.maxHeight;
+      } else {
+        // height = constraints.maxHeight;
+        // width = height * childAspectRatio;
+      }
+      AspectRatio imageWidget = AspectRatio(
       aspectRatio: (result?[0] ?? 17) / (result[1] ?? 5.6),
       child: CachedNetworkImage(
           imageUrl: image,
@@ -80,14 +117,36 @@ class _ImageCarouselState extends State<ImageCarousel> {
                   shape: BoxShape.rectangle,
                 ),
               ))),
-    );
+      );
 
-    return InkWell(
+      // AspectRatio imageWidget = AspectRatio(
+      //   aspectRatio: childAspectRatio,
+      //   child: CachedNetworkImage(
+      //     imageUrl: image,
+      //     width: width,
+      //     height: height,
+      //     // ... rest of your CachedNetworkImage properties
+      //   ),
+      // );
+
+      return InkWell(
         onTap: () async {
           await Navigator.pushNamed(context, target);
         },
         child: ContainerTailwind(
           extClass: widget.section?['class'] ?? "",
-          child:imageWidget));
+          child: imageWidget,
+        ),
+      );
+    },
+  );
+
+    // return InkWell(
+    //     onTap: () async {
+    //       await Navigator.pushNamed(context, target);
+    //     },
+    //     child: ContainerTailwind(
+    //       extClass: widget.section?['class'] ?? "",
+    //       child:imageWidget));
   }
 }
