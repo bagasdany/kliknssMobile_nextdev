@@ -34,7 +34,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
 
   @override
   void initState() {
-     result = convertToDoubles(widget.aspectRatio ?? "[8/5.6]");
+     result = convertToDoubles(widget.aspectRatio ?? "[8.0/5.6]");
     print("flattenedList");
 
     super.initState();
@@ -58,66 +58,49 @@ class _ImageCarouselState extends State<ImageCarousel> {
   Widget renderImage(String url, String target) {
     print("url image carousel $url");
     final image =url;
-    // AspectRatio imageWidget = AspectRatio(
-    //   aspectRatio: (result?[0] ?? 17) / (result[1] ?? 5.6),
-    //   child: CachedNetworkImage(
-    //       imageUrl: image,
-    //       progressIndicatorBuilder: (context, url, downloadProgress) =>
-    //           AspectRatio(
-    //               aspectRatio: (result?[0] ?? 17) / (result[1] ?? 5.6),
-    //               child: Container(
-    //                 decoration: BoxDecoration(
-    //                   color: Constants.gray.shade300,
-    //                   shape: BoxShape.rectangle,
-    //                 ),
-    //               )),
-    //       errorWidget: (context, url, error) => AspectRatio(
-    //           aspectRatio:(result?[0] ?? 17) / (result[1] ?? 5.6),
-    //           child: Container(
-    //             // key: const ValueKey("image_error"),
-    //             decoration: BoxDecoration(
-    //               color: Constants.gray.shade300,
-    //               shape: BoxShape.rectangle,
-    //             ),
-    //           ))),
-    // );
     return LayoutBuilder(
     builder: (context, constraints) {
       final parentAspectRatio = constraints.maxWidth / constraints.maxHeight;
-      final childAspectRatio = result[0] / result[1];
+      final childAspectRatio =  result[0] / result[1];
 
       double width, height;
       //parents kan 2 , childAspectratio 1.4
       if (childAspectRatio < parentAspectRatio) {
         result[0] = constraints.maxWidth;
-        result[1] = constraints.maxHeight;
+        result[1] = constraints.maxHeight  ;
       } else {
         // height = constraints.maxHeight;
         // width = height * childAspectRatio;
       }
       AspectRatio imageWidget = AspectRatio(
-      aspectRatio: (result?[0] ?? 17) / (result[1] ?? 5.6),
-      child: CachedNetworkImage(
-          imageUrl: image,
-          progressIndicatorBuilder: (context, url, downloadProgress) =>
-              AspectRatio(
-                  aspectRatio: (result?[0] ?? 17) / (result[1] ?? 5.6),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Constants.gray.shade300,
-                      shape: BoxShape.rectangle,
-                    ),
-                  )),
-          errorWidget: (context, url, error) => AspectRatio(
-              aspectRatio:(result?[0] ?? 17) / (result[1] ?? 5.6),
-              child: Container(
-                // key: const ValueKey("image_error"),
-                decoration: BoxDecoration(
-                  color: Constants.gray.shade300,
-                  shape: BoxShape.rectangle,
-                ),
-              ))),
-      );
+      aspectRatio: (result?[0] ?? 1) / (result[1] ?? 1),
+      child: Image.network(
+        image,
+        fit: BoxFit.contain,
+        // width: width,
+        // height: height,)
+      // CachedNetworkImage(
+      //     imageUrl: image,
+      //     fit: BoxFit.contain,
+      //     progressIndicatorBuilder: (context, url, downloadProgress) =>
+      //         AspectRatio(
+      //             aspectRatio: (result?[0] ?? 1) / (result[1] ?? 1),
+      //             child: Container(
+      //               decoration: BoxDecoration(
+      //               //  color: Colors.transparent,
+      //                 shape: BoxShape.rectangle,
+      //               ),
+      //             )),
+      //     errorWidget: (context, url, error) => AspectRatio(
+      //         aspectRatio:(result?[0] ?? 1) / (result[1] ?? 1),
+      //         child: Container(
+      //           // key: const ValueKey("image_error"),
+      //           decoration: BoxDecoration(
+      //             // color: Colors.transparent,
+      //             shape: BoxShape.rectangle,
+      //           ),
+      //         ))),
+      ));
 
       // AspectRatio imageWidget = AspectRatio(
       //   aspectRatio: childAspectRatio,

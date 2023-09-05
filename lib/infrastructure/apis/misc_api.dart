@@ -87,6 +87,24 @@ class MiscApi {
     }
   }
 
+  Future<dynamic> patchGlobal(dynamic param) async {
+    try {
+      var params = {"global": param};
+      print("#params: $params");
+      var response = await _dio.patch(Endpoint.global, data: params);
+
+      List<Map> city = (response.data['patch'] as List)
+          .map((item) => item as Map)
+          .toList();
+      return city;
+    } on DioException catch (e) {
+      var message = GetErrorMessage.getErrorMessage(e.response?.data['errors'] ?? "");
+      print("#message: $message");
+      AppDialog.snackBar(text: message ?? "Terjadi kesalahan,silahkan ulangi lagi");
+    }
+  }
+
+
   Future<dynamic> patchMotorAgentwithSeries(dynamic cityId, seriesId) async {
     try {
       var params = {"cityId": cityId, "seriesId": seriesId};
@@ -104,6 +122,8 @@ class MiscApi {
           text: message ?? "Terjadi kesalahan,silahkan ulangi lagi");
     }
   }
+
+  
 
   Future<dynamic> patchMotorAgentwithType(
       dynamic cityId, seriesId, typeId) async {

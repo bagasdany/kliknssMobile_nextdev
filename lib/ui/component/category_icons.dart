@@ -28,7 +28,7 @@ class CategoryIcons extends StatelessWidget {
             onTap: () {
               WidgetsBinding.instance.addPostFrameCallback((_) async {
                 if (!menuAvailable) return;
-                Navigator.pushNamed(context,"/page?url=${category['target']}&shimmer=home");
+                Navigator.pushNamed(context,"${category['target']}");
               });
             },
             child: LayoutBuilder(

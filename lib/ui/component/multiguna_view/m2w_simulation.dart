@@ -36,10 +36,12 @@ import 'm2w_footer_view.dart';
 class M2WSimulation extends StatefulWidget {
   Map? page = DataBuilder(("multiguna-motor")).getDataState().getData()['simulation'];
   Map? queryUrl;
+  String? url;
+
   int? cityId;
   Function? onSelectMotor;
 
-  M2WSimulation({Key? key, this.queryUrl,this.page,this.onSelectMotor}) : super(key: key);
+  M2WSimulation({Key? key, this.queryUrl,this.url,this.page,this.onSelectMotor}) : super(key: key);
 
   @override
   State<M2WSimulation> createState() => _SimulationViewState();
@@ -65,16 +67,15 @@ class _SimulationViewState extends State<M2WSimulation>  {
     }
   }
 
-
   @override
   void initState() {
     super.initState();
 
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       var simulation = dataState?.getData();
       setState(() {
-        
-      widget.page = simulation ?? {};
+        widget.page = simulation ?? {};
       });
       if (widget.queryUrl?['series'] != null) {
         load("").then((value) {
@@ -83,18 +84,10 @@ class _SimulationViewState extends State<M2WSimulation>  {
             widget.page?['data']['brand'] = widget.queryUrl?['brand'] ?? "";
             widget.page?['data']['type'] = widget.queryUrl?['type'] ?? "";
             widget.page?['data']['year'] = widget.queryUrl?['year'] ?? "";
-            widget.page?['data']['ownershipId'] =
-                widget.queryUrl?['ownershipId'] == null
-                    ? null
-                    : int.parse(widget.queryUrl?['ownershipId'] ?? "1");
-            widget.page?['data']['priceId'] = widget.queryUrl?['priceId'] == null
-                ? null
-                : int.parse(widget.queryUrl?['priceId'] ?? "");
-            widget.page?['data']['price'] = widget.queryUrl?['price'] == null
-                ? null
-                : int.parse(widget.queryUrl?['price'] ?? "");
-            widget.page?['data']['term'] = (widget.queryUrl ?? ['term']) == null
-                ? null
+            widget.page?['data']['ownershipId'] = widget.queryUrl?['ownershipId'] == null ? null : int.parse(widget.queryUrl?['ownershipId'] ?? "1");
+            widget.page?['data']['priceId'] = widget.queryUrl?['priceId'] == null ? null : int.parse(widget.queryUrl?['priceId'] ?? "");
+            widget.page?['data']['price'] = widget.queryUrl?['price'] == null ? null : int.parse(widget.queryUrl?['price'] ?? "");
+            widget.page?['data']['term'] = (widget.queryUrl ?? ['term']) == null ? null
                 : int.parse(widget.queryUrl?['term'] ?? "");
             widget.page?['voucher'] = widget.queryUrl?['voucherId'] == null
                 ? null
@@ -365,7 +358,7 @@ class _SimulationViewState extends State<M2WSimulation>  {
           //   'data':  widget.page ?? {},
           // };
           
-          _multigunaMotorData.dataStreamController.sink.add(widget.page ?? {});
+          // _multigunaMotorData.dataStreamController.sink.add(widget.page ?? {});
           
           dataState?.updateData(widget.page ?? {});
           print("terubah");

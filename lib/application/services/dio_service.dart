@@ -16,8 +16,8 @@ class DioService {
       BaseOptions(
           persistentConnection: true,
           baseUrl: F.variables['baseURL'] as String,
-          connectTimeout: const Duration(seconds: 13),
-          receiveTimeout: const Duration(seconds: 14),
+          connectTimeout: const Duration(seconds: 20),
+          receiveTimeout: const Duration(seconds: 20),
 
           sendTimeout: const Duration(seconds: 1),
           headers: {'User-Agent': 'KlikNSS/$version $os $osVersion'}),

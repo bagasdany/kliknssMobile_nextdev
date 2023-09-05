@@ -47,7 +47,7 @@ class _FooterBuilderState extends State<FooterBuilder> {
     switch (widget.section['type']) {
 
       // Floating Header
-      case "SiteLink1":
+      case "M2WSimulation":
         return 
         M2WFooterView(
           state: widget.state,

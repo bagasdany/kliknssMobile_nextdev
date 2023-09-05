@@ -39,7 +39,7 @@ class DataBuilder {
       case 'm2w-agent':
         return M2WAgentData();
       case 'm2w-selectmotor-agent':
-        return M2WAgentMotorData();
+      return M2WAgentMotorData();
       default:
         return HomeDataState();
     }

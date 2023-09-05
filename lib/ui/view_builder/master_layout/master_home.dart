@@ -12,9 +12,9 @@ import 'package:tailwind_style/tailwind_style.dart';
 import '../../../infrastructure/database/shared_prefs.dart';
 
 // ignore: must_be_immutable
-class MasterEins extends StatefulWidget {
+class MasterHome extends StatefulWidget {
   dynamic controller,section,home,url,state;
-  MasterEins({
+  MasterHome({
     Key? key,
     this.section,
     this.state,
@@ -24,10 +24,10 @@ class MasterEins extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _MasterEins createState() => _MasterEins();
+  _MasterHome createState() => _MasterHome();
 }
 
-class _MasterEins extends State<MasterEins>{
+class _MasterHome extends State<MasterHome>{
   @override
   final Dio _dio = DioService.getInstance();
 
@@ -63,6 +63,7 @@ class _MasterEins extends State<MasterEins>{
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent, // transparent status bar
     ));
+    //
     return Scaffold(
     extendBody: true,
     extendBodyBehindAppBar: true,

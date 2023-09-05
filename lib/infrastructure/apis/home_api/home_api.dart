@@ -56,7 +56,6 @@ class HomeApi {
     return 5;
     
   }
-
    on DioException catch (e) {
     var params = {"url": ((url)?? "")};
     AppLog().reportError("patch Page Api : $url error", "error: $e ,params : $params, method: ${e.requestOptions.method},path: ${e.requestOptions.path}");
@@ -65,7 +64,7 @@ class HomeApi {
     
     
     print(e);
-    return 3;
+    return e;
   } on Error catch (e) {
     var params = {"url": ((url)?? "")};
     AppLog().reportError("patch Page Api : $url error", "error: $e ,params : $params, method: patch,path: /pages");

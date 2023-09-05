@@ -9,13 +9,22 @@ class AppRouter extends InterceptorsWrapper {
 
   dynamic userID, buildLogin;
   
+  //
   Map<String, dynamic> routes = {
     '/startup': (_) => SplashScreen(),
-    '/page': (_) { 
-      var datas  = DataBuilder(( _['query']['url'] ?? ""),).getDataState().getDataWidgets();
-      return datas['data']?['data']?['url'] != "${_['query']['url']}" ?
-      MasterBuilder(url: _['query']['url'],shimmer: _['query']['shimmer'],): datas['widgets'];
-    },
+    // '/page': (_) { 
+    //   var datas  = DataBuilder(( _['query']['url'] ?? ""),).getDataState().getDataWidgets();
+    //   return datas['data']?['data']?['url'] != "${_['query']['url']}" ?
+    //   MasterBuilder(url: _['query']['url'],shimmer: _['query']['shimmer'],): datas['widgets'];
+    // },
+    // '/': (_) { 
+    //   var datas  = DataBuilder(( _['query']['url'] ?? ""),).getDataState().getDataWidgets();
+    //   return datas['data']?['data']?['url'] != "${_['query']['url']}" ?
+    //   MasterBuilder(url: _['query']['url'],shimmer: _['query']['shimmer'],): datas['widgets'];
+    // },
+    
+    //TODO : DEEPLINK ROUTER
+    // pakai builder unmatch routes / page2 penting
   };
 
   Route<dynamic>? onGenerateRoute(RouteSettings settings, [String? lbasePath]) {
@@ -35,9 +44,17 @@ class AppRouter extends InterceptorsWrapper {
     if (match != null) {
        return MaterialPageRoute(
             builder: (_) => fn!(match), settings: settings);
-    } 
+    } else{
+      var datas  = DataBuilder((settings.name ?? ""),).getDataState().getDataWidgets();
+      print("unmatch return material page route");
+      return MaterialPageRoute(
+      builder: (_) =>
+      datas['data']?['data']?['url'] != settings.name ?  MasterBuilder(url: settings.name): datas['widgets'],
+      // MasterBuilder(url: settings.name,),
+      settings: settings,
+    );
+    }
 
-    return null;
   }
 
 
@@ -77,6 +94,8 @@ class AppRouter extends InterceptorsWrapper {
         'query': uri.queryParameters,
         'name': routeName
       };
+    } else{
+      print("unmatch");
     }
     return null;
   }

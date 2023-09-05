@@ -1,16 +1,21 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:async';
+import 'dart:ui';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:kliknss77/application/builders/data_builder.dart';
 import 'package:kliknss77/application/builders/error_builder.dart';
 import 'package:kliknss77/application/builders/shimmer_builder.dart';
+import 'package:kliknss77/application/exceptions/sign_in_required.dart';
 import 'package:kliknss77/infrastructure/apis/home_api/home_api.dart';
 import 'package:kliknss77/infrastructure/database/data_state.dart';
 import 'package:kliknss77/ui/view_builder/master_layout/master_detail.dart';
-import 'package:kliknss77/ui/view_builder/master_layout/master_eins.dart';
+import 'package:kliknss77/ui/view_builder/master_layout/master_home.dart';
 
 class MasterBuilder extends StatefulWidget {
-  dynamic section, defaultImageUrl, title, flashSalescrollController, id,url,shimmer;
+  dynamic section,queryUrl, defaultImageUrl, title, flashSalescrollController, id,url,shimmer;
 
   final Function? onRefresh;
   MasterBuilder(
@@ -19,6 +24,7 @@ class MasterBuilder extends StatefulWidget {
       this.flashSalescrollController,
       this.section,
       this.id,
+      this.queryUrl,
       //new
       this.url,
       this.shimmer,
@@ -44,40 +50,64 @@ class _MasterBuilderState extends State<MasterBuilder> {
   void initState() {
     super.initState();
     
-    WidgetsBinding.instance.addPostFrameCallback((_)async {
-      await HomeApi().patchPage(widget.url ?? "").then((value) {
-        print("load lagi");
-        if(value is int){
-          setState(() { state = value;});
-        }else {
-          setState(() {
-            datas = value;
-            state =1;
-          });
-          final DataState dataState = DataBuilder((widget.url ?? ""),).getDataState();
-          final Map<String, dynamic> newData = {
-            'type': (widget.url ?? ""),
-            'data': value ?? {},
-          };
-          dataState.updateData(newData);
-          dataState.update(newData,getContentWidget(widget.url, datas));
-        }
+    WidgetsBinding.instance.addPostFrameCallback((_) async{
+    try{
+      final value =  await HomeApi().patchPage(widget.url ?? "");
+      
+      if(value != null){
+        setState(() {
+        datas = value;
+        state =1;
       });
+      final DataState dataState = DataBuilder((widget.url ?? ""),).getDataState();
+      final Map<String, dynamic> newData = {
+        'type': (widget.url ?? ""),
+        'data': value ?? {},
+      };
+      dataState.updateData(newData);
+      dataState.update(newData,getContentWidget(widget.url, datas));
+      }
+      }on DioException catch(e){
+        setState(() {
+          state = 3;
+        });
+      }on TimeoutException catch (e){
+
+    }
+    
+    // .then((value) {
+    //     if(value is int){
+    //       setState(() { state = value;});
+    //     }
+    //     else {
+          
+    //     }
+    //   });
+      // 
+      // .catchError((error, stackTrace) {
+      //   if(error is DioException){
+
+      //   }
+          
+      // });
+
       // setState(() {state = 1;});
     });
   }
 
   dynamic getContentWidget( url,datas) {
-    var master = {'master': url == "" ? "MasterHome" : "MasterDetail"};
+    var master = {'master': url == "/" ? "MasterHome" : "MasterDetail"};
     (datas ?? {}).isNotEmpty ? (datas).addAll(master) : null;
     switch (datas?['master']) {      
       case "MasterHome":
         if (state == 2) {
           return ShimmerBuilder(shimmer: widget.shimmer);
-        } else if (state == 5) {
+        }
+         else if (state == 5) {
           return widgets ?? Container();
-        } else if (state == 1) {
-          return MasterEins(
+        }
+         else if (state == 1) {
+          return MasterHome(
             section: datas,
             state: state,
           );

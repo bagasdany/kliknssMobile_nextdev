@@ -45,9 +45,8 @@ class AppLog {
   }
 
   Future<void> logScreenView(String screenName) async {
-    AppLog.logs.add(
-        {"t": 1, "p": screenName, "ts": DateTime.now().millisecondsSinceEpoch});
-
+    AppLog.logs.add({"t": 1, "p": screenName, "ts": DateTime.now().millisecondsSinceEpoch});
+    //
     await FirebaseAnalytics.instance.logScreenView(
         screenClass: screenName.replaceAll(RegExp(r"\s+"), ""),
         screenName: screenName);

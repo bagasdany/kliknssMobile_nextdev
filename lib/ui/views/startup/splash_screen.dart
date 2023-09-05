@@ -3,9 +3,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:kliknss77/application/builders/master_builder.dart';
-import 'package:kliknss77/application/services/app_navigation_service.dart';
-import 'package:kliknss77/infrastructure/apis/home_api/home_api.dart';
 // import 'package:flutter/services.dart';
 import '../../../infrastructure/database/shared_prefs.dart';
 
@@ -25,15 +22,26 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      //TODO : Load Api Global Config
+    WidgetsBinding.instance.addPostFrameCallback((_) async{
+      //
+      //TODO : Load Api Global Config + Api Gambar
+      // MiscApi().patchGlobal("").then((value) {
+      //   setState(() {
+      //     delay = value['splash_delay'];
+      //     isAgen = value['is_agen'];
+      //     //Api Splash screen Gambar
+          
+      //   });
+      // });
       // miliseconds dari api,url params dari api 
-      Future.delayed(Duration(milliseconds:  1000)).then((value) {
-          Navigator.pushNamedAndRemoveUntil(context,"/page?url=""&shimmer=home", (route) => false);
+      // TODO : Navigate to target Global Config
+      Future.delayed(Duration(milliseconds:  delay ?? 1000)).then((value) {
+          Navigator.pushNamedAndRemoveUntil(context,"/", (route) => false);
       });
     });
   }
 
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -8,23 +8,24 @@ import 'package:kliknss77/ui/component/hmc/hmc_simulation_agent.dart';
 import 'package:kliknss77/ui/component/image_component.dart';
 import 'package:kliknss77/ui/component/m2w/m2w_simulation_agent.dart';
 import 'package:kliknss77/ui/component/multiguna_view/m2w_simulation.dart';
+import 'package:kliknss77/ui/component/text_block_component.dart';
 import 'package:kliknss77/ui/component/thumbnails/hmc_thumbails.dart';
 import 'package:kliknss77/ui/component/icon_grid_tipe1.dart';
+import 'package:kliknss77/ui/view_builder/master_layout/master_detail.dart';
 import 'package:kliknss77/ui/views/motor/hmc_list_view.dart';
 import 'package:tailwind_style/tailwind_style.dart';
 
 
 class BodyBuilder extends StatefulWidget {
-  dynamic section, index, title, flashSalescrollController, id,state;
-
+  dynamic section, index, title, id,state,url;
   final Function? onRefresh;
   BodyBuilder(
       {Key? key,
-      this.onRefresh,
       this.state,
-      this.flashSalescrollController,
-      this.section,
+      this.url,
+      this.section, 
       this.id,
+      this.onRefresh,
       this.index,
       this.title})
       : super(key: key);
@@ -51,18 +52,10 @@ class _BodyBuilderState extends State<BodyBuilder> {
           for (var item in section['items'] ?? [])
             _buildSection(context, item ?? {})
         ]);
-        // ListView.builder(
-        //   padding: const EdgeInsets.all(0),
-        //   addAutomaticKeepAlives: true,
-        //   shrinkWrap: true,
-        //   physics: const NeverScrollableScrollPhysics(),
-        //   itemCount: (section['items'] ?? []).length,
-        //   itemBuilder: ((context, index) {
-        //     return _buildSection(context,section['items'][index]??[]);
-        //   }),
-        // );
       case 'IconList':
         return CategoryIcons(section['icons'] ?? []);
+      case 'TextBlock':
+        return TextBlockComponent(section: section ?? []);
       case 'Article':
         return MotorAgentView();
       case 'Box':
@@ -90,7 +83,11 @@ class _BodyBuilderState extends State<BodyBuilder> {
       case 'FlashSale':
         return FlashSaleComponent(section: section?? []);
       case 'M2WSimulation':
-        return M2WSimulation();
+        
+        // widget.parent?.setButtonNavbar(3);
+        return M2WSimulation(
+          url: widget.url ?? "",
+        );
       case 'HMCList':
         return HMCListView(hmc: section['items']?? [],);
       default:
