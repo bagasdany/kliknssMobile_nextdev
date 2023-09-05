@@ -73,7 +73,6 @@ class HomeApi {
     print(e);
   } finally {
 
-    print("error global 999 ");
     print("finally");
   }
   }

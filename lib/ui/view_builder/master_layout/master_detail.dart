@@ -12,12 +12,14 @@ import 'package:kliknss77/ui/component/artikel1_component.dart';
 import 'package:kliknss77/ui/component/banner_carousel.dart';
 import 'package:kliknss77/ui/component/category_icons.dart';
 import 'package:kliknss77/ui/component/feature_list.dart';
+import 'package:kliknss77/ui/component/hmc/hmc_simulation_agent.dart';
 import 'package:kliknss77/ui/component/icon_refresh_indicator.dart';
 import 'package:kliknss77/ui/component/image_component.dart';
 import 'package:kliknss77/ui/component/multiguna_view/m2w_footer_view.dart';
 import 'package:kliknss77/ui/component/multiguna_view/m2w_simulation.dart';
 import 'package:kliknss77/ui/component/text_block_component.dart';
 import 'package:kliknss77/ui/component/toc.dart';
+import 'package:kliknss77/ui/component/toc_component.dart';
 import 'package:kliknss77/ui/views/motor/hmc_list_view.dart';
 import 'package:tailwind_style/tailwind_style.dart';
 import '../../../infrastructure/database/shared_prefs.dart';
@@ -85,6 +87,8 @@ class _MasterDetail extends State<MasterDetail>
           for (var item in section['items'] ?? [])
             _buildSection(context, item ?? {})
         ]);
+      case 'ToC' :
+        return ToC(section: section ?? []);
       case 'IconList':
         return CategoryIcons(section['icons'] ?? []);
       case 'TextBlock':
@@ -93,8 +97,7 @@ class _MasterDetail extends State<MasterDetail>
         return Article1Component(section: section ?? [],);
       case 'FeatureList':
         return FeatureList(section: section ?? [],);
-      case 'ToC' :
-        return ToC(section: section ?? []);
+      
       case 'Image':
         return ImageCarousel(
           section: section,

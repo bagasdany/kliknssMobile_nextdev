@@ -19,7 +19,7 @@ class _ToCState extends State<ToC> {
 
    Widget buildDescription(items,index){
     return InkWell(child: ContainerTailwind(
-      margin: EdgeInsets.symmetric(vertical: Constants.spacing1),
+      margin: const EdgeInsets.symmetric(vertical: Constants.spacing1),
       child: TextTailwind(
         mainClass:items['class'] ?? '',
         textStyle: const TextStyle(color: Constants.primaryColor,fontSize: Constants.fontSizeLg),
@@ -30,31 +30,35 @@ class _ToCState extends State<ToC> {
 
   @override
   Widget build(BuildContext context) {
-    return ContainerTailwind(
-      // padding: EdgeInsets.symmetric(horizontal: Constants.spacing4,vertical: Constants.spacing4),
-      extClass: widget.section['class'] ?? '',
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ContainerTailwind(
-            margin: const EdgeInsets.only(bottom: Constants.spacing2),
-            child: TextTailwind(text: widget.section['title'] ?? "Table of Content.",mainClass: widget.section['containerClass'],textStyle: const TextStyle(fontSize: Constants.fontSize2Xl,fontFamily: Constants.primaryFontBold),)),
-          ListView.builder( 
-          shrinkWrap: true,
-          
-          itemCount: (widget.section['contents'] ?? []).length,
-          itemBuilder: ((context, index) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                buildDescription( widget.section?['contents']?[index]??[],index),
-              ],
-            );
-          }),
-    ),
-        ],
-      ));
+    return Column(
+      children: [
+       
+        ContainerTailwind(
+          // padding: EdgeInsets.symmetric(horizontal: Constants.spacing4,vertical: Constants.spacing4),
+          extClass: widget.section['class'] ?? '',
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ContainerTailwind(
+                margin: const EdgeInsets.only(bottom: Constants.spacing2),
+                child: TextTailwind(text: widget.section['title'] ?? "Table of Content.",mainClass: widget.section['containerClass'],textStyle: const TextStyle(fontSize: Constants.fontSize2Xl,fontFamily: Constants.primaryFontBold),)),
+              ListView.builder( 
+              shrinkWrap: true,
+              itemCount: (widget.section['contents'] ?? []).length,
+              itemBuilder: ((context, index) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    buildDescription( widget.section?['contents']?[index]??[],index),
+                  ],
+                );
+              }),
+        ),
+            ],
+          )),
+      ],
+    );
   }
 }
