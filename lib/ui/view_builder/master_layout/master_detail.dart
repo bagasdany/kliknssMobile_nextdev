@@ -13,6 +13,7 @@ import 'package:kliknss77/ui/component/banner_carousel.dart';
 import 'package:kliknss77/ui/component/category_icons.dart';
 import 'package:kliknss77/ui/component/feature_list.dart';
 import 'package:kliknss77/ui/component/hmc/hmc_simulation_agent.dart';
+import 'package:kliknss77/ui/component/icon_list.dart';
 import 'package:kliknss77/ui/component/icon_refresh_indicator.dart';
 import 'package:kliknss77/ui/component/image_component.dart';
 import 'package:kliknss77/ui/component/multiguna_view/m2w_footer_view.dart';
@@ -78,26 +79,41 @@ class _MasterDetail extends State<MasterDetail>
   }
   Widget _buildSection(BuildContext context, dynamic section) {
     // MotorAgentView
-    switch (section['type']) {
+    switch (section['type'] ?? "") {
       case 'Flex':
-        return FlexTailwind(
+        return FlexTW(
           mainClass: section['class'] ?? '',
           bgImage: section['bgImage'] is List ? "${Constants.baseURLImages}${section['bgImage']?[0]?['imageUrl'] ?? ""}" : "",
           children: [
-          for (var item in section['items'] ?? [])
+             for (var item in section['items'] ?? [])
             _buildSection(context, item ?? {})
         ]);
+        // FlexTailwind(
+        //   mainClass: section['class'] ?? '',
+        //   bgImage: section['bgImage'] is List ? "${Constants.baseURLImages}${section['bgImage']?[0]?['imageUrl'] ?? ""}" : "",
+        //   children: [
+        //   for (var item in section['items'] ?? [])
+        //     _buildSection(context, item ?? {})
+        // ]);
+
       case 'ToC' :
         return ToC(section: section ?? []);
       case 'IconList':
-        return CategoryIcons(section['icons'] ?? []);
-      case 'TextBlock':
-        return TextBlockComponent(section: section ?? []);
-      case 'Article':
-        return Article1Component(section: section ?? [],);
-      case 'FeatureList':
-        return FeatureList(section: section ?? [],);
-      
+        return Flexible(
+          fit: FlexFit.loose,
+          child: IconList(
+            section: section ?? [],
+            mainClass: section['class'] ?? '',
+          ),
+        );
+      // case 'TextBlock':
+      //   return TextBlockComponent(section: section ?? []);
+      // case 'Article':
+      //   return Article1Component(section: section ?? [],);
+      // case 'FeatureList':
+      //   return Flexible(
+      //     fit: FlexFit.tight,
+      //     child: FeatureList(section: section ?? [],));
       case 'Image':
         return ImageCarousel(
           section: section,
@@ -108,16 +124,18 @@ class _MasterDetail extends State<MasterDetail>
       case 'Carousel':
         return BannerCarousel(
           state: widget.state,
-          
           aspectRatio: section['ratio']?[0] ?? 8 / 5.6,
           items: section['items'] ?? [],
       );
       
-      case 'M2WSimulation':
+      // case 'M2WSimulation':
       
-        return M2WSimulation(
-          url: widget.url ?? "",
-        );
+      //   return ContainerTailwind(
+      //     extClass: section['class'] ?? '',
+      //     child: M2WSimulation(
+      //       url: widget.url ?? "",
+      //     ),
+      //   );
       // case 'HMCList':
       //   return HMCListView(hmc: section['items']?? [],);
       default:
@@ -144,8 +162,8 @@ class _MasterDetail extends State<MasterDetail>
           // page: widget.page,
           // section: widget.section,
         );
-      case 'HMCList':
-        return HMCListView(hmc: section['items']?? [],);
+      // case 'HMCList':
+      //   return HMCListView(hmc: section['items']?? [],);
       default:
         return Container();
     }
@@ -224,9 +242,11 @@ class _MasterDetail extends State<MasterDetail>
       child: ListView.builder( 
       padding: const EdgeInsets.all(0),
       shrinkWrap: true,
-      itemCount: (widget.section['footers'] ?? []).length,
+      itemCount: (widget.section?['components'] ?? []).length ?? 0,
       itemBuilder: ((context, index) {
-        return _buildFooter(context, widget.section?['components']?[index]??[]);
+        print("masuk footer section");
+        // print("widget.section?['components']?[index]??[] ${widget.section?['components']?[index]??[]}");
+        // return _buildFooter(context, widget.section?['components']?[index]??[]);
       }),
     ),
     ) ,

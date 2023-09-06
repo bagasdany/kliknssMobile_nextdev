@@ -358,8 +358,8 @@ class _SimulationViewState extends State<M2WSimulation>  {
           //   'data':  widget.page ?? {},
           // };
           
-          // _multigunaMotorData.dataStreamController.sink.add(widget.page ?? {});
-          
+          _multigunaMotorData.dataStreamController.sink.add(widget.page ?? {});
+          dataState?.update(widget.page ?? {},widget);
           dataState?.updateData(widget.page ?? {});
           print("terubah");
       });
@@ -1111,48 +1111,51 @@ class _SimulationViewState extends State<M2WSimulation>  {
     dynamic cityId = _sharedPrefs.get(SharedPreferencesKeys.cityId);
     return SingleChildScrollView(
                       controller: _scrollController,
-                      child: Column(
-                        children: [
-                          state == 2
-                              ? BannerShimmer(aspectRatio: 2 / 1)
-                              : widget.page?['banners'] == null
-                                  ? Container(
-                                      margin: const EdgeInsets.only(
-                                          top: Constants.spacing4),
-                                    )
-                                  : widget.page?['banners'].isEmpty
-                                      ? Container(
-                                          margin: const EdgeInsets.only(
-                                              top: Constants.spacing4),
-                                        )
-                                      : buildCarousel(),
-                          buildTitleSection(),
-                          cityId == null
-                              ? Container(
-                                  margin: const EdgeInsets.only(
-                                      top: Constants.spacing4),
-                                  child: EmptyCityId(
-                                    onLocationChange: (() {
-                                      load("empty");
-                                    }),
+                      child: Container(
+                        color: Constants.gray.shade100,
+                        child: Column(
+                          children: [
+                            state == 2
+                                ? BannerShimmer(aspectRatio: 2 / 1)
+                                : widget.page?['banners'] == null
+                                    ? Container(
+                                        margin: const EdgeInsets.only(
+                                            top: Constants.spacing4),
+                                      )
+                                    : widget.page?['banners'].isEmpty
+                                        ? Container(
+                                            margin: const EdgeInsets.only(
+                                                top: Constants.spacing4),
+                                          )
+                                        : buildCarousel(),
+                            buildTitleSection(),
+                            cityId == null
+                                ? Container(
+                                    margin: const EdgeInsets.only(
+                                        top: Constants.spacing4),
+                                    child: EmptyCityId(
+                                      onLocationChange: (() {
+                                        load("empty");
+                                      }),
+                                    ),
+                                  )
+                                : Column(
+                                    children: [
+                                      buildMotor(),
+                                      buildForm(),
+                                    ],
                                   ),
-                                )
-                              : Column(
-                                  children: [
-                                    buildMotor(),
-                                    buildForm(),
-                                  ],
-                                ),
-                          const SizedBox(
-                            height: Constants.spacing6,
-                          ),
-                          Container(
-                            key: m2wKey,
-                          ),
-                          
-                                
-                          const SizedBox(height: Constants.spacing6)
-                        ],
+                            const SizedBox(
+                              height: Constants.spacing6,
+                            ),
+                            Container(
+                              key: m2wKey,
+                            ),
+                            
+                                  
+                            const SizedBox(height: Constants.spacing6)
+                          ],
+                        ),
                       ),
                     );
   }

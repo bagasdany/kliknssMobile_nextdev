@@ -19,116 +19,136 @@ class FeatureList extends StatefulWidget {
 
 class _FeatureListState extends State<FeatureList> {
 
-   Widget buildDescriptionVariant1(items,index){
-    return InkWell(child: ContainerTailwind(
-      margin: const EdgeInsets.symmetric(vertical: Constants.spacing1),
-      child: Row(
-        children: [
-          Expanded(
-            flex: 3,
-            child: Image.network("${Constants.baseURLImages}${items['imageUrl']}",)),
-          // CachedNetworkImage(
-    
-          //   imageUrl: "${Constants.baseURLImages}${items['imageUrl']}",
-          //   width: 20,
-          //   height: 20,
-          //   fit: BoxFit.cover,
-          //   // placeholder: (context, url) =>  BannerShimmer(aspectRatio: 4/1,),
-          //   errorWidget: (context, url, error) => Container(),
-            
-          // ),
-          const SizedBox(width: Constants.spacing2,),
-          Expanded(
-            flex: 10,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextTailwind(
-                  mainClass:items['class'] ?? '',
-                  textStyle: const TextStyle(color: Constants.primaryColor,fontSize: Constants.fontSizeLg),
-                  
-                  text:"${index+1}. ${items['title']}" ?? "",),
-                  const SizedBox(height: Constants.spacing2,),
-                TextTailwind(
-                  mainClass:items['class'] ?? '',
-                  // textStyle: const TextStyle(color: Constants.primaryColor,fontSize: Constants.fontSizeLg),
-                  
-                  text:"${items['description']}" ?? "",),
-              ],
-            ),
-          ),
-        ],
-      ),
-    ));
-   }
-
-   Widget buildDescriptionVariant2(items,index){
-    return InkWell(child: ContainerTailwind(
-      margin: const EdgeInsets.symmetric(vertical: Constants.spacing1),
-      child: Column(
-        children: [
-          TextTailwind(
-            mainClass:items['class'] ?? '',
-            textStyle: const TextStyle(color: Constants.primaryColor,fontSize: Constants.fontSizeLg),
-            
-            text:"${index+1}. ${items['title']}" ?? "",),
-        ],
-      ),
-    ));
-   }
+   
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ContainerTailwind(
-            extClass: widget.section['class'] ?? '',
-            margin: const EdgeInsets.only(bottom: Constants.spacing2),
-            child: TextTailwind(text: widget.section['title'] ?? "Table of Content.",mainClass: widget.section['containerClass'],textStyle: const TextStyle(fontSize: Constants.fontSize2Xl,fontFamily: Constants.primaryFontBold),)),
-          ContainerTailwind(
-            extClass: widget.section['containerClass'] ?? '',
+    return Container(
+      // constraints: constraints.max,
+      // height: 300,
+      margin: const EdgeInsets.symmetric(horizontal: Constants.spacing4,vertical: Constants.spacing4),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          // mainAxisSize: MainAxisSize.min,
+          children: [
+            ContainerTailwind(
+              extClass: widget.section['class'] ?? '',
+              
+                  margin: const EdgeInsets.fromLTRB(0, Constants.spacing4, Constants.spacing4, Constants.spacing1),
+              child: TextTailwind(text: widget.section['title'] ?? "",mainClass: widget.section['containerClass'],textStyle: const TextStyle(fontSize: Constants.fontSize2Xl,fontFamily: Constants.primaryFontBold),)),
+            ContainerTailwind(
+              extClass: widget.section['class'] ?? '',
+              
+                  margin: const EdgeInsets.symmetric(vertical: Constants.spacing1),
+              child: TextTailwind(text: widget.section['description'] ?? "",mainClass: widget.section['containerClass'],textStyle: const TextStyle(fontSize: Constants.fontSizeMd),)),
             
-            child: ListView.builder( 
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: (widget.section['items'] ?? []).length,
-            itemBuilder: ((context, index) {
-              return FlexTailwind(
-                mainClass: widget.section['itemClass'] ?? '',
-                children: [
-                Image.network("${Constants.baseURLImages}${widget.section?['items']?[index]['imageUrl']}",width: MediaQuery.of(context).size.width * 0.1,height: MediaQuery.of(context).size.width * 0.1,),
-                // CachedNetworkImage(
-    
-                //   imageUrl: "${Constants.baseURLImages}${widget.section?['items']?[index]['imageUrl']}",
-                //   width: 20,
-                //   height: 20,
-                //   fit: BoxFit.cover,
-                //   // placeholder: (context, url) =>  BannerShimmer(aspectRatio: 4/1,),
-                //   errorWidget: (context, url, error) => Container(),
-                  
-                // ),
+            ContainerTailwind(
+              margin: const EdgeInsets.symmetric(vertical: Constants.spacing4),
+              extClass: widget.section['containerClass'] ?? '',
+              child: 
+              GridTW( 
+                itemCount:( widget.section['items'] ?? []).length ?? 1,
+                mainClass: widget.section['containerClass'] ?? '',
+              
+                itemBuilder: ((context, index) {
+                return 
+                // Container(height: 100,color: Constants.amber,);
+                FlexTW(
+                  mainClass: widget.section['itemClass'] ?? '',
+                  children: [
+                    // Image.network("${Constants.baseURLImages}${widget.section?['items']?[index]['imageUrl']}",width: MediaQuery.of(context).size.width * 0.2,height: MediaQuery.of(context).size.width * 0.2,),
+                    Expanded(
+                      flex: 1,
+                      child: CachedNetworkImage(
+                        imageUrl: "${Constants.baseURLImages}${widget.section?['items']?[index]['imageUrl']}",
+                        width: MediaQuery.of(context).size.width * 0.2,
+                        height: MediaQuery.of(context).size.width * 0.2,
+                        fit: BoxFit.contain,
+                        errorWidget: (context, url, error) => Container(),
+                                    ),
+                    ),
+                    Expanded(
+                      flex: 5,
+                      child: Container(
+                        margin: const EdgeInsets.fromLTRB(Constants.spacing3, Constants.spacing3, Constants.spacing3, Constants.spacing3),
+                        child: Column(
+                          children: [
+                            
+                            Expanded(
+                              flex: 1,
+                              child: TextTailwind(
+                                // textAlign: TextAlign.start,
+                                // mainClass:widget.section?['itemClass'] ?? '',
+                                textStyle: const TextStyle(fontFamily: Constants.primaryFontBold,fontSize: Constants.fontSizeLg),
+                                      
+                                text:"${widget.section?['items']?[index]['title']}" ?? "",),
+                            ),
+                            Expanded(
+                              flex: 4,
+                              child: TextTailwind(
+                                  mainClass:widget.section?['itemClass'] ?? '',
+                                  // textStyle: const TextStyle(color: Constants.primaryColor,fontSize: Constants.fontSizeLg,t),
+                                  
+                                  text:"${widget.section?['items']?[index]['description']}" ?? "",),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                       
+                      
                 
-              TextTailwind(
-                      mainClass:widget.section?['items']?[index]['class'] ?? '',
-                      textStyle: const TextStyle(color: Constants.primaryColor,fontSize: Constants.fontSizeLg),
+                ]);
+              }),
+                ),
+              // ListView.builder( 
+              // physics: const NeverScrollableScrollPhysics(),
+              // shrinkWrap: true,
+              // itemCount: (widget.section['items'] ?? []).length,
+              // itemBuilder: ((context, index) {
+              //   return FlexTW(
+              //     mainClass: widget.section['itemClass'] ?? '',
+              //     // mainClass: widget.section['itemClass'] ?? '',
+              //     // direction: Axis.horizontal,
+              //     children: [
+              //     // Image.network("${Constants.baseURLImages}${widget.section?['items']?[index]['imageUrl']}",width: MediaQuery.of(context).size.width * 0.2,height: MediaQuery.of(context).size.width * 0.2,),
+              //     CachedNetworkImage(
+              //       imageUrl: "${Constants.baseURLImages}${widget.section?['items']?[index]['imageUrl']}",
+              //       width: MediaQuery.of(context).size.width * 0.2,
+              //       height: MediaQuery.of(context).size.width * 0.2,
+              //       fit: BoxFit.contain,
+              //       errorWidget: (context, url, error) => Container(),
+              //   ),
+              //   Container(
+              //     margin: const EdgeInsets.fromLTRB(Constants.spacing3, Constants.spacing3, Constants.spacing3, Constants.spacing3),
+              //     child: FlexTW(
+              //       children: [
                       
-                      text:"${index+1}. ${widget.section?['items']?[index]['title']}" ?? "",),
-                     
-                    TextTailwind(
-                      mainClass:widget.section?['items']?[index]['class'] ?? '',
-                      // textStyle: const TextStyle(color: Constants.primaryColor,fontSize: Constants.fontSizeLg),
+              //         TextTailwind(
+              //           textAlign: TextAlign.start,
+              //           mainClass:widget.section?['itemClass'] ?? '',
+              //           textStyle: const TextStyle(fontFamily: Constants.primaryFontBold,fontSize: Constants.fontSizeLg),
+                              
+              //           text:"${widget.section?['items']?[index]['title']}" ?? "",),
+              //         TextTailwind(
+              //             mainClass:widget.section?['itemClass'] ?? '',
+              //             // textStyle: const TextStyle(color: Constants.primaryColor,fontSize: Constants.fontSizeLg,t),
+                          
+              //             text:"${widget.section?['items']?[index]['description']}" ?? "",),
+              //       ],
+              //     ),
+              //   ),
+                       
                       
-                      text:"${widget.section?['items']?[index]['description']}" ?? "",),
-
-              ]);
-            }),
-              ),
-          ),
-        ],
+                
+              //   ]);
+              // }),
+              //   ),
+            ),
+          ],
+        ),
       ),
     );
   }

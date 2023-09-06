@@ -32,7 +32,7 @@ class DataState {
 
     data = newData;
 
-    // dataStreamController.sink.add(data);
+    dataStreamController.sink.add(data);
   }
   void update(Map<dynamic, dynamic> newData,Widget? newWidget) {
     data = newData;

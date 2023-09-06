@@ -76,41 +76,21 @@ class _ImageCarouselState extends State<ImageCarousel> {
       aspectRatio: (result?[0] ?? 1) / (result[1] ?? 1),
       child: Image.network(
         image,
-        fit: BoxFit.contain,
-        // width: width,
-        // height: height,)
-      // CachedNetworkImage(
-      //     imageUrl: image,
-      //     fit: BoxFit.contain,
-      //     progressIndicatorBuilder: (context, url, downloadProgress) =>
-      //         AspectRatio(
-      //             aspectRatio: (result?[0] ?? 1) / (result[1] ?? 1),
-      //             child: Container(
-      //               decoration: BoxDecoration(
-      //               //  color: Colors.transparent,
-      //                 shape: BoxShape.rectangle,
-      //               ),
-      //             )),
-      //     errorWidget: (context, url, error) => AspectRatio(
-      //         aspectRatio:(result?[0] ?? 1) / (result[1] ?? 1),
-      //         child: Container(
-      //           // key: const ValueKey("image_error"),
-      //           decoration: BoxDecoration(
-      //             // color: Colors.transparent,
-      //             shape: BoxShape.rectangle,
-      //           ),
-      //         ))),
-      ));
+        errorBuilder: (context, error, stackTrace) {
+          return Container(
+            color: Constants.gray.shade200,
+            child: const Center(
+              child: Icon(
+                Icons.broken_image,
+                color: Colors.white,
+                size: 30,
 
-      // AspectRatio imageWidget = AspectRatio(
-      //   aspectRatio: childAspectRatio,
-      //   child: CachedNetworkImage(
-      //     imageUrl: image,
-      //     width: width,
-      //     height: height,
-      //     // ... rest of your CachedNetworkImage properties
-      //   ),
-      // );
+              ),
+            ),
+          );
+        },
+        fit: BoxFit.contain,
+      ));
 
       return InkWell(
         onTap: () async {
@@ -124,12 +104,5 @@ class _ImageCarouselState extends State<ImageCarousel> {
     },
   );
 
-    // return InkWell(
-    //     onTap: () async {
-    //       await Navigator.pushNamed(context, target);
-    //     },
-    //     child: ContainerTailwind(
-    //       extClass: widget.section?['class'] ?? "",
-    //       child:imageWidget));
   }
 }
