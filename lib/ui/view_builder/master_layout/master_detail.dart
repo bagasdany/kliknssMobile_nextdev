@@ -8,6 +8,7 @@ import 'package:kliknss77/application/builders/header_builder.dart';
 import 'package:kliknss77/application/services/dio_service.dart';
 import 'package:kliknss77/application/style/constants.dart';
 import 'package:kliknss77/infrastructure/database/data_state.dart';
+import 'package:kliknss77/ui/component/ahref_component.dart';
 import 'package:kliknss77/ui/component/artikel1_component.dart';
 import 'package:kliknss77/ui/component/banner_carousel.dart';
 import 'package:kliknss77/ui/component/category_icons.dart';
@@ -18,9 +19,11 @@ import 'package:kliknss77/ui/component/icon_refresh_indicator.dart';
 import 'package:kliknss77/ui/component/image_component.dart';
 import 'package:kliknss77/ui/component/multiguna_view/m2w_footer_view.dart';
 import 'package:kliknss77/ui/component/multiguna_view/m2w_simulation.dart';
+import 'package:kliknss77/ui/component/testimonial_component.dart';
 import 'package:kliknss77/ui/component/text_block_component.dart';
 import 'package:kliknss77/ui/component/toc.dart';
 import 'package:kliknss77/ui/component/toc_component.dart';
+import 'package:kliknss77/ui/component/youtube_player_component.dart';
 import 'package:kliknss77/ui/views/motor/hmc_list_view.dart';
 import 'package:tailwind_style/tailwind_style.dart';
 import '../../../infrastructure/database/shared_prefs.dart';
@@ -128,9 +131,19 @@ class _MasterDetail extends State<MasterDetail>
           aspectRatio: section['ratio']?[0] ?? 8 / 5.6,
           items: section['items'] ?? [],
       );
+      case 'Ahref':
+        return Flexible(child: Ahref(section: section ?? {}));
+
+      case 'EmbeddedVideo':
+        return Flexible(child: YoutubeVideoPlayer(section: section ?? {}));
+
+      case 'Testimonial':
+        return Flexible(
+          // fit: FlexFit.loose,
+          child: Testimonial(section: section ?? {}),
+        );
       
       case 'M2WSimulation':
-      
         return Flexible(
           fit: FlexFit.loose,
           child: ContainerTailwind(
@@ -151,7 +164,9 @@ class _MasterDetail extends State<MasterDetail>
     // MotorAgentView
     switch (section['type']) {
       case 'Flex':
-        return FlexTailwind(
+        return 
+        
+        FlexTailwind(
           mainClass: section['class'] ?? '',
           // bgImage: section['bgImage'] is List ? "${Constants.baseURLImages}${section['bgImage']?[0]?['imageUrl'] ?? ""}" : "",
 
@@ -250,7 +265,10 @@ class _MasterDetail extends State<MasterDetail>
       itemBuilder: ((context, index) {
         // print("masuk footer section");
         // print("widget.section?['components']?[index]??[] ${widget.section?['components']?[index]??[]}");
-        return _buildFooter(context, widget.section?['components']?[index]??[]);
+        return 
+        // Container();
+        
+        _buildFooter(context, widget.section?['components']?[index]??[]);
       }),
     ),
     ) ,

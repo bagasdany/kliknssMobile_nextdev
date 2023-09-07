@@ -29,7 +29,7 @@ class _Article1ComponentState extends State<Article1Component> {
     )) {
       
       AppDialog.snackBar(
-          text: "Tidak dapat membuka aplikasi Tokopedia, Silahkan coba lagi nanti");
+          text: "Tidak dapat membuka aplikasi, Silahkan coba lagi nanti");
       throw Exception('Could not launch $_url');
     }
     

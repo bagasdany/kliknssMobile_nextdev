@@ -94,6 +94,7 @@ dependencies:
   table_sticky_headers: ^2.0.5
   esys_flutter_share_plus: ^2.2.0
   flutter_html: ^3.0.0-beta.2
+  youtube_player_flutter: ^8.1.2
 
 dev_dependencies:
   flutter_test:
