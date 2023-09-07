@@ -100,20 +100,21 @@ class _MasterDetail extends State<MasterDetail>
         return ToC(section: section ?? []);
       case 'IconList':
         return Flexible(
-          fit: FlexFit.loose,
+          // flex: 9,
+          // fit: FlexFit.loose,
           child: IconList(
             section: section ?? [],
             mainClass: section['class'] ?? '',
           ),
         );
-      // case 'TextBlock':
-      //   return TextBlockComponent(section: section ?? []);
-      // case 'Article':
-      //   return Article1Component(section: section ?? [],);
-      // case 'FeatureList':
-      //   return Flexible(
-      //     fit: FlexFit.tight,
-      //     child: FeatureList(section: section ?? [],));
+      case 'TextBlock':
+        return TextBlockComponent(section: section ?? []);
+      case 'Article':
+        return Flexible(child: Article1Component(section: section ?? [],));
+      case 'FeatureList':
+        return Flexible(
+          // fit: FlexFit.loose,
+          child: FeatureList(section: section ?? [],));
       case 'Image':
         return ImageCarousel(
           section: section,
@@ -128,14 +129,17 @@ class _MasterDetail extends State<MasterDetail>
           items: section['items'] ?? [],
       );
       
-      // case 'M2WSimulation':
+      case 'M2WSimulation':
       
-      //   return ContainerTailwind(
-      //     extClass: section['class'] ?? '',
-      //     child: M2WSimulation(
-      //       url: widget.url ?? "",
-      //     ),
-      //   );
+        return Flexible(
+          fit: FlexFit.loose,
+          child: ContainerTailwind(
+            extClass: section['class'] ?? '',
+            child: M2WSimulation(
+              url: widget.url ?? "",
+            ),
+          ),
+        );
       // case 'HMCList':
       //   return HMCListView(hmc: section['items']?? [],);
       default:
@@ -244,9 +248,9 @@ class _MasterDetail extends State<MasterDetail>
       shrinkWrap: true,
       itemCount: (widget.section?['components'] ?? []).length ?? 0,
       itemBuilder: ((context, index) {
-        print("masuk footer section");
+        // print("masuk footer section");
         // print("widget.section?['components']?[index]??[] ${widget.section?['components']?[index]??[]}");
-        // return _buildFooter(context, widget.section?['components']?[index]??[]);
+        return _buildFooter(context, widget.section?['components']?[index]??[]);
       }),
     ),
     ) ,

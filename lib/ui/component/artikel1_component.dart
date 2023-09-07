@@ -37,15 +37,20 @@ class _Article1ComponentState extends State<Article1Component> {
 
   @override
   Widget build(BuildContext context) {
-    return ContainerTailwind(
-      // padding: EdgeInsets.symmetric(horizontal: Constants.spacing4,vertical: Constants.spacing4),
-      extClass: widget.section['class'] ?? '',
-      child: Html(data: widget.section['htmlText'] ?? "",onLinkTap: (url, attributes, element)async {
-       print("url $url");
-       print("attributes $attributes");
-       print("element $element");
-       await _launchUrl(url);
-      },)
-      );
+    return Container(
+      width: double.maxFinite,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ContainerTailwind(
+            extClass: widget.section['class'] ?? '',
+            child: Html(data: widget.section['htmlText'] ?? "",onLinkTap: (url, attributes, element)async {
+             
+             await _launchUrl(url);
+            },),
+          ),
+        ],
+      ),
+    );
   }
 }
