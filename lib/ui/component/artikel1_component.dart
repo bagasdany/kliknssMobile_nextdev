@@ -39,17 +39,15 @@ class _Article1ComponentState extends State<Article1Component> {
   Widget build(BuildContext context) {
     return Container(
       width: double.maxFinite,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ContainerTailwind(
-            extClass: widget.section['class'] ?? '',
-            child: Html(data: widget.section['htmlText'] ?? "",onLinkTap: (url, attributes, element)async {
-             
-             await _launchUrl(url);
-            },),
-          ),
-        ],
+      child: ContainerTailwind(
+        extClass: widget.section['class'] ?? '',
+        child: Container(
+          
+          child: Html(data: widget.section['htmlText'] ?? "",onLinkTap: (url, attributes, element)async {
+           
+           await _launchUrl(url);
+          },),
+        ),
       ),
     );
   }

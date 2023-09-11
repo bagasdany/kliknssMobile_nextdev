@@ -73,7 +73,8 @@ class _M2WFooterViewState extends State<M2WFooterView>  {
         'price': widget.page?['data']['price'],
         'term': widget.page?['data']['term'],
         'referralCode': widget.page?['data']['referralCode'] ?? "",
-        'voucherId': widget.page?['voucher']?.id
+        'voucherId': widget.page?['voucher']?.id,
+        'utm' : widget.page?['data']['utm'] ?? {},
       }).timeout(const Duration(seconds: 15));
       final order = response.data['order'];
 

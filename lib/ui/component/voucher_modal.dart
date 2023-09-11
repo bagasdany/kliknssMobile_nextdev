@@ -1086,26 +1086,28 @@ class _VoucherModalState extends State<VoucherModal> {
                                 width: 30,
                                 height: 30),
                             const SizedBox(width: Constants.spacing2),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("Gunakan Voucher",
-                                    style: TextStyle(
-                                        fontSize: Constants.fontSizeMd,
-                                        fontFamily: Constants.primaryFontBold,
-                                        color: widget.disabled
-                                            ? Constants.gray.shade300
-                                            : Constants.primaryColor)),
-                                const SizedBox(width: Constants.spacing1),
-                                Text("Klik Untuk cek promosi/potongan Harga",
-                                    style: TextStyle(
-                                        fontSize: Constants.fontSizeSm,
-                                        color: widget.disabled
-                                            ? Constants.gray.shade300
-                                            : Constants.gray.shade400,
-                                        fontFamily: Constants.primaryFontBold))
-                              ],
+                            Flexible(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Gunakan Voucher",
+                                      style: TextStyle(
+                                          fontSize: Constants.fontSizeMd,
+                                          fontFamily: Constants.primaryFontBold,
+                                          color: widget.disabled
+                                              ? Constants.gray.shade300
+                                              : Constants.primaryColor),overflow: TextOverflow.ellipsis),
+                                  const SizedBox(width: Constants.spacing1),
+                                  Text("Klik Untuk cek promosi/potongan Harga",
+                                      style: TextStyle(
+                                          fontSize: Constants.fontSizeSm,
+                                          color: widget.disabled
+                                              ? Constants.gray.shade300
+                                              : Constants.gray.shade400,
+                                          fontFamily: Constants.primaryFontBold),overflow: TextOverflow.ellipsis,)
+                                ],
+                              ),
                             )
                           ],
                         ),
@@ -1145,30 +1147,32 @@ class _VoucherModalState extends State<VoucherModal> {
                                 Image.asset("assets/icon/vouchers_icon.png",
                                     width: 30, height: 30),
                                 const SizedBox(width: Constants.spacing2),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    isLoadingVoucher == true
-                                        ? BannerShimmer(aspectRatio: 9 / 1)
-                                        : Text(
-                                            "${((listAvailableVoucher ?? []).length)} Voucher Tersedia",
-                                            style: TextStyle(
-                                                fontSize: Constants.fontSizeMd,
-                                                fontFamily:
-                                                    Constants.primaryFontBold,
-                                                color: widget.disabled
-                                                    ? Constants.gray.shade300
-                                                    : Constants.primaryColor)),
-                                    const SizedBox(height: Constants.spacing1),
-                                    Text(
-                                        "Klik disini Untuk menggunakan voucher",
-                                        style: TextStyle(
-                                            fontSize: Constants.fontSizeSm,
-                                            color: Constants.gray.shade400,
-                                            fontFamily:
-                                                Constants.primaryFontBold))
-                                  ],
+                                Flexible(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      isLoadingVoucher == true
+                                          ? BannerShimmer(aspectRatio: 9 / 1)
+                                          : Text(
+                                              "${((listAvailableVoucher ?? []).length)} Voucher Tersedia",
+                                              style: TextStyle(
+                                                  fontSize: Constants.fontSizeMd,
+                                                  fontFamily:
+                                                      Constants.primaryFontBold,
+                                                  color: widget.disabled
+                                                      ? Constants.gray.shade300
+                                                      : Constants.primaryColor)),
+                                      const SizedBox(height: Constants.spacing1),
+                                      Text(
+                                          "Klik disini Untuk menggunakan voucher",
+                                          style: TextStyle(
+                                              fontSize: Constants.fontSizeSm,
+                                              color: Constants.gray.shade400,
+                                              fontFamily:
+                                                  Constants.primaryFontBold),overflow: TextOverflow.ellipsis,)
+                                    ],
+                                  ),
                                 )
                               ],
                             ),

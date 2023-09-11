@@ -35,7 +35,6 @@ class _ImageCarouselState extends State<ImageCarousel> {
   @override
   void initState() {
      result = convertToDoubles(widget.aspectRatio ?? "[8.0/5.6]");
-    print("flattenedList");
 
     super.initState();
   }
@@ -102,7 +101,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
             ),
           );
         },
-        fit: BoxFit.contain,
+        fit: BoxFit.cover,
       )
       );
 

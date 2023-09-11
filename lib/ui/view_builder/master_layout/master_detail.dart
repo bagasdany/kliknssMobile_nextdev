@@ -111,7 +111,9 @@ class _MasterDetail extends State<MasterDetail>
       case 'Article':
         return Article1Component(section: section ?? [],);
       case 'FeatureList':
-        return FeatureList(section: section ?? [],);
+        return FeatureList(section: section ?? [],
+        
+        );
       case 'Image':
         return ImageCarousel(
           section: section,
@@ -138,17 +140,16 @@ class _MasterDetail extends State<MasterDetail>
         );
       
       case 'M2WSimulation':
-        return Flexible(
-          fit: FlexFit.loose,
-          child: ContainerTailwind(
-            extClass: section['class'] ?? '',
+        return ContainerTailwind(
+          extClass: section['class'] ?? '',
+          child: Flexible(
             child: M2WSimulation(
+              section: section ?? {},
+              mainClass: section['class'] ?? '',
               url: widget.url ?? "",
             ),
           ),
         );
-      // case 'HMCList':
-      //   return HMCListView(hmc: section['items']?? [],);
       default:
         return Container();
     }

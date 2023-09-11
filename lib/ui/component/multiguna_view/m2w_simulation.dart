@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dio/dio.dart';
+import 'package:events_emitter/emitters/event_emitter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart' as intl;
@@ -26,6 +27,7 @@ import 'package:kliknss77/ui/component/selectable_item.dart';
 import 'package:kliknss77/ui/component/voucher_modal.dart';
 import 'package:kliknss77/ui/shimmer/banner_shimmer.dart';
 import 'package:kliknss77/ui/views/login/login_view.dart';
+import 'package:tailwind_style/tailwind_style.dart';
 import '../../../application/app/app_log.dart';
 import '../../../application/exceptions/sign_in_required.dart';
 import '../../../infrastructure/database/shared_prefs.dart';
@@ -36,13 +38,13 @@ import 'm2w_footer_view.dart';
 
 class M2WSimulation extends StatefulWidget {
   Map? page = DataBuilder(("multiguna-motor")).getDataState().getData()['simulation'];
-  Map? queryUrl;
-  String? url;
+  Map? queryUrl,section;
+  String? url,mainClass;
 
   int? cityId;
   Function? onSelectMotor;
 
-  M2WSimulation({Key? key, this.queryUrl,this.url,this.page,this.onSelectMotor}) : super(key: key);
+  M2WSimulation({Key? key, this.queryUrl,this.section, this.mainClass, this.url,this.page,this.onSelectMotor}) : super(key: key);
 
   @override
   State<M2WSimulation> createState() => _SimulationViewState();
@@ -61,6 +63,8 @@ class _SimulationViewState extends State<M2WSimulation>  {
   int state = 1; 
   final formatter = intl.NumberFormat.decimalPattern();
 
+  final events = EventEmitter();
+
   DataState? dataState = DataBuilder(("multiguna-motor")).getDataState();
   Future<void> cekKota() async {
     final kotaId = await _sharedPrefs.get(SharedPreferencesKeys.cityId) ?? 158;
@@ -68,17 +72,7 @@ class _SimulationViewState extends State<M2WSimulation>  {
       reset();
     }
   }
-  LinearGradient gradient = LinearGradient(
- colors: <Color> [
-  Colors.red,
-  Colors.orange,
-  Colors.yellow,
-  Colors.green,
-  Colors.blue,
-  Colors.purple
- ]
-);
-
+  
   @override
   void initState() {
     super.initState();
@@ -88,11 +82,13 @@ class _SimulationViewState extends State<M2WSimulation>  {
       var simulation = dataState?.getData();
       setState(() {
         widget.page = simulation ?? {};
+        widget.page?['data']['utm'] = widget.section?['utm'] ?? {};
       });
       if (widget.queryUrl?['series'] != null) {
         load("").then((value) {
           setState(() {
             widget.page?['data']['series'] = widget.queryUrl?['series'] ?? "";
+            // widget.page?['data']['utm'] = widget.section?['utm'] ?? {};
             widget.page?['data']['brand'] = widget.queryUrl?['brand'] ?? "";
             widget.page?['data']['type'] = widget.queryUrl?['type'] ?? "";
             widget.page?['data']['year'] = widget.queryUrl?['year'] ?? "";
@@ -259,7 +255,8 @@ class _SimulationViewState extends State<M2WSimulation>  {
         'price': widget.page?['data']['price'],
         'term': widget.page?['data']['term'],
         'referralCode': referralController.text,
-        'voucherId': widget.page?['voucher']?.id
+        'voucherId': widget.page?['voucher']?.id,
+        'utm' : widget.section?['utm'] ?? {},
       }).timeout(const Duration(seconds: 15));
       final order = response.data['order'];
 
@@ -352,6 +349,100 @@ class _SimulationViewState extends State<M2WSimulation>  {
     }
   }
 
+  Future<void> selectCity(
+    BuildContext context,
+  ) async {
+
+    final kota = await AppDialog.openCitySelector();
+    
+    if (kota != null) {
+      
+      setState(() {
+
+      // widget.hmc?['data'] = null;
+       widget.page?['data']?['pilihanKota'] = kota['alias'] ?? "";
+       widget.cityId = kota['id'] ?? 158;
+        widget.page?['data']?['kotaId'] = kota['id'] ?? "";
+        widget.page?['data']?['idMotor'] = null;
+        
+
+        events.emit('locationChanged', kota['id']);
+        print("emit 2");
+      });
+      await SharedPrefs().set(SharedPreferencesKeys.cityId, kota['id']);
+
+      events.emit('locationChanged', kota['id']);
+      print("emit 3");
+    }
+    else{
+      print("kota null");
+    }
+  }
+
+  Widget buildPilihanKota() {
+    return Container(
+      color: Constants.white,
+      padding: const EdgeInsets.symmetric(
+          horizontal: Constants.spacing4, vertical: Constants.spacing2),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Container(
+                child: const Text(
+                  'Pilih Kota',
+                  style: TextStyle(
+                    color: Constants.gray
+                  ),
+                ),
+              ),
+            ],
+          ),
+          InkWell(
+            onTap: () {
+              FocusScope.of(context).unfocus();
+              selectCity(
+                context,
+              );
+            },
+            child: Container(
+                margin: const EdgeInsets.only(top: Constants.spacing1),
+                // ignore: prefer_const_constructors
+                padding: const EdgeInsets.fromLTRB(Constants.spacing3,
+                    Constants.spacing2, Constants.spacing4, Constants.spacing2),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Constants.gray.shade300),
+                  borderRadius: const BorderRadius.all(
+                      Radius.circular(Constants.spacing3)),
+                  // color: Constants.gray.shade100,
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                        child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: Constants.spacing2),
+                      child: Text(
+                        widget.page?['data']?['pilihanKota'] != null ? widget.page?['data']?['pilihanKota'] ?? "" : "Pilih Kota",
+                        style:  TextStyle(color:widget.page?['data']?['pilihanKota'] == null  ? Constants.gray : Constants.blackText,fontFamily: widget.page?['data']?['pilihanKota'] != null ? Constants.primaryFontBold : Constants.primaryFont),
+                        softWrap: true,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    )),
+                    SvgPicture.asset(
+                                'assets/svg/chevron_forward.svg',
+                                width: 21,
+                                height: 21,
+                                alignment: Alignment.topCenter,
+                              )
+                  ],
+                )),
+          ),
+        ],
+      ),
+    );
+  }
+
   Future<void> openAddMotor(BuildContext context) async {
 
     final _data = await Navigator.of(context).push(MaterialPageRoute(builder: (_) {
@@ -437,7 +528,7 @@ class _SimulationViewState extends State<M2WSimulation>  {
     return Container(
       width: double.infinity,
         padding: const EdgeInsets.symmetric(
-            vertical: Constants.spacing4, horizontal: Constants.spacing4),
+            vertical: Constants.spacing2, horizontal: Constants.spacing4),
         decoration: const BoxDecoration(color: Colors.white),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -457,7 +548,7 @@ class _SimulationViewState extends State<M2WSimulation>  {
                         ),
                       ),
                     ))
-                : const Text('Hitung Nilai Pencairan', style: Constants.heading4),
+                :  Text(widget.section?['title'] ?? 'Hitung Nilai Pencairan', style: Constants.heading3),
             const SizedBox(height: Constants.spacing2),
             state == 2
                 ? AppShimmer(
@@ -473,7 +564,7 @@ class _SimulationViewState extends State<M2WSimulation>  {
                         ),
                       ),
                     ))
-                :  const Text('Caranya mudah,ikuti langkah dibawah ini.', style: TextStyle(fontSize: Constants.fontSizeMd)),
+                :   Text(widget.section?['description'] ?? 'Caranya mudah,ikuti langkah dibawah ini.', style: TextStyle(fontSize: Constants.fontSizeMd)),
           ],
         ));
   }
@@ -569,7 +660,9 @@ class _SimulationViewState extends State<M2WSimulation>  {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              buildPilihanKota(),
               Container(
+                margin: EdgeInsets.only(top: Constants.spacing2),
                   padding: const EdgeInsets.symmetric(
                       horizontal: Constants.spacing4, vertical: 0),
                   child: state == 2
@@ -587,46 +680,55 @@ class _SimulationViewState extends State<M2WSimulation>  {
                             ),
                           ),
                         )
-                      : const Text('Motor',
+                      : const Text('Masukkan Motor Jaminan',
                           style: TextStyle(color: Constants.gray))),
               GestureDetector(
                 onTap: () {
                   openAddMotor(context);
                 },
                 child: Container(
-                  margin:
-                      const EdgeInsets.fromLTRB(0, Constants.spacing1, 0, 0),
-                  decoration: const BoxDecoration(color: Colors.white),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: buildMotorItem(),
-                      ),
-                      state == 2
-                          ? AppShimmer(
-                              active: state == 2,
-                              child: Container(
-                                padding: const EdgeInsets.all(0),
-                                width: MediaQuery.of(context).size.width * 0.1,
+                  padding: const EdgeInsets.only(left: Constants.spacing1),
+                  
+                  child: Container(
+                     margin: const EdgeInsets.fromLTRB(Constants.spacing3,
+                      Constants.spacing1, Constants.spacing4, Constants.spacing2),
+                  
+                    decoration:  BoxDecoration(color: Colors.white,
+                    border: Border.all(color: Constants.gray.shade300),
+                    borderRadius: const BorderRadius.all(
+                        Radius.circular(Constants.spacing3)),
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: buildMotorItem(),
+                        ),
+                        state == 2
+                            ? AppShimmer(
+                                active: state == 2,
                                 child: Container(
-                                  color: Constants.gray,
-                                  child: const Text(
-                                    "",
-                                    style: TextStyle(
-                                        fontSize: Constants.fontSizeLg),
+                                  padding: const EdgeInsets.all(0),
+                                  width: MediaQuery.of(context).size.width * 0.1,
+                                  child: Container(
+                                    color: Constants.gray,
+                                    child: const Text(
+                                      "",
+                                      style: TextStyle(
+                                          fontSize: Constants.fontSizeLg),
+                                    ),
                                   ),
-                                ),
-                              ))
-                          : Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: Constants.spacing4, vertical: 0),
-                              child: SvgPicture.asset(
-                                'assets/svg/chevron_forward.svg',
-                                width: 21,
-                                height: 21,
-                                alignment: Alignment.topCenter,
-                              ))
-                    ],
+                                ))
+                            : Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: Constants.spacing4, vertical: 0),
+                                child: SvgPicture.asset(
+                                  'assets/svg/chevron_forward.svg',
+                                  width: 21,
+                                  height: 21,
+                                  alignment: Alignment.topCenter,
+                                ))
+                      ],
+                    ),
                   ),
                 ),
               )
@@ -966,29 +1068,31 @@ class _SimulationViewState extends State<M2WSimulation>  {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: Constants.spacing4),
-                  child: state == 2
-                      ? AppShimmer(
-                          active: state == 2,
-                          child: Container(
-                            padding: const EdgeInsets.all(0),
-                            width: MediaQuery.of(context).size.width * 0.4,
+                Flexible(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: Constants.spacing4),
+                    child: state == 2
+                        ? AppShimmer(
+                            active: state == 2,
                             child: Container(
-                              color: Constants.gray,
-                              child: const Text(
-                                "",
-                                style:
-                                    TextStyle(fontSize: Constants.fontSizeLg),
+                              padding: const EdgeInsets.all(0),
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              child: Container(
+                                color: Constants.gray,
+                                child: const Text(
+                                  "",
+                                  style:
+                                      TextStyle(fontSize: Constants.fontSizeLg),
+                                ),
                               ),
-                            ),
-                          ))
-                      : const Text('Buat Pengajuan',
-                          style: TextStyle(
-                              fontSize: Constants.fontSizeLg,
-                              fontFamily: Constants.primaryFontBold,
-                              color: Constants.gray)),
+                            ))
+                        : const Text('Buat Pengajuan',
+                            style: TextStyle(
+                                fontSize: Constants.fontSizeLg,
+                                fontFamily: Constants.primaryFontBold,
+                                color: Constants.gray)),
+                  ),
                 ),
                 InkWell(
                   onTap: () {
@@ -1007,7 +1111,9 @@ class _SimulationViewState extends State<M2WSimulation>  {
                       "Kode Referral",
                       style: TextStyle(
                           fontSize: Constants.fontSizeSm,
-                          color: Constants.primaryColor.shade400),
+                          color: Constants.primaryColor.shade400,
+                          
+                          ),overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ),
@@ -1115,8 +1221,9 @@ class _SimulationViewState extends State<M2WSimulation>  {
     dynamic cityId = _sharedPrefs.get(SharedPreferencesKeys.cityId);
     return SingleChildScrollView(
                       controller: _scrollController,
-                      child: Container(
-                        color: Constants.gray.shade100,
+                      child: ContainerTailwind(
+                        extClass: widget.mainClass,
+                        color: Colors.white,
                         child: Column(
                           children: [
                             state == 2
