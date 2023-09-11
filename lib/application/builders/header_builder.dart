@@ -48,7 +48,7 @@ class _HeaderBuilderState extends State<HeaderBuilder> {
         DynamicTransparentHeader(
           key: const ValueKey("appbar"),
           warna: widget.warna,
-          transparentMode: true,
+          transparentMode: false,
           controller: widget.controller,
           // section: widget.section,
         );

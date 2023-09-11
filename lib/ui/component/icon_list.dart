@@ -29,16 +29,16 @@ class _IconListState extends State<IconList> {
           child: FlexTW(
             // mainClass: widget.section?['containerClass'] ?? '',
             children: [
-              // Flexible(
-              //   // flex: 5,
-              //   child: CachedNetworkImage(
-              //     imageUrl: "${Constants.baseURLImages}${widget.section?['icons']?[index]['imageUrl']}",
-              //     fit: BoxFit.cover,
-              //     // width: 40,
-              //     // height: 40,
-              //     errorWidget: (context, url, error) => Container(),
-              //   ),
-              // ),
+              Flexible(
+                // flex: 5,
+                child: CachedNetworkImage(
+                  imageUrl: "${Constants.baseURLImages}${widget.section?['icons']?[index]['imageUrl']}",
+                  fit: BoxFit.cover,
+                  // width: 40,
+                  // height: 40,
+                  errorWidget: (context, url, error) => Container(),
+                ),
+              ),
               Flexible(
                 // flex: 3,
                 child: TextTailwind(

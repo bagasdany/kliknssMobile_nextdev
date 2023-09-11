@@ -23,25 +23,32 @@ class _FeatureListState extends State<FeatureList> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: FlexTW(
-        mainClass: widget.section['class'] ?? '',
-        children: [
-          widget.section['title'] == null ? Container():
-          ContainerTailwind(
+    return FlexTW(
+      mainClass: widget.section['class'] ?? '',
+      children: [
+        widget.section['title'] == null ? Container():
+        Flexible(
+          // flex: 1,
+          child: ContainerTailwind(
             extClass: widget.section['class'] ?? '',
             
                 margin: const EdgeInsets.fromLTRB(0, Constants.spacing4, Constants.spacing4, Constants.spacing1),
             child: TextTailwind(text: widget.section['title'] ?? "",mainClass: widget.section['containerClass'],textStyle: const TextStyle(fontSize: Constants.fontSize2Xl,fontFamily: Constants.primaryFontBold),)),
-          
-           widget.section['description'] == null ? Container():
-          ContainerTailwind(
+        ),
+        
+         widget.section['description'] == null ? Container():
+        Flexible(
+          // flex: 4,
+          child: ContainerTailwind(
             extClass: widget.section['class'] ?? '',
             
                 margin: const EdgeInsets.symmetric(vertical: Constants.spacing1),
             child: TextTailwind(text: widget.section['description'] ?? "",mainClass: widget.section['containerClass'],textStyle: const TextStyle(fontSize: Constants.fontSizeMd),)),
-          //
-          ContainerTailwind(
+        ),
+        //
+        Flexible(
+          // flex: 9,
+          child: ContainerTailwind(
             extClass: widget.section['containerClass'] ?? '',
             child: 
             GridTW( 
@@ -57,6 +64,9 @@ class _FeatureListState extends State<FeatureList> {
                   // Image.network("${Constants.baseURLImages}${widget.section?['items']?[index]['imageUrl']}",width: MediaQuery.of(context).size.width * 0.2,height: MediaQuery.of(context).size.width * 0.2,),
                   widget.section?['items']?[index]['imageUrl'] == null ? Container():
                    Flexible(
+        
+                    // flex: 4,
+                    // fit: FlexFit.tight,
                      child: CachedNetworkImage(
                       imageUrl: "${Constants.baseURLImages}${widget.section?['items']?[index]['imageUrl']}",
                       // width: MediaQuery.of(context).size.width * 0.2,
@@ -65,24 +75,54 @@ class _FeatureListState extends State<FeatureList> {
                       errorWidget: (context, url, error) => Container(),
                                   ),
                    ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    // mainAxisSize: MainAxisSize.min,
-                    // mainClass: widget.section['itemClass'] ?? '',
-                    children: [
-                      TextTailwind(
-                        // textAlign: TextAlign.center,
-                        // mainClass:widget.section?['itemClass'] ?? '',
-                        textStyle: const TextStyle(fontFamily: Constants.primaryFontBold,fontSize: Constants.fontSizeLg),
-                              
-                        text:"${widget.section?['items']?[index]['title']}" ?? "",),
-                      TextTailwind(
-                          mainClass:widget.section?['itemClass'] ?? '',
-                          // textStyle: const TextStyle(color: Constants.primaryColor,fontSize: Constants.fontSizeLg,t),
-                          
-                          text:"${widget.section?['items']?[index]['description']}" ?? "",),
-                    ],
+                  Flexible(
+                    // flex: 8,
+        
+                    // fit: FlexFit.tight,
+                    
+                    child: RawScrollbar(
+                      trackColor: Constants.gray.shade400,
+                      fadeDuration: const Duration(milliseconds: 1000),
+                      timeToFade: const Duration(milliseconds: 1500),
+                      
+                      thumbColor: Constants.gray.shade600,
+                      trackBorderColor: Constants.white,
+                      // mainAxisMargin : 40,
+                      minOverscrollLength: 20,
+                      thumbVisibility: true,
+                      trackVisibility: true,
+                      minThumbLength: 30,
+                      // trackRadius: const Radius.circular(1),
+                      // trackBorderColor: Constants.amber,
+                      // mainAxisMargin: MediaQuery.of(context).size.width * 0.4,
+                      padding: const EdgeInsets.symmetric(horizontal: Constants.spacing1),
+                      
+                      thickness: 1,
+                      crossAxisMargin: 0,
+                      // crossAxisMargin: 0,
+                      radius: const Radius.circular(10),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          // mainAxisSize: MainAxisSize.min,
+                          // mainClass: widget.section['itemClass'] ?? '',
+                          children: [
+                            TextTailwind(
+                              // textAlign: TextAlign.center,
+                              // mainClass:widget.section?['itemClass'] ?? '',
+                              textStyle: const TextStyle(fontFamily: Constants.primaryFontBold,fontSize: Constants.fontSizeLg),
+                                    
+                              text:"${widget.section?['items']?[index]['title']}" ?? "",),
+                            TextTailwind(
+                                mainClass:widget.section?['itemClass'] ?? '',
+                                // textStyle: const TextStyle(color: Constants.primaryColor,fontSize: Constants.fontSizeLg,t),
+                                
+                                text:"${widget.section?['items']?[index]['description']}" ?? "",),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                      
                     
@@ -134,8 +174,8 @@ class _FeatureListState extends State<FeatureList> {
             // }),
             //   ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

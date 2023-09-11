@@ -78,7 +78,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
       AspectRatio imageWidget =  AspectRatio(
       aspectRatio: (result?[0] ?? 1) / (result[1] ?? 1),
       child: 
-      image == null || image == ""  || image.contains("file:///") ? Container():
+      image == null || image == "" ||  image == "null" || image.contains("///") || image.contains("file:///") ? Container():
       
       // CachedNetworkImage(
       //                 imageUrl: image , 
@@ -88,7 +88,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
       //                 errorWidget: (context, url, error) => Container(),
       //                             ),
       Image.network(
-        image,
+        image ,
         errorBuilder: (context, error, stackTrace) {
           return Container(
             color: Constants.gray.shade200,

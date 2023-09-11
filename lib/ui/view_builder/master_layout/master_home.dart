@@ -120,7 +120,7 @@ class _MasterHome extends State<MasterHome>{
                           return HeaderBuilder(
                           key: const ValueKey("appbar"),
                           warna: _warna,
-                          transparentMode: true,
+                          transparentMode: false,
                           controller: _scrollController,
                           section: widget.section?['headers']?[index]??[],);
                           // BodyBuilder(section: widget.section?['components']?[index]??[],state: widget.state,);

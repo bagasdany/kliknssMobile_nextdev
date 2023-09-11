@@ -60,20 +60,20 @@ class _BodyBuilderState extends State<BodyBuilder> {
         return MotorAgentView();
       case 'Box':
         return M2WAgentView();
-      // case 'Image':
-      //   return ImageCarousel(
-      //     section: section,
-      //     state: widget.state ?? 1,
-      //     aspectRatio: (section['itemRatio'] ?? []).isNotEmpty ? section['itemRatio'][0] :  null,
-      //     items: section['src'] ?? [],
-      //   );
-      // case 'Carousel':
-      //   return BannerCarousel(
-      //     state: widget.state,
+      case 'Image':
+        return ImageCarousel(
+          section: section,
+          state: widget.state ?? 1,
+          aspectRatio: (section['itemRatio'] ?? []).isNotEmpty ? section['itemRatio'][0] :  null,
+          items: section['src'] ?? [],
+        );
+      case 'Carousel':
+        return BannerCarousel(
+          state: widget.state,
           
-      //     aspectRatio: section['ratio']?[0] ?? 8 / 5.6,
-      //     items: section['items'] ?? [],
-      // );
+          aspectRatio: section['ratio']?[0] ?? 8 / 5.6,
+          items: section['items'] ?? [],
+      );
       // case 'SparepartThumbnails':
       // return SparepartThumbnails(section ?? []);
       case 'HMCThumbnails':

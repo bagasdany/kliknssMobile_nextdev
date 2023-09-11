@@ -16,6 +16,7 @@ import 'package:kliknss77/infrastructure/database/data_state.dart';
 import 'package:kliknss77/infrastructure/database/multiguna_motor/multiguna_motor_data.dart';
 import 'package:kliknss77/infrastructure/database/shared_prefs_key.dart';
 import 'package:kliknss77/ui/component/app_shimmer.dart';
+import 'package:kliknss77/ui/component/customtrackshape.dart';
 import 'package:kliknss77/ui/component/empty_city.dart';
 import 'package:kliknss77/ui/component/get_error_message.dart';
 import 'package:kliknss77/ui/component/multiguna_view/checkout/m2w_checkout1.dart';
@@ -51,6 +52,7 @@ class _SimulationViewState extends State<M2WSimulation>  {
   final Dio _dio = DioService.getInstance();
 
   MultigunaMotorData _multigunaMotorData = MultigunaMotorData();
+  
   final _sharedPrefs = SharedPrefs();
   final TextEditingController referralController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
@@ -66,6 +68,16 @@ class _SimulationViewState extends State<M2WSimulation>  {
       reset();
     }
   }
+  LinearGradient gradient = LinearGradient(
+ colors: <Color> [
+  Colors.red,
+  Colors.orange,
+  Colors.yellow,
+  Colors.green,
+  Colors.blue,
+  Colors.purple
+ ]
+);
 
   @override
   void initState() {
@@ -423,11 +435,13 @@ class _SimulationViewState extends State<M2WSimulation>  {
 
   Widget buildTitleSection() {
     return Container(
+      width: double.infinity,
         padding: const EdgeInsets.symmetric(
             vertical: Constants.spacing4, horizontal: Constants.spacing4),
         decoration: const BoxDecoration(color: Colors.white),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             state == 2
                 ? AppShimmer(
@@ -443,7 +457,8 @@ class _SimulationViewState extends State<M2WSimulation>  {
                         ),
                       ),
                     ))
-                : const Text('Multiguna Motor', style: Constants.heading4),
+                : const Text('Hitung Nilai Pencairan', style: Constants.heading4),
+            const SizedBox(height: Constants.spacing2),
             state == 2
                 ? AppShimmer(
                     active: state == 2,
@@ -458,21 +473,7 @@ class _SimulationViewState extends State<M2WSimulation>  {
                         ),
                       ),
                     ))
-                : Button(
-                    text: "Pelajari",
-                    type: ButtonType.minimal,
-                    onPressed: () {
-                      RenderBox box = m2wKey.currentContext?.findRenderObject()
-                          as RenderBox;
-                      Offset position = box
-                          .localToGlobal(Offset.zero); //this is global position
-                      double y = position.dy;
-
-                      _scrollController.animateTo(y,
-                          curve: Curves.linear,
-                          duration: const Duration(milliseconds: 500));
-                    },
-                  )
+                :  const Text('Caranya mudah,ikuti langkah dibawah ini.', style: TextStyle(fontSize: Constants.fontSizeMd)),
           ],
         ));
   }
@@ -759,6 +760,7 @@ class _SimulationViewState extends State<M2WSimulation>  {
                 active: state == 2,
                 child: SliderTheme(
                     data: SliderThemeData(
+                      // rangeTrackShape:  GradientRectRangeSliderTrackShape(gradient: ),
                       thumbColor: Colors.white,
                       inactiveTrackColor: Constants.gray.shade300,
                       activeTrackColor: Constants.primaryColor,
@@ -956,7 +958,7 @@ class _SimulationViewState extends State<M2WSimulation>  {
   Widget buildForm() {
     return Container(
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: Constants.spacing4),
+        // margin: const EdgeInsets.symmetric(vertical: Constants.spacing4),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1147,15 +1149,15 @@ class _SimulationViewState extends State<M2WSimulation>  {
                                       buildForm(),
                                     ],
                                   ),
-                            const SizedBox(
-                              height: Constants.spacing6,
-                            ),
+                            // const SizedBox(
+                            //   height: Constants.spacing6,
+                            // ),
                             Container(
                               key: m2wKey,
                             ),
                             
                                   
-                            const SizedBox(height: Constants.spacing6)
+                            // const SizedBox(height: Constants.spacing6)
                           ],
                         ),
                       ),
