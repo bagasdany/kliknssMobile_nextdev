@@ -74,7 +74,9 @@ class motorItem extends StatelessWidget {
                 children: <Widget>[
                   AspectRatio(
                     aspectRatio: 1 / 1,
-                    child: CachedNetworkImage(
+                    child: 
+                    imageSrc == null || imageSrc == "" ? Container():
+                    CachedNetworkImage(
                         imageUrl: imageSrc,
                         fit: BoxFit.contain,
                         imageBuilder: (context, imageProvider) => AspectRatio(

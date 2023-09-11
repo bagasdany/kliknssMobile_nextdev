@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:kliknss77/application/style/constants.dart';
 
@@ -35,21 +36,30 @@ class M2Section extends StatelessWidget {
                           ClipRRect(
                             borderRadius:
                                 BorderRadius.circular(Constants.spacing2),
-                            child: Image.network(
-                              item['imageUrl'] ?? "",
-                              fit: BoxFit.cover,
-                              errorBuilder: (BuildContext context,
-                                  Object exception, StackTrace? stackTrace) {
-                                return SizedBox(
-                                    child: AspectRatio(
-                                        aspectRatio: 2 / 1,
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            color: Constants.gray.shade300,
-                                          ),
-                                        )));
-                              },
-                            ),
+                            child: 
+                            item['imageUrl'] == null || item['imageUrl'] == "" ? Container():
+                            CachedNetworkImage(
+                      imageUrl: item['imageUrl'] ?? "" ,
+                      // width: MediaQuery.of(context).size.width * 0.2,
+                      // height: MediaQuery.of(context).size.width * 0.2,
+                      fit: BoxFit.contain,
+                      errorWidget: (context, url, error) => Container(),
+                                  ),
+                            // Image.network(
+                            //   item['imageUrl'] ?? "",
+                            //   fit: BoxFit.cover,
+                            //   errorBuilder: (BuildContext context,
+                            //       Object exception, StackTrace? stackTrace) {
+                            //     return SizedBox(
+                            //         child: AspectRatio(
+                            //             aspectRatio: 2 / 1,
+                            //             child: Container(
+                            //               decoration: BoxDecoration(
+                            //                 color: Constants.gray.shade300,
+                            //               ),
+                            //             )));
+                            //   },
+                            // ),
                           ),
                         ],
                       ),

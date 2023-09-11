@@ -493,7 +493,7 @@ List<String> groupListMotor(List<Map<dynamic, dynamic>> items) {
         // print("emit remove 0");
         // AppPage.remove('kelurahan-selector');
         // print("emit remove 1");
-
+        
         MiscApi().patchMotorAgent(kota['id']).then((value) async {
           if (value != null) {
             await _sharedPrefs.set(SharedPreferencesKeys.cityId, kota['id']);

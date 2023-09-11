@@ -12,18 +12,10 @@ class DataState {
   // Buat getter untuk stream
   Stream<Map<dynamic, dynamic>>? get dataStream => dataStreamController.stream;
   
-
-  
-
   Map<dynamic, dynamic> getData() {
     return data;
   }
-  Map<dynamic, dynamic> getDataWidgets() {
-    return {
-      'data': data,
-      'widgets': widgets,
-    };
-  }
+  
   dynamic getList() {
     return list;
   }
@@ -32,12 +24,7 @@ class DataState {
 
     data = newData;
 
-    dataStreamController.sink.add(data);
-  }
-  void update(Map<dynamic, dynamic> newData,Widget? newWidget) {
-    data = newData;
-    widgets = newWidget;
-
+    // dataStreamController.sink.add(data);
   }
     void addData(Map<dynamic, dynamic> addData) {
     data.addEntries(addData.entries);

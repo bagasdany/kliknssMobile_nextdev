@@ -101,47 +101,45 @@ class _MasterDetail extends State<MasterDetail>
 
       case 'ToC' :
         return ToC(section: section ?? []);
-      case 'IconList':
-        return Flexible(
-          // flex: 9,
-          // fit: FlexFit.loose,
-          child: IconList(
-            section: section ?? [],
-            mainClass: section['class'] ?? '',
-          ),
-        );
-      case 'TextBlock':
-        return TextBlockComponent(section: section ?? []);
-      case 'Article':
-        return Flexible(child: Article1Component(section: section ?? [],));
-      case 'FeatureList':
-        return Flexible(
-          // fit: FlexFit.loose,
-          child: FeatureList(section: section ?? [],));
-      case 'Image':
-        return ImageCarousel(
-          section: section,
-          state: widget.state ?? 1,
-          aspectRatio: (section['itemRatio'] ?? []).isNotEmpty ? section['itemRatio'][0] :  null,
-          items: section['src'] ?? [],
-        );
-      case 'Carousel':
-        return BannerCarousel(
-          state: widget.state,
-          aspectRatio: section['ratio']?[0] ?? 8 / 5.6,
-          items: section['items'] ?? [],
-      );
-      case 'Ahref':
-        return Flexible(child: Ahref(section: section ?? {}));
+      // case 'IconList':
+      //   return Flexible(
+      //     child: IconList(
+      //       section: section ?? [],
+      //       mainClass: section['class'] ?? '',
+      //     ),
+      //   );
+      // case 'TextBlock':
+      //   return TextBlockComponent(section: section ?? []);
+      // case 'Article':
+      //   return Flexible(child: Article1Component(section: section ?? [],));
+      // case 'FeatureList':
+        // return Flexible(
+        //   // fit: FlexFit.loose,
+        //   child: FeatureList(section: section ?? [],));
+      // case 'Image':
+      //   return ImageCarousel(
+      //     section: section,
+      //     state: widget.state ?? 1,
+      //     aspectRatio: (section['itemRatio'] ?? []).isNotEmpty ? section['itemRatio'][0] :  null,
+      //     items: section['src'] ?? [],
+      //   );
+      // case 'Carousel':
+      //   return BannerCarousel(
+      //     state: widget.state,
+      //     aspectRatio: section['ratio']?[0] ?? 8 / 5.6,
+      //     items: section['items'] ?? [],
+      // );
+      // case 'Ahref':
+      //   return Flexible(child: Ahref(section: section ?? {}));
 
-      case 'EmbeddedVideo':
-        return Flexible(child: YoutubeVideoPlayer(section: section ?? {}));
+      // case 'EmbeddedVideo':
+      //   return Flexible(child: YoutubeVideoPlayer(section: section ?? {}));
 
-      case 'Testimonial':
-        return Flexible(
-          // fit: FlexFit.loose,
-          child: Testimonial(section: section ?? {}),
-        );
+      // case 'Testimonial':
+      //   return Flexible(
+      //     // fit: FlexFit.loose,
+      //     child: Testimonial(section: section ?? {}),
+      //   );
       
       case 'M2WSimulation':
         return Flexible(
@@ -228,6 +226,18 @@ class _MasterDetail extends State<MasterDetail>
       :  Container(),
       ),
     ),
+    // collection component gabungan 2 folders tanpa didefinisikan
+    // Optional
+    // Column(children: [
+    //   TailwindBuilder(
+    //   section : section,
+    // ),
+    // BuilderSendiri()
+    // ],)
+    
+    // TailwindIconList
+    // TailwindFlashsale
+    // TailwindTextBlock
     body: CustomRefreshIndicator(
       builder: MaterialIndicatorDelegate(
         builder: (context, controller) {

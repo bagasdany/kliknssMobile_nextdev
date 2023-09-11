@@ -1,4 +1,5 @@
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:kliknss77/application/style/constants.dart';
 
@@ -43,35 +44,44 @@ class _TitlewithIconGrid1State extends State<TitlewithIconGrid1> {
                     width: 55,
                     height: 60,
                     child: SizedBox(
-                      child: Image.network(
-                        item['imageUrl'] ?? "",
-                        fit: BoxFit.contain,
-                        loadingBuilder: (BuildContext context, Widget child,
-                            ImageChunkEvent? loadingProgress) {
-                          if (loadingProgress == null) {
-                            return SizedBox(child: child);
-                          }
-                          return Container(
-                            decoration: BoxDecoration(
-                                color: Constants.gray.shade200,
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(Constants.spacing3))),
-                            width: 55,
-                            height: 60,
-                          );
-                        },
-                        errorBuilder: (BuildContext context, Object exception,
-                            StackTrace? stackTrace) {
-                          return Container(
-                            decoration: BoxDecoration(
-                                color: Constants.gray.shade200,
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(Constants.spacing3))),
-                            width: 55,
-                            height: 60,
-                          );
-                        },
-                      ),
+                      child: 
+                      item['imageUrl'] == null ? Container():
+                       CachedNetworkImage(
+                      imageUrl: item['imageUrl'] ?? "" ,
+                      // width: MediaQuery.of(context).size.width * 0.2,
+                      // height: MediaQuery.of(context).size.width * 0.2,
+                      fit: BoxFit.contain,
+                      errorWidget: (context, url, error) => Container(),
+                                  ),
+                      // Image.network(
+                      //   item['imageUrl'] ?? "",
+                      //   fit: BoxFit.contain,
+                      //   loadingBuilder: (BuildContext context, Widget child,
+                      //       ImageChunkEvent? loadingProgress) {
+                      //     if (loadingProgress == null) {
+                      //       return SizedBox(child: child);
+                      //     }
+                      //     return Container(
+                      //       decoration: BoxDecoration(
+                      //           color: Constants.gray.shade200,
+                      //           borderRadius: const BorderRadius.all(
+                      //               Radius.circular(Constants.spacing3))),
+                      //       width: 55,
+                      //       height: 60,
+                      //     );
+                      //   },
+                      //   errorBuilder: (BuildContext context, Object exception,
+                      //       StackTrace? stackTrace) {
+                      //     return Container(
+                      //       decoration: BoxDecoration(
+                      //           color: Constants.gray.shade200,
+                      //           borderRadius: const BorderRadius.all(
+                      //               Radius.circular(Constants.spacing3))),
+                      //       width: 55,
+                      //       height: 60,
+                      //     );
+                      //   },
+                      // ),
                     ),
                   )
                 : Container(

@@ -173,7 +173,7 @@ class Constants {
   // button color
   static const Color whiteButton = Color(0xffFFFFFF);
 
-  static String baseURLImages = F.variables['baseURLImages'] as String;
+  static String baseURLImages = F.variables['baseURLImages'] ?? "https://kliknss.co.id/images/";
   
   static String baseURLArtikel = F.variables['baseURL'] as String;
   static const String primaryFont = 'FiraSans Regular';

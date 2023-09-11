@@ -1,10 +1,12 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:async';
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:kliknss77/application/app/app_log.dart';
 import 'package:kliknss77/application/builders/data_builder.dart';
 import 'package:kliknss77/application/builders/error_builder.dart';
 import 'package:kliknss77/application/builders/shimmer_builder.dart';
@@ -52,7 +54,7 @@ class _MasterBuilderState extends State<MasterBuilder> {
     
     WidgetsBinding.instance.addPostFrameCallback((_) async{
     try{
-      final value =  await HomeApi().patchPage(widget.url ?? "");
+      final value =( datas != null ? datas['data']['data']['url'] ?? '/'  : "") != widget.url ?  await  HomeApi().patchPage(widget.url ?? "") :datas['data'] ;
       
       if(value != null){
         setState(() {
@@ -65,35 +67,33 @@ class _MasterBuilderState extends State<MasterBuilder> {
         'data': value ?? {},
       };
       dataState.updateData(newData);
-      dataState.update(newData,getContentWidget(widget.url, datas));
+      // dataState.update(newData,getContentWidget(widget.url, datas));
       }
-      }on DioException catch(e){
-        setState(() {
-          state = 3;
+      }on SignInRequiredException catch (e) {
+          
+      } on SocketException catch (e) {
+      
+        // Handle DioException
+      } on TimeoutException catch (e) {
+          
+      }
+      on DioException catch (e) {
+        
+        print("error global 3 $e");
+        
+        
+        print(e);
+      } on Error catch (e) {
+      
+        print("error global 5 $e");
+        print(e);
+      } finally {
+
+        print("finally");
+      }
+        
         });
-      }on TimeoutException catch (e){
-
-    }
-    
-    // .then((value) {
-    //     if(value is int){
-    //       setState(() { state = value;});
-    //     }
-    //     else {
-          
-    //     }
-    //   });
-      // 
-      // .catchError((error, stackTrace) {
-      //   if(error is DioException){
-
-      //   }
-          
-      // });
-
-      // setState(() {state = 1;});
-    });
-  }
+      }
 
   dynamic getContentWidget( url,datas) {
     var master = {'master': url == "/" ? "MasterHome" : "MasterDetail"};

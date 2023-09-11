@@ -8,7 +8,7 @@ import 'package:kliknss77/infrastructure/apis/api_interceptor.dart';
 class DioService {
   static Dio getInstance() {
     
-    String version = '1.1.3';
+    String version = '2.0.0';
     String os = Platform.isAndroid ? 'Android' : (Platform.isIOS ? 'iOS' : 'Unknown');
     String osVersion = Platform.operatingSystemVersion;
 

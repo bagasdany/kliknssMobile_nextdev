@@ -6,11 +6,9 @@ import 'package:kliknss77/infrastructure/database/data_state.dart';
 import 'package:kliknss77/infrastructure/database/home/home_data.dart';
 import 'package:kliknss77/infrastructure/database/motor/motor_data.dart';
 import 'package:kliknss77/infrastructure/database/multiguna_motor/m2w_motor_data.dart';
-import 'package:kliknss77/infrastructure/database/multiguna_motor/m2w_simulation_data.dart';
 import 'package:kliknss77/infrastructure/database/multiguna_motor/multiguna_motor_data.dart';
 import 'package:kliknss77/infrastructure/database/sparepart/sparepart_data.dart';
 import 'package:kliknss77/infrastructure/database/user/user_data.dart';
-import 'package:kliknss77/ui/views/agent/m2w/agent_m2w_select_motor.dart';
 
 
 class DataBuilder {
@@ -31,6 +29,8 @@ class DataBuilder {
       case 'motor':
         return MotorData();
       case 'm2w-motor':
+        return M2WMotorData();
+      case 'm2w-footer-motor':
         return M2WMotorData();
       
       //agent

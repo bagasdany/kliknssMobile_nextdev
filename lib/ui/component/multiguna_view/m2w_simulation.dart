@@ -115,7 +115,7 @@ class _SimulationViewState extends State<M2WSimulation>  {
 
   @override
   void dispose() {
-    _multigunaMotorData.dispose();
+    // _multigunaMotorData.dispose();
     super.dispose();
   }
 
@@ -197,8 +197,7 @@ class _SimulationViewState extends State<M2WSimulation>  {
   bool isValid() {
 
     if( widget.page?['data']['price'] != null &&
-        widget.page?['data']['term'] != null &&
-        state == 1 ){
+        widget.page?['data']['term'] != null ){
           setState(() {
             widget.page?['data']['isValid'] = true;
             print("isValid true");
@@ -352,6 +351,7 @@ class _SimulationViewState extends State<M2WSimulation>  {
 
           widget.page?['data'].addEntries(_data.entries);
           widget.page?['data']['term'] = widget.page?['data']?['terms'][0] ?? 11;
+          widget.page?['data']['isValid'] = true;
           isValid();
           // final Map<String, dynamic> newData = {
           //   'type': ("multiguna-motor"),
@@ -359,7 +359,7 @@ class _SimulationViewState extends State<M2WSimulation>  {
           // };
           
           _multigunaMotorData.dataStreamController.sink.add(widget.page ?? {});
-          dataState?.update(widget.page ?? {},widget);
+          // dataState?.update(widget.page ?? {},widget);
           dataState?.updateData(widget.page ?? {});
           print("terubah");
       });
@@ -377,7 +377,9 @@ class _SimulationViewState extends State<M2WSimulation>  {
         child: Container(
           margin: const EdgeInsets.all(0),
           child: InteractiveViewer(
-            child: Container(
+            child: 
+            appImageUrl == null || appImageUrl == "" ? Container():
+            Container(
               decoration: BoxDecoration(
                   image: DecorationImage(
                       image: CachedNetworkImageProvider(appImageUrl),

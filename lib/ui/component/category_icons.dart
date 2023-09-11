@@ -42,7 +42,9 @@ class CategoryIcons extends StatelessWidget {
                       opacity: menuAvailable ? 1 : .1,
                       child: Padding(
                         padding: const EdgeInsets.all(Constants.spacing1),
-                        child: CachedNetworkImage(
+                        child: 
+                        category['imageUrl'] == null ||  category['imageUrl'] == ""  ? Container():
+                        CachedNetworkImage(
                             imageUrl: "${Constants.baseURLImages}${category['imageUrl']}",
                             imageBuilder: (context, imageProvider) =>
                                 AspectRatio(

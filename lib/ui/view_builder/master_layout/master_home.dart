@@ -63,7 +63,6 @@ class _MasterHome extends State<MasterHome>{
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent, // transparent status bar
     ));
-    //
     return Scaffold(
     extendBody: true,
     extendBodyBehindAppBar: true,
@@ -89,22 +88,6 @@ class _MasterHome extends State<MasterHome>{
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                
-                // Container(color: Constants.amber,height: 95,),
-                // const TextTailwind(text:"apa iniii",
-                // extClass: "font-light underline text-6xl font-mono text-emerald-600 bg-zinc-50 p-6  md:mx-auto grid-cols-2 md:grid-cols-6 gap-4 md:gap-6  md:max-w-screen-xl",),
-                // const ContainerTailwind(extClass:  "pl-8 pt-10 pr-9 pb-11 max-w-max w-11/12  text-red-600 bg-sky-500 md:mx-auto grid-cols-2 md:grid-cols-6 gap-4 md:gap-6  md:max-w-screen-xl",
-                //   child: TextTailwind(text:"Container Tailwind",
-                // extClass: "font-light underline text-6xl font-mono dark:text-emerald-600 bg-blue-500 pl-0 pt-1 pr-0 pb-1  md:mx-auto grid-cols-2 md:grid-cols-6 gap-4 md:gap-6  md:max-w-screen-xl",),),
-                // const FlexTailwind(mainClass: "_5509 w-48 bg-stone-500 flex-col h-100vh min-h-full", children: [
-                //   TextTailwind(text:"apa inii2",),
-                //   TextTailwind(text:"apa iniiis",),
-                //   TextTailwind(text:"apa iniiis3",),
-                //   TextTailwind(text:"apa iniiis4",),
-                //   TextTailwind(text:"apa iniiis5",)
-                  
-                  
-                // ],),
                 widget.section != null
                     ? ListView.builder(
                         padding: const EdgeInsets.all(0),

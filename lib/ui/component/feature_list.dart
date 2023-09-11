@@ -40,9 +40,8 @@ class _FeatureListState extends State<FeatureList> {
             
                 margin: const EdgeInsets.symmetric(vertical: Constants.spacing1),
             child: TextTailwind(text: widget.section['description'] ?? "",mainClass: widget.section['containerClass'],textStyle: const TextStyle(fontSize: Constants.fontSizeMd),)),
-          
+          //
           ContainerTailwind(
-            // margin: const EdgeInsets.symmetric(vertical: Constants.spacing4),
             extClass: widget.section['containerClass'] ?? '',
             child: 
             GridTW( 
@@ -56,47 +55,34 @@ class _FeatureListState extends State<FeatureList> {
                 mainClass: widget.section['itemClass'] ?? '',
                 children: [
                   // Image.network("${Constants.baseURLImages}${widget.section?['items']?[index]['imageUrl']}",width: MediaQuery.of(context).size.width * 0.2,height: MediaQuery.of(context).size.width * 0.2,),
-                  Flexible(
-                    flex: 2,
-                    child: CachedNetworkImage(
+                  widget.section?['items']?[index]['imageUrl'] == null ? Container():
+                   Flexible(
+                     child: CachedNetworkImage(
                       imageUrl: "${Constants.baseURLImages}${widget.section?['items']?[index]['imageUrl']}",
                       // width: MediaQuery.of(context).size.width * 0.2,
                       // height: MediaQuery.of(context).size.width * 0.2,
                       fit: BoxFit.contain,
                       errorWidget: (context, url, error) => Container(),
                                   ),
-                  ),
-                  Flexible(
-                    flex: 3,
-                    child: Container(
-                      margin: const EdgeInsets.fromLTRB(Constants.spacing3, Constants.spacing3, Constants.spacing3, Constants.spacing3),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        // mainClass: widget.section['itemClass'] ?? '',
-                        children: [
-                          Flexible(
-                            flex: 3,
-                            child: TextTailwind(
-                              textAlign: TextAlign.start,
-                              // mainClass:widget.section?['itemClass'] ?? '',
-                              textStyle: const TextStyle(fontFamily: Constants.primaryFontBold,fontSize: Constants.fontSizeLg),
-                                    
-                              text:"${widget.section?['items']?[index]['title']}" ?? "",),
-                          ),
-                          Flexible(
-                            flex: 1,
-                            fit: FlexFit.tight,
-                            // flex: 2,
-                            child: TextTailwind(
-                                mainClass:widget.section?['itemClass'] ?? '',
-                                // textStyle: const TextStyle(color: Constants.primaryColor,fontSize: Constants.fontSizeLg,t),
-                                
-                                text:"${widget.section?['items']?[index]['description']}" ?? "",),
-                          ),
-                        ],
-                      ),
-                    ),
+                   ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    // mainAxisSize: MainAxisSize.min,
+                    // mainClass: widget.section['itemClass'] ?? '',
+                    children: [
+                      TextTailwind(
+                        // textAlign: TextAlign.center,
+                        // mainClass:widget.section?['itemClass'] ?? '',
+                        textStyle: const TextStyle(fontFamily: Constants.primaryFontBold,fontSize: Constants.fontSizeLg),
+                              
+                        text:"${widget.section?['items']?[index]['title']}" ?? "",),
+                      TextTailwind(
+                          mainClass:widget.section?['itemClass'] ?? '',
+                          // textStyle: const TextStyle(color: Constants.primaryColor,fontSize: Constants.fontSizeLg,t),
+                          
+                          text:"${widget.section?['items']?[index]['description']}" ?? "",),
+                    ],
                   ),
                      
                     

@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
@@ -131,7 +132,14 @@ class _HMCAgentCheckout3State extends State<HMCAgentCheckout3> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(children: [
-            Image.network('${item['imageUrl']}', width: 84, height: 84),
+            item['imageUrl'] == null || item['imageUrl'] == "" ? Container():
+            CachedNetworkImage(
+                      imageUrl: item['imageUrl'] ?? "" ,
+                    width: 84, height: 84,
+                      fit: BoxFit.contain,
+                      errorWidget: (context, url, error) => Container(),
+                                  ),
+            // Image.network('${item['imageUrl']}',width: 84, height: 84),
             const SizedBox(width: Constants.spacing2),
             Expanded(
               child: Column(

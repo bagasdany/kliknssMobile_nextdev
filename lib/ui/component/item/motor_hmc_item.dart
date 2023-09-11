@@ -24,7 +24,9 @@ class motorHmcItem extends StatelessWidget {
               ? Container()
               : AspectRatio(
                   aspectRatio: 800 / 130,
-                  child: CachedNetworkImage(
+                  child: 
+                  mobileImageUrl[0] == null || mobileImageUrl[0] == "" ? Container():
+                  CachedNetworkImage(
                       imageUrl: "${Constants.baseURLImages}/${ mobileImageUrl[0].toString()}" ??
                           "https://www.kliknss.co.id/images/logo2210253.png",
                       fit: BoxFit.cover,
@@ -149,7 +151,9 @@ class motorHmcItem extends StatelessWidget {
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 .4,
-                                        child: CachedNetworkImage(
+                                        child: 
+                                        item?[index]?['imageUrl'] == null || item?[index]?['imageUrl'] == "" ? Container():
+                                        CachedNetworkImage(
                                             fit: BoxFit.contain,
                                             //test
                                             imageUrl:

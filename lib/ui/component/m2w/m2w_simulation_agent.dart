@@ -329,7 +329,9 @@ class _M2WAgentViewState extends State<M2WAgentView> {
 
       return GestureDetector(
         onTap: () {},
-        child: Container(
+        child: 
+        appImageUrl == null || appImageUrl == "" ? Container():
+        Container(
           margin: const EdgeInsets.all(0),
           child: InteractiveViewer(
             child: Container(

@@ -259,7 +259,9 @@ class _FlashSaleComponentState extends State<FlashSaleComponent>
                                                           (_controller?.value ??
                                                               0))
                                                       : 0.4,
-                                                  child: CachedNetworkImage(
+                                                  child: 
+                                                  widget.section?['imageUrl'] == null ? Container():
+                                                  CachedNetworkImage(
                                                       progressIndicatorBuilder:
                                                           (context, url,
                                                                   downloadProgress) =>

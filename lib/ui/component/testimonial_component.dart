@@ -18,7 +18,7 @@ class _TestimonialState extends State<Testimonial> {
     return Container(
       color: Constants.white,
       margin: EdgeInsets.only(right: Constants.spacing2),
-      width: MediaQuery.of(context).size.width * 0.6,
+      width: MediaQuery.of(context).size.width * 0.5,
       height: MediaQuery.of(context).size.width * 0.5,
       padding: const EdgeInsets.all(Constants.spacing4),
       child: Column(
@@ -50,7 +50,8 @@ class _TestimonialState extends State<Testimonial> {
                         height: 40,
                         child: CircleAvatar(
                           child: ClipOval(
-                            child: CachedNetworkImage(imageUrl: "${Constants.baseURLImages}${items['imageUrl']}",fit: BoxFit.cover,width: 40,height: 40,errorWidget: (context, url, error) {
+                            
+                            child: items['imageUrl'] == null || items['imageUrl'] == "" ? Container(): CachedNetworkImage(imageUrl: "${Constants.baseURLImages}${items['imageUrl']}",fit: BoxFit.cover,width: 40,height: 40,errorWidget: (context, url, error) {
                               return const Icon(Icons.broken_image);
                             
                             },progressIndicatorBuilder: (context, url, progress) {
@@ -89,15 +90,15 @@ class _TestimonialState extends State<Testimonial> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: Constants.spacing4),
-            padding: const EdgeInsets.symmetric(
-                horizontal: Constants.spacing4),
+            // padding: const EdgeInsets.symmetric(
+            //     horizontal: Constants.spacing4),
             height: MediaQuery.of(context).size.width * 0.6,
             child: ListView.builder(
                 // shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 itemCount: (widget.section?['items'] ?? []).length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Container(
+                  return Card(
                     // color: Constants.white,
                     child: buildTestimonial(widget.section?['items'][index]));
                 }),

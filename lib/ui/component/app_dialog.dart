@@ -851,8 +851,9 @@ class AppDialog {
       return;
 
     currentOffer = true;
-
-    preloadImage(NetworkImage(imageUrl)).then((value) {
+    imageUrl == "" || imageUrl.contains("file:///") ? null :
+    preloadImage(
+      NetworkImage(imageUrl)).then((value) {
       Timer t = Timer(Duration(seconds: timeout), () {
         if (currentOffer) {
           currentOffer = false;

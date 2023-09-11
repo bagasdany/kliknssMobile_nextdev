@@ -27,7 +27,7 @@ class M2WFooterView extends StatefulWidget {
 class _M2WFooterViewState extends State<M2WFooterView>  {
 
   MultigunaMotorData _multigunaMotorData = MultigunaMotorData();
-  // DataState? dataState = DataBuilder(("multiguna-motor")).getDataState();
+  // DataState? dataState =   DataBuilder(("multiguna-motor")).getDataState();
   StreamSubscription? _streamSubscription;
   final Dio _dio = DioService.getInstance();
   final _sharedPrefs = SharedPrefs();
@@ -121,6 +121,9 @@ class _M2WFooterViewState extends State<M2WFooterView>  {
 
   @override
   Widget build(BuildContext context) {
+    setState(() {
+          widget.page = DataBuilder(("multiguna-motor")).getDataState().getData();
+        });
     buildFooter(){
       return Container(
       decoration: const BoxDecoration(color: Colors.white),
@@ -148,7 +151,7 @@ class _M2WFooterViewState extends State<M2WFooterView>  {
             fontSize: Constants.fontSizeLg,
             state: 
             widget.state == 4
-                ? ButtonState.loading : widget.page?['data']?['isValid'] == true || widget.page?['data']?['isValid'] == "true"  ?ButtonState.normal : ButtonState.disabled,
+                ? ButtonState.loading : widget.page?['data']['isValid'] == true  ?ButtonState.normal : ButtonState.disabled,
             onPressed: () {
               print("isValid di footer${widget.page}");
               if (widget.page?['data']?['isValid'] == true) {

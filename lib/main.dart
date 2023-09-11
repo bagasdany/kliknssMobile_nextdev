@@ -1,9 +1,4 @@
-// import 'package:flutter/material.dart';
-// import 'package:kliknss77/application/startup/kliknss_app.dart';
 
-// void main() {
-//   runApp(const NssApp());
-// }
 import 'dart:async';
 import 'dart:io';
 // import 'package:awesome_notifications/awesome_notifications.dart';
@@ -184,7 +179,9 @@ void main({
       ),
     );
 
-    await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,
+    DeviceOrientation.landscapeLeft,
+    DeviceOrientation.landscapeRight,DeviceOrientation.portraitDown,DeviceOrientation.portraitUp]);
     
     await SharedPrefs().init();
     

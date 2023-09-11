@@ -15,8 +15,8 @@ class MultigunaMotorData extends DataState {
   MultigunaMotorData._internal() {
     data['type'] = 'multiguna-motor';
     data['data'] = {};
-    data['voucher'] = Voucher();
-    widgets = null ;
+    data['voucher'] = null;
+    // widgets = null ;
   }
 
   factory MultigunaMotorData() {

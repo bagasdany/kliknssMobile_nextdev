@@ -172,7 +172,11 @@ class _ZoomInteractiveState extends State<ZoomInteractive>
                         maxScale: 10,
                         child: widget.url == null || widget.url == ""
                             ? Image.asset('assets/icon/noimage.png')
-                            : CachedNetworkImage(
+                            :
+                            widget.url == null || widget.url == ""
+                                ? Container()
+                                :
+                             CachedNetworkImage(
                                 progressIndicatorBuilder:
                                     (context, url, downloadProgress) =>
                                         AspectRatio(

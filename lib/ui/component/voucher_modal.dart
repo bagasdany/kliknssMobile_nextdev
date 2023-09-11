@@ -857,7 +857,11 @@ class _VoucherModalState extends State<VoucherModal> {
                             decoration: const BoxDecoration(),
                             child: AspectRatio(
                               aspectRatio: 4 / 1,
-                              child: CachedNetworkImage(
+                              child:
+                              imageUrl == null || imageUrl == ""
+                                  ? Container()
+                                  :
+                               CachedNetworkImage(
                                 imageBuilder: (context, imageProvider) =>
                                     Container(
                                   decoration: BoxDecoration(
