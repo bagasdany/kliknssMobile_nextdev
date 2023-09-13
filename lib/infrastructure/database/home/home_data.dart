@@ -2,10 +2,13 @@ import 'package:kliknss77/infrastructure/database/data_state.dart';
 
 class HomeDataState extends DataState {
   static HomeDataState? _instance;
+  String? url;
+  dynamic voucher;
+  
   
   HomeDataState._internal() {
-    data['type'] = 'home';
-    data['data'] = {'key1': 'Home Data 1', 'key2': 'Home Data 2'};
+    data['type'] = null;
+    data['data'] =null;
   }
 
   factory HomeDataState() {

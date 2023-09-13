@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kliknss77/application/style/constants.dart';
 import 'package:kliknss77/ui/component/app_dialog.dart';
 import 'package:tailwind_style/tailwind_style.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -33,13 +34,23 @@ class _AhrefState extends State<Ahref> {
       onTap: () async{
         await _launchUrl(widget.section?['href'] ?? "");
       },
-      child: ContainerTailwind(
-        extClass: widget.section?['class'] ?? '',
-        child: TextTailwind(
-          mainClass: widget.section?['class'] ?? '',
-          text: widget.section?['text'] ?? "",
-          textStyle: const TextStyle(color: Colors.red),
-        )
+      child: Row(
+        children: [
+          Expanded(
+            child: ContainerTailwind(
+              // margin: EdgeInsets.symmetric(vertical: 100),
+              padding:  const EdgeInsets.symmetric(horizontal: Constants.spacing4,vertical: Constants.spacing2),
+              borderRadius: BorderRadius.circular(Constants.spacing2),
+              extClass: widget.section?['class'] ?? '',
+              child: TextTailwind(
+                mainClass: widget.section?['class'] ?? '',
+                text: widget.section?['text'] ?? "",
+                textAlign: TextAlign.center,
+                // textStyle: const TextStyle(color: Colors.red),
+              )
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -12,6 +12,7 @@ import 'package:kliknss77/ui/component/ahref_component.dart';
 import 'package:kliknss77/ui/component/artikel1_component.dart';
 import 'package:kliknss77/ui/component/banner_carousel.dart';
 import 'package:kliknss77/ui/component/category_icons.dart';
+import 'package:kliknss77/ui/component/faq_section.dart';
 import 'package:kliknss77/ui/component/feature_list.dart';
 import 'package:kliknss77/ui/component/hmc/hmc_simulation_agent.dart';
 import 'package:kliknss77/ui/component/icon_list.dart';
@@ -76,13 +77,15 @@ class _MasterDetail extends State<MasterDetail>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async{
-      dataState =  DataBuilder((widget.url ?? "")).getDataState();
+      // dataState =  DataBuilder((widget.url ?? "")).getDataState();
       print("shimmer widget di master eins ${widget.state}");
     });
   }
   Widget _buildSection(BuildContext context, dynamic section) {
     // MotorAgentView
+    print("doing master detail section['type'] ${section['type']}");
     switch (section['type'] ?? "") {
+      
       case 'Flex':
         return FlexTW(
           mainClass: section['class'] ?? '',
@@ -106,13 +109,16 @@ class _MasterDetail extends State<MasterDetail>
           section: section ?? [],
           mainClass: section['class'] ?? '',
         );
+      case 'HMCList':
+        return HMCListView(
+          hmc: section ?? {},
+        );
       case 'TextBlock':
         return TextBlockComponent(section: section ?? []);
       case 'Article':
         return Article1Component(section: section ?? [],);
       case 'FeatureList':
         return FeatureList(section: section ?? [],
-        
         );
       case 'Image':
         return ImageCarousel(
@@ -136,20 +142,23 @@ class _MasterDetail extends State<MasterDetail>
       case 'Testimonial':
         return Flexible(
           // fit: FlexFit.loose,
-          child: Testimonial(section: section ?? {}),
+          child: ContainerTailwind(
+            extClass: section['class'] ?? '',
+            child: Testimonial(section: section ?? {})),
         );
       
       case 'M2WSimulation':
+        return M2WSimulation(
+          section: section ?? {},
+          mainClass: section['class'] ?? '',
+          url: widget.url ?? "",
+        );
+
+         case 'FAQ':
+        
         return ContainerTailwind(
           extClass: section['class'] ?? '',
-          child: Flexible(
-            child: M2WSimulation(
-              section: section ?? {},
-              mainClass: section['class'] ?? '',
-              url: widget.url ?? "",
-            ),
-          ),
-        );
+          child: FAQSection(faq: section['items'] ?? []));
       default:
         return Container();
     }

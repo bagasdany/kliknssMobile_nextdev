@@ -17,7 +17,7 @@ class _TestimonialState extends State<Testimonial> {
   Widget buildTestimonial(items){
     return Container(
       color: Constants.white,
-      margin: EdgeInsets.only(right: Constants.spacing2),
+      // margin: EdgeInsets.only(right: Constants.spacing2),
       width: MediaQuery.of(context).size.width * 0.5,
       height: MediaQuery.of(context).size.width * 0.5,
       padding: const EdgeInsets.all(Constants.spacing4),
@@ -25,9 +25,20 @@ class _TestimonialState extends State<Testimonial> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const Icon(Icons.format_quote_outlined,size: 40,color: Constants.red,),
-          Container(
-            margin: const EdgeInsets.only(top: Constants.spacing4),
-            child: TextTailwind(text: items['text'])),
+          Flexible(
+            child: RawScrollbar(
+              thumbColor: Constants.red,
+              radius: const Radius.circular(10),
+              thickness: 5,
+              
+
+              child: SingleChildScrollView(
+                child: Container(
+                  margin: const EdgeInsets.only(top: Constants.spacing4),
+                  child: TextTailwind(text: items['text'])),
+              ),
+            ),
+          ),
           
           Container(
 
@@ -92,9 +103,9 @@ class _TestimonialState extends State<Testimonial> {
       margin: EdgeInsets.symmetric(vertical: Constants.spacing4),
             // padding: const EdgeInsets.symmetric(
             //     horizontal: Constants.spacing4),
-            height: MediaQuery.of(context).size.width * 0.6,
+            height: MediaQuery.of(context).size.width * 0.66,
             child: ListView.builder(
-                // shrinkWrap: true,
+                shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 itemCount: (widget.section?['items'] ?? []).length,
                 itemBuilder: (BuildContext context, int index) {

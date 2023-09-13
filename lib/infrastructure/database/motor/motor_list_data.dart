@@ -3,8 +3,9 @@ import 'dart:async';
 import 'package:kliknss77/application/models/vouchers_models.dart';
 import 'package:kliknss77/infrastructure/database/data_state.dart';
 
-class MultigunaMotorData extends DataState {
-  static MultigunaMotorData? _instance;
+class MotorListData extends DataState {
+  static MotorListData? _instance;
+  String? url;
   Voucher? voucher;
   // Buat StreamController
   final StreamController<Map<dynamic, dynamic>> dataStreamController = StreamController<Map<dynamic, dynamic>>.broadcast();
@@ -12,15 +13,14 @@ class MultigunaMotorData extends DataState {
   // Buat getter untuk stream
   Stream<Map<dynamic, dynamic>>? get dataStream => dataStreamController.stream;
   
-  MultigunaMotorData._internal() {
-    data['type'] = 'multiguna-motor';
+  MotorListData._internal() {
+    data['type'] = null;
     data['data'] = null;
-    data['voucher'] = null;
     // widgets = null ;
   }
 
-  factory MultigunaMotorData() {
-    _instance ??= MultigunaMotorData._internal();
+  factory MotorListData() {
+    _instance ??= MotorListData._internal();
     return _instance!;
   }
 

@@ -51,7 +51,6 @@ class _ImageCarouselState extends State<ImageCarousel> {
 
   @override
   Widget build(BuildContext context) {
-    print("widget.items carousel ${widget.items}");
     return renderImage(
       widget.items?[0].isEmpty ||  widget.items?[0] == [] || (widget.items ?? []).isEmpty ? "https://www.kliknss.co.id/images/logo202001.png" :
       "https://kliknss.co.id/images/${widget.items?[0].toString()}","");
@@ -66,26 +65,15 @@ class _ImageCarouselState extends State<ImageCarousel> {
       final childAspectRatio =  result[0] / result[1];
 
       double width, height;
-      //parents kan 2 , childAspectratio 1.4
       if (childAspectRatio < parentAspectRatio) {
         result[0] = constraints.maxWidth;
         result[1] = constraints.maxHeight  ;
       } else {
-        // height = constraints.maxHeight;
-        // width = height * childAspectRatio;
       }
       AspectRatio imageWidget =  AspectRatio(
       aspectRatio: (result?[0] ?? 1) / (result[1] ?? 1),
       child: 
       image == null || image == "" ||  image == "null" || image.contains("///") || image.contains("file:///") ? Container():
-      
-      // CachedNetworkImage(
-      //                 imageUrl: image , 
-      //                 // width: MediaQuery.of(context).size.width * 0.2,
-      //                 // height: MediaQuery.of(context).size.width * 0.2,
-      //                 fit: BoxFit.cover,
-      //                 errorWidget: (context, url, error) => Container(),
-      //                             ),
       Image.network(
         image ,
         errorBuilder: (context, error, stackTrace) {

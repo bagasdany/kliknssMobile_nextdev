@@ -29,7 +29,8 @@ class HomeApi {
   
   Future<dynamic> patchPage(String url) async {
     print("url : $url");
-  var params = {"url": ((url)?? "")};
+    var params = {"url": ((url)?? "")};
+    print("doing load api");
     final response = await _dio.patch(Endpoint.evolvePatchHome, data: params).timeout(Duration(seconds: 20));
     return response.data;
   }

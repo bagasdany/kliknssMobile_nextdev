@@ -5,6 +5,7 @@ import 'package:kliknss77/infrastructure/database/data_state.dart';
 
 class MotorData extends DataState {
   static MotorData? _instance;
+  String? url;
   Voucher? voucher;
   // Buat StreamController
   final StreamController<Map<dynamic, dynamic>> dataStreamController = StreamController<Map<dynamic, dynamic>>.broadcast();
@@ -13,9 +14,9 @@ class MotorData extends DataState {
   Stream<Map<dynamic, dynamic>>? get dataStream => dataStreamController.stream;
   
   MotorData._internal() {
-    data['type'] = 'motor';
-    data['data'] = {};
-    widgets = null ;
+    data['type'] = null;
+    data['data'] = null;
+    // widgets = null ;
   }
 
   factory MotorData() {

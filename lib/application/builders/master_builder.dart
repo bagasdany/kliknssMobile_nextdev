@@ -39,8 +39,9 @@ class MasterBuilder extends StatefulWidget {
 
 class _MasterBuilderState extends State<MasterBuilder> {
   int? state = 2;
-  dynamic datas;
+  dynamic datas ;
   Widget? widgets;
+  DataState? dataState;
 
   @override
   void setState(fn) {
@@ -54,20 +55,29 @@ class _MasterBuilderState extends State<MasterBuilder> {
     
     WidgetsBinding.instance.addPostFrameCallback((_) async{
     try{
-      final value =( datas != null ? datas['data']['data']['url'] ?? '/'  : "") != widget.url ?  await  HomeApi().patchPage(widget.url ?? "") :datas['data'] ;
       
+      datas = DataBuilder((widget.url ?? ""),).getDataState().getData();
+      final value  = (datas['data'] != null ? datas['data']['url'] : "") != widget.url ? 
+                         await  HomeApi().patchPage(widget.url ?? "") 
+                          : datas['data'];
+      print("doing master builder $datas['type']");
       if(value != null){
+
         setState(() {
-        datas = value;
-        state =1;
-      });
-      final DataState dataState = DataBuilder((widget.url ?? ""),).getDataState();
+          state =1;
+          datas = value;
+        });
+      
       final Map<String, dynamic> newData = {
         'type': (widget.url ?? ""),
         'data': value ?? {},
       };
-      dataState.updateData(newData);
+      dataState = DataBuilder((widget.url ?? ""),).getDataState();
+      dataState?.updateData(newData);
       // dataState.update(newData,getContentWidget(widget.url, datas));
+      }
+      else{
+        print("not doing anything");
       }
       }on SignInRequiredException catch (e) {
           
@@ -84,11 +94,13 @@ class _MasterBuilderState extends State<MasterBuilder> {
         
         print(e);
       } on Error catch (e) {
-      
-        print("error global 5 $e");
+        
+        print("why am i this way ? $e");
         print(e);
       } finally {
-
+        // setState(() {
+        //   state = 1;
+        // });
         print("finally");
       }
         

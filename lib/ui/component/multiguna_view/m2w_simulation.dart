@@ -37,7 +37,7 @@ import '../../component/dio_exceptions.dart';
 import 'm2w_footer_view.dart';
 
 class M2WSimulation extends StatefulWidget {
-  Map? page = DataBuilder(("multiguna-motor")).getDataState().getData()['simulation'];
+  Map? page = DataBuilder(("/multiguna-motor")).getDataState().getData()['simulation'];
   Map? queryUrl,section;
   String? url,mainClass;
 
@@ -65,7 +65,7 @@ class _SimulationViewState extends State<M2WSimulation>  {
 
   final events = EventEmitter();
 
-  DataState? dataState = DataBuilder(("multiguna-motor")).getDataState();
+  DataState? dataState = DataBuilder(("/multiguna-motor")).getDataState();
   Future<void> cekKota() async {
     final kotaId = await _sharedPrefs.get(SharedPreferencesKeys.cityId) ?? 158;
     if (widget.cityId != kotaId) {

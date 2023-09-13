@@ -89,7 +89,7 @@ class _BodyBuilderState extends State<BodyBuilder> {
           url: widget.url ?? "",
         );
       case 'HMCList':
-        return HMCListView(hmc: section['items']?? [],);
+        return HMCListView(page: section['items']?? [],);
       default:
         return Container();
     }

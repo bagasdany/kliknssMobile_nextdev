@@ -257,72 +257,38 @@ class motorHmcItem extends StatelessWidget {
                                               children: [
                                                 Card(
                                                   margin: EdgeInsets.zero,
-                                                  shadowColor:
-                                                      Colors.transparent,
-                                                  color: const Color.fromARGB(
-                                                      255, 255, 255, 255),
+                                                  // shadowColor:
+                                                  //     Colors.transparent,
+                                                  color: Constants.gray.shade100,
                                                   shape: RoundedRectangleBorder(
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            14),
+                                                            Constants.spacing1),
                                                     side: BorderSide(
                                                       color: Constants
-                                                          .gray.shade300,
+                                                          .gray.shade400,
                                                       width: 0.7,
                                                     ),
                                                   ),
-                                                  child: SizedBox(
-                                                    width: 45,
-                                                    height: 20,
+                                                  child: Container(
+                                                    padding: const EdgeInsets.symmetric(horizontal: Constants.spacing2,vertical: Constants.spacing1),
+                                                    // width: 45,
+                                                    // height: 20,
                                                     child: Center(
                                                       child: Text(
-                                                        ("cash"),
+                                                        ("Cash / kredit"),
                                                         overflow: TextOverflow
                                                             .ellipsis,
                                                         style: TextStyle(
                                                             color: Constants
                                                                 .gray.shade500,
                                                             fontSize: Constants
-                                                                .fontSizeXs),
+                                                                .fontSizeSm),
                                                       ),
                                                     ),
                                                   ),
                                                 ),
-                                                const SizedBox(
-                                                    width: Constants.spacing1),
-                                                Card(
-                                                  margin: EdgeInsets.zero,
-                                                  shadowColor:
-                                                      Colors.transparent,
-                                                  color: Colors.transparent,
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            14),
-                                                    side: BorderSide(
-                                                      color: Constants
-                                                          .gray.shade300,
-                                                      width: 0.7,
-                                                    ),
-                                                  ),
-                                                  child: SizedBox(
-                                                    width: 45,
-                                                    height: 20,
-                                                    child: Center(
-                                                      child: Text(
-                                                        ("kredit"),
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        style: TextStyle(
-                                                            color: Constants
-                                                                .gray.shade500,
-                                                            // fontWeight: FontWeight.w500,
-                                                            fontSize: Constants
-                                                                .fontSizeXs),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
+                                                
                                               ],
                                             ),
                                           ),
@@ -335,21 +301,17 @@ class motorHmcItem extends StatelessWidget {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Container(
-                                                        margin: const EdgeInsets
-                                                                .symmetric(
-                                                            vertical: Constants
-                                                                .spacing1),
-                                                        child: Text(
+                                                        margin: const EdgeInsets.fromLTRB(0, Constants.spacing2, 0, Constants.spacing1),
+                                                        child: const Text(
                                                           ("Harga OTR mulai dari"),
                                                           overflow: TextOverflow
                                                               .ellipsis,
                                                           style: TextStyle(
                                                               color: Constants
-                                                                  .gray
-                                                                  .shade500,
+                                                                  .blackText,
                                                               // fontWeight: FontWeight.w500,
                                                               fontSize: Constants
-                                                                  .fontSizeXs),
+                                                                  .fontSizeSm),
                                                         )),
                                                     Container(
                                                       margin:

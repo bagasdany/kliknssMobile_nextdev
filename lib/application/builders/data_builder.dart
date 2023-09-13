@@ -5,6 +5,7 @@ import 'package:kliknss77/infrastructure/database/agent/motor/hmc_agent_data.dar
 import 'package:kliknss77/infrastructure/database/data_state.dart';
 import 'package:kliknss77/infrastructure/database/home/home_data.dart';
 import 'package:kliknss77/infrastructure/database/motor/motor_data.dart';
+import 'package:kliknss77/infrastructure/database/motor/motor_list_data.dart';
 import 'package:kliknss77/infrastructure/database/multiguna_motor/m2w_motor_data.dart';
 import 'package:kliknss77/infrastructure/database/multiguna_motor/multiguna_motor_data.dart';
 import 'package:kliknss77/infrastructure/database/sparepart/sparepart_data.dart';
@@ -17,28 +18,31 @@ class DataBuilder {
   DataBuilder(this.type);
 
   DataState getDataState() {
+    print("doing getdatastate $type");
     switch (type) {
-      case '':
+      case '/':
         return HomeDataState();
-      case 'user':
+      case '/user':
         return UserDataState();
-      case 'sparepart':
+      case '/sparepart':
         return SparepartDataState();
-      case 'multiguna-motor':
+      case '/multiguna-motor':
         return MultigunaMotorData();
-      case 'motor':
+      case '/motor':
         return MotorData();
-      case 'm2w-motor':
+      case '/motor-list':
+        return MotorListData();
+      case '/m2w-motor':
         return M2WMotorData();
-      case 'm2w-footer-motor':
+      case '/m2w-footer-motor':
         return M2WMotorData();
       
       //agent
-      case 'motor-agent':
+      case '/motor-agent':
         return MotorAgentData();
-      case 'm2w-agent':
+      case '/m2w-agent':
         return M2WAgentData();
-      case 'm2w-selectmotor-agent':
+      case '/m2w-selectmotor-agent':
       return M2WAgentMotorData();
       default:
         return HomeDataState();
