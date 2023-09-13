@@ -33,7 +33,7 @@ class AppRouter extends InterceptorsWrapper {
             builder: (_) => fn!(match), settings: settings);
     } else{
       // var datas  = DataBuilder((settings.name ?? ""),).getDataState().getDataWidgets();
-      print("unmatch return material page route");
+      
       return MaterialPageRoute(
       builder: (_) => MasterBuilder(url: settings.name),
       // datas['data']?['data']?['url'] != settings.name ?  MasterBuilder(url: settings.name): datas['widgets'],

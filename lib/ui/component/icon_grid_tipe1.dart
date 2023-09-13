@@ -45,7 +45,7 @@ class _TitlewithIconGrid1State extends State<TitlewithIconGrid1> {
                     height: 60,
                     child: SizedBox(
                       child: 
-                      item['imageUrl'] == null ? Container():
+                      item == null || item['imageUrl'] == null ? Container():
                        CachedNetworkImage(
                       imageUrl: item['imageUrl'] ?? "" ,
                       // width: MediaQuery.of(context).size.width * 0.2,

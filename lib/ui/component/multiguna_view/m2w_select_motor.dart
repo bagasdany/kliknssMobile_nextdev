@@ -32,7 +32,7 @@ class _M2WSelectMotorState extends State<M2WSelectMotor> {
   final _sharedPrefs = SharedPrefs();
   final events = EventEmitter();
 
-  DataState? dataState = DataBuilder(("m2w-motor")).getDataState();
+  DataState? dataState = DataBuilder(("/m2w-motor")).getDataState();
   int state = 1; // 3: apply button loading
 
   @override
@@ -308,14 +308,14 @@ class _M2WSelectMotorState extends State<M2WSelectMotor> {
                     style: TextStyle(fontSize: Constants.fontSizeSm)),
                 const SizedBox(height: Constants.spacing1),
                 AppShimmer(
-                    active: (widget.page?['brands'].length == 1 &&
+                    active: ((widget.page?['brands'] ?? []).length == 1 &&
                             widget.page?['brands'][0] == '...') ||
-                        (widget.page?['serieses'].length == 1 &&
+                        ((widget.page?['serieses'] ?? []).length == 1 &&
                             widget.page?['serieses'][0] == '...'),
                     child: GestureDetector(
-                        onTap: (widget.page?['brands'].length == 1 &&
+                        onTap: ((widget.page?['brands'] ?? []).length == 1 &&
                                     widget.page?['brands'][0] == '...') ||
-                                (widget.page?['serieses'].length == 1 &&
+                                ((widget.page?['serieses'] ?? []).length == 1 &&
                                     widget.page?['serieses'][0] == '...')
                             ? null
                             : () async {
@@ -391,17 +391,17 @@ class _M2WSelectMotorState extends State<M2WSelectMotor> {
                     style: TextStyle(fontSize: Constants.fontSizeSm)),
                 const SizedBox(height: Constants.spacing1),
                 AppShimmer(
-                    active: (widget.page?['brands'].length == 1 &&
+                    active: ((widget.page?['brands'] ?? []).length == 1 &&
                             widget.page?['brands'][0] == '...') ||
-                        (widget.page?['serieses'].length == 1 &&
+                        ((widget.page?['serieses'] ?? []).length == 1 &&
                             widget.page?['serieses'][0] == '...') ||
-                        (widget.page?['types'].length == 1 && widget.page?['types'][0] == '...'),
+                        ((widget.page?['types'] ?? []).length == 1 && widget.page?['types'][0] == '...'),
                     child: GestureDetector(
-                        onTap: (widget.page?['brands'].length == 1 &&
+                        onTap: ((widget.page?['brands'] ?? []).length == 1 &&
                                     widget.page?['brands'][0] == '...') ||
-                                (widget.page?['serieses'].length == 1 &&
+                                ((widget.page?['serieses'] ?? []).length == 1 &&
                                     widget.page?['serieses'][0] == '...') ||
-                                (widget.page?['types'].length == 1 &&
+                                ((widget.page?['types'] ?? []).length == 1 &&
                                     widget.page?['types'][0] == '...')
                             ? null
                             : () async {

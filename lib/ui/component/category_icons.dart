@@ -43,7 +43,7 @@ class CategoryIcons extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(Constants.spacing1),
                         child: 
-                        category['imageUrl'] == null ||  category['imageUrl'] == ""  ? Container():
+                        category == null || category['imageUrl'] == null ||  category['imageUrl'] == ""  ? Container():
                         CachedNetworkImage(
                             imageUrl: "${Constants.baseURLImages}${category['imageUrl']}",
                             imageBuilder: (context, imageProvider) =>

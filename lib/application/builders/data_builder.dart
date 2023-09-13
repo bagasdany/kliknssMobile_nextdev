@@ -18,7 +18,6 @@ class DataBuilder {
   DataBuilder(this.type);
 
   DataState getDataState() {
-    print("doing getdatastate $type");
     switch (type) {
       case '/':
         return HomeDataState();

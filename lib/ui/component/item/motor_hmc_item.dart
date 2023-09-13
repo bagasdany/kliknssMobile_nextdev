@@ -25,7 +25,7 @@ class motorHmcItem extends StatelessWidget {
               : AspectRatio(
                   aspectRatio: 800 / 130,
                   child: 
-                  mobileImageUrl[0] == null || mobileImageUrl[0] == "" ? Container():
+                  (mobileImageUrl ?? []).isNotEmpty ? mobileImageUrl[0] == null || mobileImageUrl[0] == "" ? Container():
                   CachedNetworkImage(
                       imageUrl: "${Constants.baseURLImages}/${ mobileImageUrl[0].toString()}" ??
                           "https://www.kliknss.co.id/images/logo2210253.png",
@@ -49,7 +49,7 @@ class motorHmcItem extends StatelessWidget {
                             decoration: BoxDecoration(
                               color: Constants.gray.shade300,
                             ),
-                          ))),
+                          ))) : Container(),
                 ),
           ListView.builder(
             padding: const EdgeInsets.all(0),

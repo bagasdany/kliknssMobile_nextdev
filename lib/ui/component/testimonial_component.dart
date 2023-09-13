@@ -62,7 +62,7 @@ class _TestimonialState extends State<Testimonial> {
                         child: CircleAvatar(
                           child: ClipOval(
                             
-                            child: items['imageUrl'] == null || items['imageUrl'] == "" ? Container(): CachedNetworkImage(imageUrl: "${Constants.baseURLImages}${items['imageUrl']}",fit: BoxFit.cover,width: 40,height: 40,errorWidget: (context, url, error) {
+                            child: items == null || items['imageUrl'] == null || items['imageUrl'] == "" ? Container(): CachedNetworkImage(imageUrl: "${Constants.baseURLImages}${items['imageUrl']}",fit: BoxFit.cover,width: 40,height: 40,errorWidget: (context, url, error) {
                               return const Icon(Icons.broken_image);
                             
                             },progressIndicatorBuilder: (context, url, progress) {

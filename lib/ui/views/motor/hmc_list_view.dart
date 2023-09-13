@@ -60,12 +60,13 @@ class _HMCListViewState extends State<HMCListView> with SingleTickerProviderStat
   @override
   void initState() {
     super.initState();
-    _listcontroller = AnimationController(
+   
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+       _listcontroller = AnimationController(
         duration: const Duration(milliseconds: 900),
         vsync: this,
       );
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
       print("doing hmc list view }");
        setState(() {
         widget.page = DataBuilder(("/motor-list")).getDataState().getData();
@@ -240,11 +241,16 @@ class _HMCListViewState extends State<HMCListView> with SingleTickerProviderStat
       return NotificationListener<ScrollNotification>(
         onNotification: (scrollNotification) {
           if (scrollNotification is ScrollUpdateNotification) {
-            _listcontroller?.value = scrollNotification.metrics.pixels / maxTranslation;
+            
+              _listcontroller == null ?  _listcontroller?.value = scrollNotification.metrics.pixels / maxTranslation : null;
+            
+             
           }
           return false;
         },
-        child: AnimatedBuilder(
+        child: 
+        _listcontroller == null ? Container():
+        AnimatedBuilder(
           animation: _listcontroller == null ? null : (_listcontroller )?.view,
           builder: (context, child) {
             return SingleChildScrollView(
@@ -271,7 +277,7 @@ class _HMCListViewState extends State<HMCListView> with SingleTickerProviderStat
                         },
                         child: Container(
                           height: 40,
-                          width: _listcontroller?.value == 0.0 ? 80.0 : (80.0 - (40 * _listcontroller?.value)),
+                          width: _listcontroller == null ? 80 : _listcontroller?.value == 0.0 ? 80.0 : (80.0 - (40 * _listcontroller?.value)),
                           margin: const EdgeInsets.only(right: Constants.spacing1),
                           decoration: BoxDecoration(
                               border: Border.all(color: Constants.gray.shade200),
@@ -291,7 +297,7 @@ class _HMCListViewState extends State<HMCListView> with SingleTickerProviderStat
                                 color: Constants.gray.shade500,
                                 alignment: Alignment.center,
                               ),
-                              _listcontroller?.value == 1 ? Container() : Expanded(
+                              _listcontroller == null ? Container(): _listcontroller?.value == 1 ? Container() : Expanded(
                                 child: Text(
                                   countsfilter == 99 ? "Filter" : countsfilter == 0 ? "Tidak ada data" : "($countsfilter)",
                                   style: TextStyle(color: Constants.gray.shade500),
@@ -456,7 +462,7 @@ class _HMCListViewState extends State<HMCListView> with SingleTickerProviderStat
             return Column(
               children: [
                 motorHmcItem((widget.page?['data'] ?? {}).isNotEmpty ? valueItem[index].value : [], listCategory[index]['name'] ?? "",
-                    (widget.page?['data'] ?? {}).isNotEmpty ? listImages[index].value : []),
+                    (widget.page?['data'] ?? {}).isNotEmpty && (widget.page?['data']['images'] ?? []).isNotEmpty  ? listImages[index].value : []),
               ],
             );
           },

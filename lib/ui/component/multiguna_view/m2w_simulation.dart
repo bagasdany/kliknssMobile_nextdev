@@ -37,7 +37,7 @@ import '../../component/dio_exceptions.dart';
 import 'm2w_footer_view.dart';
 
 class M2WSimulation extends StatefulWidget {
-  Map? page = DataBuilder(("/multiguna-motor")).getDataState().getData()['simulation'];
+  Map? page ;
   Map? queryUrl,section;
   String? url,mainClass;
 
@@ -65,7 +65,7 @@ class _SimulationViewState extends State<M2WSimulation>  {
 
   final events = EventEmitter();
 
-  DataState? dataState = DataBuilder(("/multiguna-motor")).getDataState();
+  DataState? dataState;
   Future<void> cekKota() async {
     final kotaId = await _sharedPrefs.get(SharedPreferencesKeys.cityId) ?? 158;
     if (widget.cityId != kotaId) {
@@ -76,47 +76,15 @@ class _SimulationViewState extends State<M2WSimulation>  {
   @override
   void initState() {
     super.initState();
-
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      // widget.page = DataBuilder(("/multiguna-motor")).getDataState();
+      dataState  = DataBuilder(("/multiguna-motor")).getDataState();
+      // widget.page = dataState?.getData()['simulation'];
       var simulation = dataState?.getData();
       setState(() {
         widget.page = simulation ?? {};
         widget.page?['data']['utm'] = widget.section?['utm'] ?? {};
       });
-      if (widget.queryUrl?['series'] != null) {
-        load("").then((value) {
-          setState(() {
-            widget.page?['data']['series'] = widget.queryUrl?['series'] ?? "";
-            // widget.page?['data']['utm'] = widget.section?['utm'] ?? {};
-            widget.page?['data']['brand'] = widget.queryUrl?['brand'] ?? "";
-            widget.page?['data']['type'] = widget.queryUrl?['type'] ?? "";
-            widget.page?['data']['year'] = widget.queryUrl?['year'] ?? "";
-            widget.page?['data']['ownershipId'] = widget.queryUrl?['ownershipId'] == null ? null : int.parse(widget.queryUrl?['ownershipId'] ?? "1");
-            widget.page?['data']['priceId'] = widget.queryUrl?['priceId'] == null ? null : int.parse(widget.queryUrl?['priceId'] ?? "");
-            widget.page?['data']['price'] = widget.queryUrl?['price'] == null ? null : int.parse(widget.queryUrl?['price'] ?? "");
-            widget.page?['data']['term'] = (widget.queryUrl ?? ['term']) == null ? null
-                : int.parse(widget.queryUrl?['term'] ?? "");
-            widget.page?['voucher'] = widget.queryUrl?['voucherId'] == null
-                ? null
-                : Voucher(
-                    id: int.parse(widget.queryUrl?['voucherId'] ?? "1"),
-                    title: widget.queryUrl?['title'] ?? "",
-                    description: widget.queryUrl?['description'] ?? "",
-                  );
-
-            getPrice();
-          });
-        });
-      }
-      //  else {
-      //   if (widget.page?['ownerships'] == null) {
-      //     load("").whenComplete(() => AppLog().logScreenView('M2W'));
-      //   } else {
-      //     AppLog().logScreenView('M2W');
-      //   }
-      // }
-      // cekKota();
     });
   }
 
@@ -480,7 +448,8 @@ class _SimulationViewState extends State<M2WSimulation>  {
         child: Container(
           margin: const EdgeInsets.all(0),
           child: InteractiveViewer(
-            child: 
+            child:
+            widget.page == null || 
             appImageUrl == null || appImageUrl == "" ? Container():
             Container(
               decoration: BoxDecoration(

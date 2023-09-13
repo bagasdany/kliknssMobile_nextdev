@@ -38,7 +38,7 @@ class MasterBuilder extends StatefulWidget {
 }
 
 class _MasterBuilderState extends State<MasterBuilder> {
-  int? state = 2;
+  int? state;
   dynamic datas ;
   Widget? widgets;
   DataState? dataState;
@@ -52,8 +52,11 @@ class _MasterBuilderState extends State<MasterBuilder> {
   @override
   void initState() {
     super.initState();
-    
+   
     WidgetsBinding.instance.addPostFrameCallback((_) async{
+    setState(() {
+      state = 2;
+    });
     try{
       
       datas = DataBuilder((widget.url ?? ""),).getDataState().getData();

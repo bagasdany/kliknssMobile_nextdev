@@ -120,19 +120,19 @@ class _MasterDetail extends State<MasterDetail>
       case 'FeatureList':
         return FeatureList(section: section ?? [],
         );
-      case 'Image':
-        return ImageCarousel(
-          section: section,
-          state: widget.state ?? 1,
-          aspectRatio: (section['itemRatio'] ?? []).isNotEmpty ? section['itemRatio'][0] :  null,
-          items: section['src'] ?? [],
-        );
-      case 'Carousel':
-        return BannerCarousel(
-          state: widget.state,
-          aspectRatio: section['ratio']?[0] ?? 8 / 5.6,
-          items: section['items'] ?? [],
-      );
+      // case 'Image':
+      //   return ImageCarousel(
+      //     section: section,
+      //     state: widget.state ?? 1,
+      //     aspectRatio: (section['itemRatio'] ?? []).isNotEmpty ? section['itemRatio'][0] :  null,
+      //     items: section['src'] ?? [],
+      //   );
+      // case 'Carousel':
+      //   return BannerCarousel(
+      //     state: widget.state,
+      //     aspectRatio: section['ratio']?[0] ?? 8 / 5.6,
+      //     items: section['items'] ?? [],
+      // );
       case 'Ahref':
         return Flexible(child: Ahref(section: section ?? {}));
 

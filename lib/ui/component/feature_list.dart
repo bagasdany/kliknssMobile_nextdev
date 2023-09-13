@@ -18,7 +18,7 @@ class FeatureList extends StatefulWidget {
 }
 
 class _FeatureListState extends State<FeatureList> {
-
+  ScrollController _scrollController = ScrollController();
    
 
   @override
@@ -57,7 +57,7 @@ class _FeatureListState extends State<FeatureList> {
               FlexTW(
                 mainClass: widget.section['itemClass'] ?? '',
                 children: [
-                  widget.section?['items']?[index]['imageUrl'] == null ? Container():
+                  widget.section == null ||  widget.section?['items']?[index]['imageUrl'] == null ? Container():
                    Flexible(
                      child: CachedNetworkImage(
                       imageUrl: "${Constants.baseURLImages}${widget.section?['items']?[index]['imageUrl']}",
@@ -76,8 +76,9 @@ class _FeatureListState extends State<FeatureList> {
                       trackBorderColor: Constants.white,
                       // mainAxisMargin : 40,
                       minOverscrollLength: 20,
-                      thumbVisibility: true,
-                      trackVisibility: true,
+                      // controller: _scrollController,
+                      thumbVisibility: false,
+                      trackVisibility: false,
                       minThumbLength: 30,
                       padding: const EdgeInsets.symmetric(horizontal: Constants.spacing1),
                       thickness: 1,

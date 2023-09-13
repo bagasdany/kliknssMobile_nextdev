@@ -256,6 +256,7 @@ List<String> groupListMotor(List<Map<dynamic, dynamic>> items) {
                         const EdgeInsets.fromLTRB(0, Constants.spacing4, 0, 0),
                     child: Row(
                       children: [
+                       widget.hmc == null || widget.hmc?['data']?['imageUrl'] == null ? Container():
                         CachedNetworkImage(
                           width: 80,
                           height: 80,

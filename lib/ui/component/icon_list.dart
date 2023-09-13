@@ -29,6 +29,7 @@ class _IconListState extends State<IconList> {
           child: FlexTW(
             // mainClass: widget.section?['containerClass'] ?? '',
             children: [
+              widget.section == null || widget.section?['icons']?[index]['imageUrl'] == null || widget.section?['icons']?[index]['imageUrl'] == "null" ? Container():
               Flexible(
                 // flex: 5,
                 child: CachedNetworkImage(
